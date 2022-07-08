@@ -1,4 +1,4 @@
-#include "camera.h"
+﻿#include "camera.h"
 #include <HCNetSDK.h>
 #include <iostream>
 HWND CameraWidget_0,CameraWidget_1;

@@ -1,4 +1,4 @@
-#ifndef CAMERA_H
+﻿#ifndef CAMERA_H
 #define CAMERA_H
 #include <QWindow>
 #include <QObject>
@@ -10,6 +10,7 @@ public:
     explicit camera(QObject *parent = nullptr);
 
     Q_INVOKABLE bool cameraInt(HWND,HWND);
+
     Q_INVOKABLE bool realPlayer();
     Q_INVOKABLE bool stopRealPlay();
     Q_INVOKABLE bool longID();

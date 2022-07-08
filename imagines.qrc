@@ -1,2 +1,15 @@
-<!DOCTYPE RCC>
-<RCC version="1.0"/>
+<RCC>
+    <qresource prefix="/">
+        <file>imagines/button-background-checked-hovered.9.png</file>
+        <file>imagines/button-background-checked-hovered@2x.9.png</file>
+        <file>imagines/button-background-checked.9.png</file>
+        <file>imagines/button-background-checked@2x.9.png</file>
+        <file>imagines/button-background-hovered.9.png</file>
+        <file>imagines/button-background-hovered@2x.9.png</file>
+        <file>imagines/button-background-pressed.9.png</file>
+        <file>imagines/button-background-pressed@2x.9.png</file>
+        <file>imagines/button-background.9.png</file>
+        <file>imagines/button-background@2x.9.png</file>
+        <file>imagines/rect1798.png</file>
+    </qresource>
+</RCC>

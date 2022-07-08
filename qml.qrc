@@ -1,5 +1,10 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>AKleveStyle.qml</file>
+        <file>ValueSource.qml</file>
+        <file>SK2level.qml</file>
+        <file>SK2machinery.qml</file>
     </qresource>
 </RCC>
