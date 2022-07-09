@@ -12,8 +12,8 @@ Item {
     property real waterDepth: 30
     property real transducerPressure:0
     property real cylinderPressure:100
-    property real controlPower:0
-    property real impetusPower:0
+    property real controlPower:50
+    property real impetusPower:90
 
     property string gear: {
         var g;

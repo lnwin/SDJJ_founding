@@ -31,71 +31,89 @@ Window {
 
     Button {
         id: button
-        x: 891
-        y: 420
+        x: 1135
+        y: 892
         width: 68
         height: 43
         text: qsTr("Button")
 
-        //        onClicked:
-        //        ParallelAnimation {
-        //            // We changed gears so we lost a bit of speed.
-        //            NumberAnimation {
-        //                target: valueSource           //动画应用于目标对象
-        //                 property: "kph"               //y轴方向的运动
-        //                 from:30
-        //                 to: 50
-        //                 duration: 1000              //运动时间为3秒
-        //                 // loops:10                    //运动为10个周期
-        //                 easing.type: Easing.Linear //匀
-        //            }
-        //            NumberAnimation {
-        //                target: valueSource
-        //                property: "agr"
-        //               // easing.type: Easing.InOutSine
-        //                from: 0
-        //                to: 30.5
-        //                duration: 1000
-        //                easing.type: Easing.Linear //匀
-        //            }
-        //            NumberAnimation {
-        //                target: valueSource
-        //                property: "movelength"
-        //               // easing.type: Easing.InOutSine
-        //                from: 50
-        //                to: 300
-        //                duration: 1000
-        //                easing.type: Easing.Linear //匀
-        //            }
-        //            NumberAnimation {
-        //                target: valueSource
-        //                property: "rotaAngle"
-        //               // easing.type: Easing.InOutSine
-        //                from: 30
-        //                to: 90
-        //                duration: 1000
-        //                easing.type: Easing.Linear //匀
-        //            }
+                onClicked:
+                ParallelAnimation {
+                    // We changed gears so we lost a bit of speed.
+                    NumberAnimation {
+                        target: valueSource           //动画应用于目标对象
+                         property: "kph"               //y轴方向的运动
+                         from:30
+                         to: 50
+                         duration: 1000              //运动时间为3秒
+                         // loops:10                    //运动为10个周期
+                         easing.type: Easing.Linear //匀
+                    }
+                    NumberAnimation {
+                        target: valueSource
+                        property: "agr"
+                       // easing.type: Easing.InOutSine
+                        from: 0
+                        to: 30.5
+                        duration: 1000
+                        easing.type: Easing.Linear //匀
+                    }
+                    NumberAnimation {
+                        target: valueSource
+                        property: "movelength"
+                       // easing.type: Easing.InOutSine
+                        from: 50
+                        to: 300
+                        duration: 1000
+                        easing.type: Easing.Linear //匀
+                    }
+                    NumberAnimation {
+                        target: valueSource
+                        property: "rotaAngle"
+                       // easing.type: Easing.InOutSine
+                        from: 0
+                        to: 90
+                        duration: 1000
+                        easing.type: Easing.Linear //匀
+                    }
 
-        //            NumberAnimation {
-        //                target: valueSource
-        //                property: "pushLength"
-        //               // easing.type: Easing.InOutSine
-        //                from: 0
-        //                to: 10
-        //                duration: 1000
-        //                easing.type: Easing.Linear //匀
-        //            }
-        //            NumberAnimation {
-        //                target: valueSource
-        //                property: "distance2Base"
-        //               // easing.type: Easing.InOutSine
-        //                from: 100
-        //                to: 0
-        //                duration: 1000
-        //                easing.type: Easing.Linear //匀
-        //            }
-        //        }
+                    NumberAnimation {
+                        target: valueSource
+                        property: "pushLength"
+                       // easing.type: Easing.InOutSine
+                        from: 0
+                        to: 10
+                        duration: 1000
+                        easing.type: Easing.Linear //匀
+                    }
+                    NumberAnimation {
+                        target: valueSource
+                        property: "distance2Base"
+                       // easing.type: Easing.InOutSine
+                        from: 100
+                        to: 0
+                        duration: 1000
+                        easing.type: Easing.Linear //匀
+                    }
+                    NumberAnimation {
+                        target: valueSource
+                        property: "controlPower"
+                       // easing.type: Easing.InOutSine
+                        from: 100
+                        to: 30
+                        duration: 1000
+                        easing.type: Easing.Linear //匀
+                    }
+                    NumberAnimation {
+                        target: valueSource
+                        property: "impetusPower"
+                       // easing.type: Easing.InOutSine
+                        from: 100
+                        to: 70
+                        duration: 1000
+                        easing.type: Easing.Linear //匀
+                    }
+                }
 
 
     }
@@ -105,7 +123,7 @@ Window {
 
     CircularGauge {
         id: speedometer
-        x: 823
+        x: 1109
         width: 120
         height: 99
         value: valueSource.kph
@@ -119,7 +137,7 @@ Window {
         // don't want to extra space on the left and right of our gauges,
         // because they're laid out horizontally, and that would create
         // large horizontal gaps between gauges on wide screens.
-        anchors.verticalCenterOffset: -249
+        anchors.verticalCenterOffset: 270
 
         style: AKleveStyle {}
 
@@ -149,8 +167,34 @@ Window {
         waterDepth: valueSource.waterDepth
         transducerPressure:valueSource.transducerPressure
         cylinderPressure:valueSource.cylinderPressure
-        controlPower:valueSource.controlPower
-        impetusPower:valueSource.impetusPower
+
+
+    }
+
+    SK2power
+    {
+
+        id:controlP
+        x: 573
+        y: 177
+        width: 303
+        height: 53
+        itemName:"控制电池"
+        inputPower:valueSource.controlPower
+
+
+    }
+
+    SK2power
+    {
+
+        id:impetusP
+        x: 573
+        y: 230
+        width: 303
+        height: 53
+        itemName:"动力电池"
+        inputPower:valueSource.impetusPower
 
     }
 
@@ -472,7 +516,7 @@ Window {
                                 text: qsTr("Navigation")
                                 //icon.name: "navigation"
                                 Layout.fillHeight: true
-                            }
+            }
 
 
         }

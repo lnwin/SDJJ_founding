@@ -24,8 +24,18 @@ Item {
     property double waterDepth: 30
     property double transducerPressure:0
     property double cylinderPressure:0
-    property double controlPower:0
-    property double impetusPower:0
+
+
+
+    onMoveLengthChanged:total.requestPaint()
+    onPushLengthChanged:total.requestPaint()
+    onRotaAngleChanged: total.requestPaint()
+    onDistance2BaseChanged: total.requestPaint()
+    onWaterDepthChanged: total.requestPaint()
+    onTransducerPressureChanged: total.requestPaint()
+    onCylinderPressureChanged: total.requestPaint()
+
+
     //====================================外框架
     property double frameWork_topMid_x: width*0.3
     property double frameWork_topMid_y: height*0.05
@@ -131,7 +141,7 @@ Item {
     property double topItem_mid_y: 0
 
 
-    onMoveLengthChanged:total.requestPaint()
+
 
     function toPixels(percentage) {
         return percentage *Math.min(mchainery.width, mchainery.height) * 0.5 ;

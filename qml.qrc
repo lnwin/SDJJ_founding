@@ -6,5 +6,6 @@
         <file>ValueSource.qml</file>
         <file>SK2level.qml</file>
         <file>SK2machinery.qml</file>
+        <file>SK2power.qml</file>
     </qresource>
 </RCC>
