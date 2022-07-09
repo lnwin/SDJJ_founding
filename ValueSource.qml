@@ -7,6 +7,7 @@ Item {
     property real agr: 0
     property real movelength: 50
     property real rotaAngle: 30
+    property real pushLength: 0
     property string gear: {
         var g;
         if (kph == 0) {

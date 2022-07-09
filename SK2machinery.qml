@@ -12,9 +12,12 @@ Item {
     property string layoutColor:"#00BFFF"
     property string mainColor:"#4682B4"
     property string itemColor:"#98F5FF"
+    property string textColor:"#9AFF9A"
 
 
     property double moveLength:100
+    property double pushLength: 0
+    property double rotaAngle: 30
 
     //====================================外框架
     property double frameWork_topMid_x: width*0.3
@@ -35,11 +38,65 @@ Item {
     property double frameWork_bottomLength:toPixels(1);
     property double frameWork_Height:toPixels(1.5);
     property double dianjiCenter_x:frameWork_bottomRight_x-toPixels(0.1);
-    property double dianjiCenter_y:frameWork_bottomRight_y-toPixels(0.05);
-    property double rotaAngle: 30
+    property double dianjiCenter_y:frameWork_bottomRight_y-toPixels(0.035)-pushLength;
+
+    property double dianjikuangjialeft_x:frameWork_bottomRight_x-toPixels(0.1);
+    property double dianjikuangjialeft_y:frameWork_bottomRight_y-toPixels(0.05)
+
     //===================================================摆臂属性
     property double bichang_0 :toPixels(0.15)
+    property double bichang_0_endx:dianjiCenter_x+Math.cos(degToRad(90-rotaAngle))*bichang_0;
+    property double bichang_0_endy:dianjiCenter_y-Math.sin(degToRad(90-rotaAngle))*bichang_0
+    property double bichang_1:toPixels(0.07);
+    property double bichang_1_endx:bichang_0_endx+Math.sin(degToRad(90-rotaAngle))*bichang_1;
+    property double bichang_1_endy:bichang_0_endy+Math.sin(degToRad(rotaAngle))*bichang_1;
+    property double bichang_2:toPixels(0.7);
+    property double bichang_2_endx:bichang_1_endx+Math.cos(degToRad(90-rotaAngle))*bichang_2;
+    property double bichang_2_endy:bichang_1_endy-Math.sin(degToRad(90-rotaAngle))*bichang_2;
 
+    property double sensordistance:toPixels(0.15);
+    property double sensorArmLength:toPixels(0.1);
+
+    property double sensor_0_start_x: bichang_1_endx+Math.cos(degToRad(90-rotaAngle))*toPixels(0.07);
+    property double sensor_0_start_y: bichang_1_endy-Math.sin(degToRad(90-rotaAngle))*toPixels(0.07);
+    property double sensor_0_end_x:sensor_0_start_x+Math.cos(degToRad(rotaAngle))*sensorArmLength;
+    property double sensor_0_end_y:sensor_0_start_y+Math.sin(degToRad(rotaAngle))*sensorArmLength;
+
+    property double sensor_0_ball_x: sensor_0_start_x+Math.cos(degToRad(rotaAngle))*sensorArmLength*0.6;
+    property double sensor_0_ball_y: sensor_0_start_y+Math.sin(degToRad(rotaAngle))*sensorArmLength*0.6;
+
+
+    property double sensor_1_start_x: sensor_0_start_x+Math.cos(degToRad(90-rotaAngle))*sensordistance;
+    property double sensor_1_start_y:sensor_0_start_y-Math.sin(degToRad(90-rotaAngle))*sensordistance;
+    property double sensor_1_end_x:sensor_1_start_x+Math.cos(degToRad(rotaAngle))*sensorArmLength
+    property double sensor_1_end_y:sensor_1_start_y+Math.sin(degToRad(rotaAngle))*sensorArmLength
+
+    property double sensor_1_ball_x: sensor_1_start_x+Math.cos(degToRad(rotaAngle))*sensorArmLength*0.6;
+    property double sensor_1_ball_y: sensor_1_start_y+Math.sin(degToRad(rotaAngle))*sensorArmLength*0.6;
+
+    property double sensor_2_start_x: sensor_1_start_x+Math.cos(degToRad(90-rotaAngle))*sensordistance;
+    property double sensor_2_start_y:sensor_1_start_y-Math.sin(degToRad(90-rotaAngle))*sensordistance;
+    property double sensor_2_end_x:sensor_2_start_x+Math.cos(degToRad(rotaAngle))*sensorArmLength
+    property double sensor_2_end_y:sensor_2_start_y+Math.sin(degToRad(rotaAngle))*sensorArmLength
+
+    property double sensor_2_ball_x: sensor_2_start_x+Math.cos(degToRad(rotaAngle))*sensorArmLength*0.6;
+    property double sensor_2_ball_y: sensor_2_start_y+Math.sin(degToRad(rotaAngle))*sensorArmLength*0.6;
+
+    property double sensor_3_start_x: sensor_2_start_x+Math.cos(degToRad(90-rotaAngle))*sensordistance;
+    property double sensor_3_start_y:sensor_2_start_y-Math.sin(degToRad(90-rotaAngle))*sensordistance;
+    property double sensor_3_end_x:sensor_3_start_x+Math.cos(degToRad(rotaAngle))*sensorArmLength
+    property double sensor_3_end_y:sensor_3_start_y+Math.sin(degToRad(rotaAngle))*sensorArmLength
+
+    property double sensor_3_ball_x: sensor_3_start_x+Math.cos(degToRad(rotaAngle))*sensorArmLength*0.6;
+    property double sensor_3_ball_y: sensor_3_start_y+Math.sin(degToRad(rotaAngle))*sensorArmLength*0.6;
+
+    property double sensor_4_start_x: sensor_3_start_x+Math.cos(degToRad(90-rotaAngle))*sensordistance;
+    property double sensor_4_start_y:sensor_3_start_y-Math.sin(degToRad(90-rotaAngle))*sensordistance;
+    property double sensor_4_end_x:sensor_4_start_x+Math.cos(degToRad(rotaAngle))*sensorArmLength
+    property double sensor_4_end_y:sensor_4_start_y+Math.sin(degToRad(rotaAngle))*sensorArmLength
+
+    property double sensor_4_ball_x: sensor_4_start_x+Math.cos(degToRad(rotaAngle))*sensorArmLength*0.6;
+    property double sensor_4_ball_y: sensor_4_start_y+Math.sin(degToRad(rotaAngle))*sensorArmLength*0.6;
 
     //====================================滑杆尺寸
     property double polesHeight: frameWork_Height
@@ -139,18 +196,18 @@ Item {
 
 
                 //=========================================画布边框
-                 ctx.beginPath();
-                 //ctx.strokeStyle = mainColor;
-                 ctx.lineWidth = 3;
-                 ctx.moveTo(width*0.95, 0);
-                 ctx.lineTo(width*0.95, height);
-                 ctx.stroke();
-                 ctx.beginPath();
-                 ctx.strokeStyle = mainColor;
-                 ctx.lineWidth = 3;
-                 ctx.moveTo(5, 0);
-                 ctx.lineTo(5, height);
-                 ctx.stroke();
+//                 ctx.beginPath();
+//                 //ctx.strokeStyle = mainColor;
+//                 ctx.lineWidth = 3;
+//                 ctx.moveTo(width*0.95, 0);
+//                 ctx.lineTo(width*0.95, height);
+//                 ctx.stroke();
+//                 ctx.beginPath();
+//                 ctx.strokeStyle = mainColor;
+//                 ctx.lineWidth = 3;
+//                 ctx.moveTo(5, 0);
+//                 ctx.lineTo(5, height);
+//                 ctx.stroke();
                 //==========================================滑杆
                  ctx.beginPath();
                  ctx.lineWidth =1;
@@ -406,28 +463,54 @@ Item {
                 ctx.fillStyle=itemColor;
                 ctx.textAlign="center";
                 ctx.font="17px Arial"
-                var message = "下插深度:%1"
-                var count = moveLength.toFixed(0)-50
-               // console.log(message.arg(count))
-                ctx.fillText(message.arg(count),frameWork_topMid_x-polesWidth*4,frameWork_topMid_y+polesWidth*21+moveLength*0.7)
+
+                ctx.fillText(String("下插深度:"),frameWork_topMid_x-polesWidth*5,frameWork_topMid_y+polesWidth*21+moveLength*0.7)
+                 ctx.fillStyle=textColor
+                var xc = "%1mm"
+                var count_5 =  moveLength .toFixed(0)
+                ctx.textAlign="left";
+                ctx.font="20px Arial"
+                ctx.fillText(xc.arg(count_5),frameWork_topMid_x-polesWidth*5,frameWork_topMid_y+polesWidth*22.5+moveLength*0.7)
+
                 // ctx.font="20px Arial"
                 // ctx.fillText(String(moveLength.toFixed(0)-50),frameWork_topMid_x-polesWidth*2.4,frameWork_topMid_y+polesWidth*19+moveLength*0.7)
                 //=========================================扩展臂--系列
-
-                //=========================================扩展旋转电机
-
+                //=============================================摆臂上提油缸结构
 
                 ctx.beginPath();
-                ctx.arc(dianjiCenter_x,dianjiCenter_y,toPixels(0.045),0,2*Math.PI)
+                ctx.lineWidth =toPixels(0.02);
+                ctx.strokeStyle = mainColor
+                ctx.moveTo(dianjikuangjialeft_x-toPixels(0.07), dianjikuangjialeft_y+toPixels(0.05))
+                ctx.lineTo(dianjikuangjialeft_x-toPixels(0.07), dianjikuangjialeft_y-toPixels(0.1));
+                ctx.lineTo(dianjikuangjialeft_x+toPixels(0.07), dianjikuangjialeft_y-toPixels(0.1));
+                ctx.lineTo(dianjikuangjialeft_x+toPixels(0.07), dianjikuangjialeft_y+toPixels(0.05));
+                ctx.stroke()
+
+                ctx.beginPath();
+                ctx.moveTo(dianjikuangjialeft_x-toPixels(0.02), dianjikuangjialeft_y-toPixels(0.1));
+                ctx.lineTo(dianjikuangjialeft_x-toPixels(0.02), dianjikuangjialeft_y-toPixels(0.2));
+                ctx.lineTo(dianjikuangjialeft_x+toPixels(0.02), dianjikuangjialeft_y-toPixels(0.2));
+                ctx.lineTo(dianjikuangjialeft_x+toPixels(0.02), dianjikuangjialeft_y-toPixels(0.1));
+
+                ctx.closePath()
+                ctx.fillStyle = mainColor
+                ctx.fill();
+                ctx.beginPath();
+                ctx.lineWidth =toPixels(0.03);
+                ctx.moveTo(dianjikuangjialeft_x, dianjikuangjialeft_y-toPixels(0.2));
+                ctx.lineTo(dianjikuangjialeft_x, dianjikuangjialeft_y-toPixels(0.25));
+                ctx.stroke()
+                //=============================================================
+                //=========================================扩展旋转电机
+                ctx.beginPath();
+                ctx.arc(dianjiCenter_x,dianjiCenter_y,toPixels(0.03),0,2*Math.PI)
                 ctx.closePath()
                 ctx.fillStyle =itemColor
                 ctx.fill();
-                //=========================================扩展臂--臂长
-                var bichang_0=toPixels(0.15);
+
                 ctx.beginPath();
                 ctx.lineWidth =toPixels(0.03);
-                var bichang_0_endx=dianjiCenter_x+Math.cos(degToRad(90-rotaAngle))*bichang_0;
-                var bichang_0_endy=dianjiCenter_y-Math.sin(degToRad(90-rotaAngle))*bichang_0
+                 ctx.strokeStyle = itemColor
                 ctx.moveTo(dianjiCenter_x, dianjiCenter_y);
                 ctx.lineTo(bichang_0_endx,bichang_0_endy);
                 ctx.stroke()
@@ -437,9 +520,7 @@ Item {
                 ctx.fillStyle =itemColor
                 ctx.fill();
                 ctx.beginPath();
-                var bichang_1=toPixels(0.07);
-                var bichang_1_endx=bichang_0_endx+Math.sin(degToRad(90-rotaAngle))*bichang_1;
-                var bichang_1_endy=bichang_0_endy+Math.sin(degToRad(rotaAngle))*bichang_1;
+
                 ctx.moveTo(bichang_0_endx, bichang_0_endy);
                 ctx.lineTo(bichang_1_endx, bichang_1_endy);
                 ctx.stroke()
@@ -451,12 +532,105 @@ Item {
                 ctx.fill();
 
                 ctx.beginPath();
-                var bichang_2=toPixels(0.7);
-                var bichang_2_endx=bichang_1_endx+Math.cos(degToRad(90-rotaAngle))*bichang_2;
-                var bichang_2_endy=bichang_1_endy-Math.sin(degToRad(90-rotaAngle))*bichang_2;
+
                 ctx.moveTo(bichang_1_endx, bichang_1_endy);
                 ctx.lineTo(bichang_2_endx, bichang_2_endy);
                 ctx.stroke()
+                //=========================================扩展旋转-水听器
+                ctx.lineWidth =toPixels(0.01);
+                ctx.beginPath();
+                ctx.moveTo(sensor_0_start_x, sensor_0_start_y);
+                ctx.lineTo(sensor_0_end_x, sensor_0_end_y);
+                ctx.stroke()
+                ctx.beginPath();
+                ctx.arc(sensor_0_ball_x, sensor_0_ball_y,toPixels(0.02),0,2*Math.PI)
+                ctx.closePath()
+                ctx.fillStyle = itemColor
+                ctx.fill();
+
+                ctx.lineWidth =toPixels(0.01);
+                ctx.beginPath();
+                ctx.moveTo(sensor_1_start_x, sensor_1_start_y);
+                ctx.lineTo(sensor_1_end_x, sensor_1_end_y);
+                ctx.stroke()
+                ctx.beginPath();
+                ctx.arc(sensor_1_ball_x, sensor_1_ball_y,toPixels(0.02),0,2*Math.PI)
+                ctx.closePath()
+                ctx.fillStyle = itemColor
+                ctx.fill();
+
+                ctx.lineWidth =toPixels(0.01);
+                ctx.beginPath();
+                ctx.moveTo(sensor_2_start_x, sensor_2_start_y);
+                ctx.lineTo(sensor_2_end_x, sensor_2_end_y);
+                ctx.stroke()
+                ctx.beginPath();
+                ctx.arc(sensor_2_ball_x, sensor_2_ball_y,toPixels(0.02),0,2*Math.PI)
+                ctx.closePath()
+                ctx.fillStyle = itemColor
+                ctx.fill();
+
+                ctx.lineWidth =toPixels(0.01);
+                ctx.beginPath();
+                ctx.moveTo(sensor_3_start_x, sensor_3_start_y);
+                ctx.lineTo(sensor_3_end_x, sensor_3_end_y);
+                ctx.stroke()
+                ctx.beginPath();
+                ctx.arc(sensor_3_ball_x, sensor_3_ball_y,toPixels(0.02),0,2*Math.PI)
+                ctx.closePath()
+                ctx.fillStyle = itemColor
+                ctx.fill();
+
+                ctx.lineWidth =toPixels(0.01);
+                ctx.beginPath();
+                ctx.moveTo(sensor_4_start_x, sensor_4_start_y);
+                ctx.lineTo(sensor_4_end_x, sensor_4_end_y);
+                ctx.stroke()
+                ctx.beginPath();
+                ctx.arc(sensor_4_ball_x, sensor_4_ball_y,toPixels(0.03),0,2*Math.PI)
+                ctx.closePath()
+                ctx.fillStyle = itemColor
+                ctx.fill();
+
+                ctx.textAlign="center";
+                ctx.font="15px Arial"
+                ctx.fillText(String("摆臂角度:"),sensor_3_ball_x-+toPixels(0.1),sensor_4_ball_y-toPixels(0.4))
+                 ctx.fillStyle=textColor
+                var bd = "%1°"
+                var count_4 = rotaAngle.toFixed(1)
+                ctx.textAlign="left";
+                ctx.font="20px Arial"
+               // console.log(message.arg(count))
+                ctx.fillText(bd.arg(count_4),sensor_3_ball_x+toPixels(0.05),sensor_4_ball_y-toPixels(0.4))
+
+
+                //====================================================电机上拉提板
+
+                ctx.beginPath();
+                ctx.lineWidth =toPixels(0.01);
+                ctx.strokeStyle = itemColor
+                ctx.moveTo(dianjiCenter_x, dianjiCenter_y)
+                ctx.lineTo(dianjiCenter_x, dianjikuangjialeft_y-toPixels(0.09));
+                ctx.stroke()
+                ctx.fillStyle=itemColor
+                ctx.textAlign="center";
+                ctx.font="15px Arial"
+                ctx.fillText(String("上提长度"),dianjiCenter_x-toPixels(0.03),dianjikuangjialeft_y-toPixels(0.4))
+                ctx.fillStyle=textColor
+                var message_2 = "%1mm"
+                var count_2 = pushLength.toFixed(0)
+                ctx.font="17px Arial"
+               // console.log(message.arg(count))
+                ctx.fillText(message_2.arg(count_2),dianjiCenter_x-toPixels(0.03),dianjikuangjialeft_y-toPixels(0.3))
+
+
+
+
+
+               //====================================================
+
+
+
 
 
 

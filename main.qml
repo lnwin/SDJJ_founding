@@ -75,6 +75,16 @@ Window {
                 duration: 1000
                 easing.type: Easing.Linear //匀
             }
+
+            NumberAnimation {
+                target: valueSource
+                property: "pushLength"
+               // easing.type: Easing.InOutSine
+                from: 0
+                to: 10
+                duration: 1000
+                easing.type: Easing.Linear //匀
+            }
         }
 
 
@@ -124,6 +134,7 @@ Window {
            height: 694
            moveLength: valueSource.movelength
            rotaAngle: valueSource.rotaAngle
+           pushLength: valueSource.pushLength
        }
 
        Button {
