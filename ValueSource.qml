@@ -6,8 +6,15 @@ Item {
     property real kph: 30
     property real agr: 0
     property real movelength: 50
-    property real rotaAngle: 30
+    property real rotaAngle: 0
     property real pushLength: 0
+    property real distance2Base: 0
+    property real waterDepth: 30
+    property real transducerPressure:0
+    property real cylinderPressure:100
+    property real controlPower:0
+    property real impetusPower:0
+
     property string gear: {
         var g;
         if (kph == 0) {

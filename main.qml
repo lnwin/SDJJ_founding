@@ -18,6 +18,7 @@ Window {
     width: 1920
     height: 1000
     color: "#01113a"
+    property string mainColor:"#4682B4"
     title: qsTr("Hello World")
 
     ValueSource
@@ -30,62 +31,71 @@ Window {
 
     Button {
         id: button
-        x: 676
-        y: 201
+        x: 891
+        y: 420
         width: 68
         height: 43
         text: qsTr("Button")
 
-        onClicked:
-        ParallelAnimation {
-            // We changed gears so we lost a bit of speed.
-            NumberAnimation {
-                target: valueSource           //动画应用于目标对象
-                 property: "kph"               //y轴方向的运动
-                 from:30
-                 to: 50
-                 duration: 1000              //运动时间为3秒
-                 // loops:10                    //运动为10个周期
-                 easing.type: Easing.Linear //匀
-            }
-            NumberAnimation {
-                target: valueSource
-                property: "agr"
-               // easing.type: Easing.InOutSine
-                from: 0
-                to: 30.5
-                duration: 1000
-                easing.type: Easing.Linear //匀
-            }
-            NumberAnimation {
-                target: valueSource
-                property: "movelength"
-               // easing.type: Easing.InOutSine
-                from: 50
-                to: 300
-                duration: 1000
-                easing.type: Easing.Linear //匀
-            }
-            NumberAnimation {
-                target: valueSource
-                property: "rotaAngle"
-               // easing.type: Easing.InOutSine
-                from: 30
-                to: 90
-                duration: 1000
-                easing.type: Easing.Linear //匀
-            }
+//        onClicked:
+//        ParallelAnimation {
+//            // We changed gears so we lost a bit of speed.
+//            NumberAnimation {
+//                target: valueSource           //动画应用于目标对象
+//                 property: "kph"               //y轴方向的运动
+//                 from:30
+//                 to: 50
+//                 duration: 1000              //运动时间为3秒
+//                 // loops:10                    //运动为10个周期
+//                 easing.type: Easing.Linear //匀
+//            }
+//            NumberAnimation {
+//                target: valueSource
+//                property: "agr"
+//               // easing.type: Easing.InOutSine
+//                from: 0
+//                to: 30.5
+//                duration: 1000
+//                easing.type: Easing.Linear //匀
+//            }
+//            NumberAnimation {
+//                target: valueSource
+//                property: "movelength"
+//               // easing.type: Easing.InOutSine
+//                from: 50
+//                to: 300
+//                duration: 1000
+//                easing.type: Easing.Linear //匀
+//            }
+//            NumberAnimation {
+//                target: valueSource
+//                property: "rotaAngle"
+//               // easing.type: Easing.InOutSine
+//                from: 30
+//                to: 90
+//                duration: 1000
+//                easing.type: Easing.Linear //匀
+//            }
 
-            NumberAnimation {
-                target: valueSource
-                property: "pushLength"
-               // easing.type: Easing.InOutSine
-                from: 0
-                to: 10
-                duration: 1000
-                easing.type: Easing.Linear //匀
-            }
-        }
+//            NumberAnimation {
+//                target: valueSource
+//                property: "pushLength"
+//               // easing.type: Easing.InOutSine
+//                from: 0
+//                to: 10
+//                duration: 1000
+//                easing.type: Easing.Linear //匀
+//            }
+//            NumberAnimation {
+//                target: valueSource
+//                property: "distance2Base"
+//               // easing.type: Easing.InOutSine
+//                from: 100
+//                to: 0
+//                duration: 1000
+//                easing.type: Easing.Linear //匀
+//            }
+//        }
 
 
    }
@@ -95,7 +105,7 @@ Window {
 
     CircularGauge {
        id: speedometer
-        x: 838
+        x: 823
         width: 120
         height: 99
         value: valueSource.kph
@@ -109,7 +119,7 @@ Window {
         // don't want to extra space on the left and right of our gauges,
         // because they're laid out horizontally, and that would create
         // large horizontal gaps between gauges on wide screens.
-        anchors.verticalCenterOffset: -291
+        anchors.verticalCenterOffset: -249
 
         style: AKleveStyle {}
 
@@ -118,7 +128,7 @@ Window {
        SK2level
        {
            id:pitch
-           x: 500
+           x: 540
            y:23
            width: 140
            height: 130
@@ -135,6 +145,13 @@ Window {
            moveLength: valueSource.movelength
            rotaAngle: valueSource.rotaAngle
            pushLength: valueSource.pushLength
+           distance2Base:valueSource.distance2Base
+           waterDepth: valueSource.waterDepth
+           transducerPressure:valueSource.transducerPressure
+           cylinderPressure:valueSource.cylinderPressure
+           controlPower:valueSource.controlPower
+           impetusPower:valueSource.impetusPower
+
        }
 
        Button {
@@ -150,7 +167,7 @@ Window {
 
        SK2level {
            id: sK2level
-           x: 639
+           x: 707
            y: 23
            width: 142
            height: 130
@@ -158,7 +175,7 @@ Window {
 
        SK2level {
            id: sK2level1
-           x: 775
+           x: 865
            y: 23
            width: 143
            height: 130
@@ -358,6 +375,69 @@ Window {
                    y: 5.8
                }
            }
+       }
+
+       TextArea {
+           id: textArea
+           x: 35
+           y: 735
+           width: 460
+           height: 203
+           verticalAlignment: Text.AlignBottom
+           placeholderText: qsTr("Text Area")
+       }
+
+       Canvas
+       {
+
+            id:textLine
+            //parent: textArea
+           // width: parent.width
+            //height:parent.height
+            x: 35
+            y: 733
+            width: 460
+            height: 206
+
+              onPaint:
+              {
+
+
+                   var ctx = textLine.getContext('2d');
+                   var grd=ctx.createLinearGradient(0, 0, 460, 0);
+                   grd.addColorStop(0,color);
+                   grd.addColorStop(0.5,mainColor);
+                   grd.addColorStop(1,color);
+                   // 将渐变赋值给线的样式
+                   ctx.strokeStyle=grd;
+                   // 设置线的宽度
+                   ctx.lineWidth = 7;
+                   // 绘制线
+                   ctx.beginPath();
+                   ctx.moveTo(0, 0);
+                   ctx.lineTo(460, 0);
+                   ctx.stroke();
+                  var grd1=ctx.createLinearGradient(0, 206, 460, 206);
+                  grd1.addColorStop(0,color);
+                  grd1.addColorStop(0.5,mainColor);
+                  grd1.addColorStop(1,color);
+                  // 将渐变赋值给线的样式
+                  ctx.strokeStyle=grd1;
+                  // 设置线的宽度
+                  ctx.lineWidth = 7;
+                  // 绘制线
+                  ctx.beginPath();
+                  ctx.moveTo(0, 206);
+                  ctx.lineTo(460, 206);
+                  ctx.stroke();
+
+              }
+       }
+
+       Rectangle
+       {
+           id:buttonFiled
+
        }
 
 }

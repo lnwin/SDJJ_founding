@@ -13,12 +13,19 @@ Item {
     property string mainColor:"#4682B4"
     property string itemColor:"#98F5FF"
     property string textColor:"#9AFF9A"
+    property string groundColor:"#2F4F4F"
+    property string mainwindowColor:"#01113a"
 
-
+    //=======================================参数变量
     property double moveLength:100
     property double pushLength: 0
     property double rotaAngle: 30
-
+    property double distance2Base:1
+    property double waterDepth: 30
+    property double transducerPressure:0
+    property double cylinderPressure:0
+    property double controlPower:0
+    property double impetusPower:0
     //====================================外框架
     property double frameWork_topMid_x: width*0.3
     property double frameWork_topMid_y: height*0.05
@@ -57,6 +64,7 @@ Item {
     property double sensordistance:toPixels(0.15);
     property double sensorArmLength:toPixels(0.1);
 
+
     property double sensor_0_start_x: bichang_1_endx+Math.cos(degToRad(90-rotaAngle))*toPixels(0.07);
     property double sensor_0_start_y: bichang_1_endy-Math.sin(degToRad(90-rotaAngle))*toPixels(0.07);
     property double sensor_0_end_x:sensor_0_start_x+Math.cos(degToRad(rotaAngle))*sensorArmLength;
@@ -87,6 +95,9 @@ Item {
     property double sensor_3_end_x:sensor_3_start_x+Math.cos(degToRad(rotaAngle))*sensorArmLength
     property double sensor_3_end_y:sensor_3_start_y+Math.sin(degToRad(rotaAngle))*sensorArmLength
 
+    property double tP_x:sensor_3_end_x+Math.cos(degToRad(rotaAngle))*sensorArmLength*2
+    property double tP_y:sensor_3_end_y+Math.sin(degToRad(rotaAngle))*sensorArmLength*2
+
     property double sensor_3_ball_x: sensor_3_start_x+Math.cos(degToRad(rotaAngle))*sensorArmLength*0.6;
     property double sensor_3_ball_y: sensor_3_start_y+Math.sin(degToRad(rotaAngle))*sensorArmLength*0.6;
 
@@ -97,6 +108,10 @@ Item {
 
     property double sensor_4_ball_x: sensor_4_start_x+Math.cos(degToRad(rotaAngle))*sensorArmLength*0.6;
     property double sensor_4_ball_y: sensor_4_start_y+Math.sin(degToRad(rotaAngle))*sensorArmLength*0.6;
+    //====================================海底尺寸
+    property double base_mid_x:width*0.3
+    property double base_mid_y:frameWork_bottomRight_y+toPixels(0.1);
+
 
     //====================================滑杆尺寸
     property double polesHeight: frameWork_Height
@@ -140,17 +155,17 @@ Item {
                 var ctx = getContext("2d");
                 //==========================================外框架
                  ctx.clearRect(0,0,width,height);
-                 ctx.beginPath();
-                 ctx.strokeStyle = mainColor;
-                 ctx.lineWidth = 2;
-                 ctx.moveTo(frameWork_topLeft_x, frameWork_topLeft_y);
-                 ctx.lineTo(frameWork_midLeft_x, frameWork_midLeft_y);
-                 ctx.lineTo(frameWork_bottomLeft_x, frameWork_bottomLeft_y);
-                 ctx.lineTo(frameWork_bottomRight_x, frameWork_bottomRight_y);
-                 ctx.lineTo(frameWork_midRight_x, frameWork_midRight_y);
-                 ctx.lineTo(frameWork_topRight_x, frameWork_topRight_y);
-                 ctx.closePath();
-                 ctx.stroke();
+//                 ctx.beginPath();
+//                 ctx.strokeStyle = mainColor;
+//                 ctx.lineWidth = 2;
+//                 ctx.moveTo(frameWork_topLeft_x, frameWork_topLeft_y);
+//                 ctx.lineTo(frameWork_midLeft_x, frameWork_midLeft_y);
+//                 ctx.lineTo(frameWork_bottomLeft_x, frameWork_bottomLeft_y);
+//                 ctx.lineTo(frameWork_bottomRight_x, frameWork_bottomRight_y);
+//                 ctx.lineTo(frameWork_midRight_x, frameWork_midRight_y);
+//                 ctx.lineTo(frameWork_topRight_x, frameWork_topRight_y);
+//                 ctx.closePath();
+//                 ctx.stroke();
                 //==========================================外框架--底座+支架
                 ctx.beginPath();
                 ctx.moveTo(frameWork_bottomLeft_x-toPixels(0.02), frameWork_bottomLeft_y);
@@ -193,6 +208,84 @@ Item {
                 ctx.closePath();
                 ctx.fillStyle =mainColor
                 ctx.fill();
+                //==========================================油缸
+                ctx.beginPath();
+                ctx.lineWidth = toPixels(0.15);
+                ctx.strokeStyle = mainColor;
+                ctx.moveTo(frameWork_bottomLeft_x+toPixels(0.1), frameWork_bottomLeft_y);
+                ctx.lineTo(frameWork_bottomLeft_x+toPixels(0.1), frameWork_bottomLeft_y-toPixels(0.03));
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.lineWidth = toPixels(0.17);
+                ctx.strokeStyle = mainColor;
+                ctx.moveTo(frameWork_bottomLeft_x+toPixels(0.1), frameWork_bottomLeft_y-toPixels(0.03));
+                ctx.lineTo(frameWork_bottomLeft_x+toPixels(0.1), frameWork_bottomLeft_y-toPixels(0.04));
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.lineWidth = toPixels(0.15);
+                ctx.strokeStyle = mainColor;
+                ctx.moveTo(frameWork_bottomLeft_x+toPixels(0.1), frameWork_bottomLeft_y-toPixels(0.04));
+                ctx.lineTo(frameWork_bottomLeft_x+toPixels(0.1), frameWork_bottomLeft_y-toPixels(0.2));
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.lineWidth = toPixels(0.17);
+                ctx.strokeStyle = mainColor;
+                ctx.moveTo(frameWork_bottomLeft_x+toPixels(0.1), frameWork_bottomLeft_y-toPixels(0.2));
+                ctx.lineTo(frameWork_bottomLeft_x+toPixels(0.1), frameWork_bottomLeft_y-toPixels(0.21));
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.lineWidth = toPixels(0.13);
+                ctx.strokeStyle = mainColor;
+                ctx.moveTo(frameWork_bottomLeft_x+toPixels(0.1), frameWork_bottomLeft_y-toPixels(0.21));
+                ctx.lineTo(frameWork_bottomLeft_x+toPixels(0.1), frameWork_bottomLeft_y-toPixels(0.24));
+                ctx.stroke();
+
+                ctx.textAlign="center";
+                ctx.font="17px Arial"
+                ctx.fillStyle=itemColor
+                ctx.fillText(String("油缸压力"),frameWork_bottomLeft_x+toPixels(0.1),frameWork_bottomLeft_y-toPixels(0.45))
+                ctx.fillStyle=textColor
+                var ygyl = "%1Pa"
+                var ygyl_value = cylinderPressure.toFixed(0)
+                ctx.textAlign="center";
+                ctx.font="20px Arial"
+               // console.log(message.arg(count))
+                ctx.fillText(ygyl.arg(ygyl_value),frameWork_bottomLeft_x+toPixels(0.1),frameWork_bottomLeft_y-toPixels(0.35))
+
+                //========================================== 离底高度绘图
+
+                ctx.beginPath();
+                var grd=ctx.createLinearGradient(base_mid_x,base_mid_y+distance2Base,base_mid_x,height);
+                grd.addColorStop(0,groundColor);
+                grd.addColorStop(1,mainwindowColor);
+                ctx.fillStyle=grd;
+                ctx.fillRect(base_mid_x-toPixels(1),base_mid_y+distance2Base,base_mid_x+toPixels(2),height);
+                ctx.fill();
+
+                ctx.textAlign="center";
+                ctx.font="17px Arial"
+                ctx.fillStyle=itemColor
+                ctx.fillText(String("离底高度"),base_mid_x+toPixels(0.3),base_mid_y+distance2Base+toPixels(0.2))
+                ctx.fillStyle=textColor
+                var ldgd = "%1mm"
+                var ldgdt_value = distance2Base.toFixed(0)
+                ctx.textAlign="center";
+                ctx.font="25px Arial"
+               // console.log(message.arg(count))
+                ctx.fillText(ldgd.arg(ldgdt_value),base_mid_x+toPixels(0.3),base_mid_y+distance2Base+toPixels(0.3))
+                ctx.fillStyle=itemColor
+                ctx.textAlign="center";
+                ctx.font="17px Arial"
+                ctx.fillText(String("入水深度:"),dianjiCenter_x+toPixels(0.5),dianjikuangjialeft_y-toPixels(1.2))
+                ctx.fillStyle=textColor
+                ctx.textAlign="left";
+                var rssd = "%1m"
+                var rssd_text = waterDepth.toFixed(0)
+                ctx.font="25px Arial"
+               // console.log(message.arg(count))
+                ctx.fillText(rssd.arg(rssd_text),dianjiCenter_x+toPixels(0.65),dianjikuangjialeft_y-toPixels(1.2))
 
 
                 //=========================================画布边框
@@ -346,6 +439,8 @@ Item {
                 ctx.closePath();
                 ctx.fillStyle =itemColor
                 ctx.fill();
+
+
                 //==========================================固定架 侧
                 ctx.beginPath();
                 ctx.lineWidth =1;
@@ -469,8 +564,8 @@ Item {
                 var xc = "%1mm"
                 var count_5 =  moveLength .toFixed(0)
                 ctx.textAlign="left";
-                ctx.font="20px Arial"
-                ctx.fillText(xc.arg(count_5),frameWork_topMid_x-polesWidth*5,frameWork_topMid_y+polesWidth*22.5+moveLength*0.7)
+                ctx.font="25px Arial"
+                ctx.fillText(xc.arg(count_5),frameWork_topMid_x-polesWidth*6,frameWork_topMid_y+polesWidth*22.5+moveLength*0.7)
 
                 // ctx.font="20px Arial"
                 // ctx.fillText(String(moveLength.toFixed(0)-50),frameWork_topMid_x-polesWidth*2.4,frameWork_topMid_y+polesWidth*19+moveLength*0.7)
@@ -593,16 +688,27 @@ Item {
                 ctx.fill();
 
                 ctx.textAlign="center";
-                ctx.font="15px Arial"
-                ctx.fillText(String("摆臂角度:"),sensor_3_ball_x-+toPixels(0.1),sensor_4_ball_y-toPixels(0.4))
+                ctx.font="17px Arial"
+                ctx.fillText(String("摆臂角度:"),sensor_3_ball_x-toPixels(0.1),sensor_4_ball_y-toPixels(0.4))
                  ctx.fillStyle=textColor
                 var bd = "%1°"
                 var count_4 = rotaAngle.toFixed(1)
                 ctx.textAlign="left";
-                ctx.font="20px Arial"
+                ctx.font="25px Arial"
                // console.log(message.arg(count))
                 ctx.fillText(bd.arg(count_4),sensor_3_ball_x+toPixels(0.05),sensor_4_ball_y-toPixels(0.4))
 
+                ctx.fillStyle=itemColor
+                ctx.textAlign="center";
+                ctx.font="17px Arial"
+                ctx.fillText(String("换能器压力"),tP_x,tP_y)
+                ctx.fillStyle=textColor
+                ctx.textAlign="center";
+                var hnqyl = "%1Pa"
+                var hnqyl_text = transducerPressure.toFixed(0)
+                ctx.font="25px Arial"
+               // console.log(message.arg(count))
+                ctx.fillText(hnqyl.arg(hnqyl_text),tP_x,tP_y+toPixels(0.1))
 
                 //====================================================电机上拉提板
 
@@ -614,14 +720,16 @@ Item {
                 ctx.stroke()
                 ctx.fillStyle=itemColor
                 ctx.textAlign="center";
-                ctx.font="15px Arial"
-                ctx.fillText(String("上提长度"),dianjiCenter_x-toPixels(0.03),dianjikuangjialeft_y-toPixels(0.4))
+                ctx.font="12px Arial"
+               // ctx.fillText(String("移动距离"),dianjiCenter_x-toPixels(0.05),dianjikuangjialeft_y-toPixels(0.45))
+                ctx.fillText(String("移动距离"),dianjiCenter_x-toPixels(0.05),dianjikuangjialeft_y-toPixels(0.38))
                 ctx.fillStyle=textColor
+                ctx.textAlign="left";
                 var message_2 = "%1mm"
                 var count_2 = pushLength.toFixed(0)
                 ctx.font="17px Arial"
                // console.log(message.arg(count))
-                ctx.fillText(message_2.arg(count_2),dianjiCenter_x-toPixels(0.03),dianjikuangjialeft_y-toPixels(0.3))
+                ctx.fillText(message_2.arg(count_2),dianjiCenter_x-toPixels(0.13),dianjikuangjialeft_y-toPixels(0.3))
 
 
 
