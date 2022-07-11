@@ -8,6 +8,8 @@ import QtQuick.Controls.Imagine 2.14
 import QtQuick.Extras 1.4
 import QtQuick.Controls.Styles 1.4
 import Qt.labs.animation 1.0
+import Mysocket 1.0
+import Mycamera 1.0
 
 Window {
 
@@ -19,7 +21,10 @@ Window {
     height: 1080
     color: "#01113a"
     property string mainColor:"#4682B4"
-    title: qsTr("Hello World")
+    title: qsTr("abc")
+    //====================================================qml 信号槽
+    // signal startListening()
+    //====================================================qml 信号槽
 
     ValueSource
     {
@@ -37,83 +42,83 @@ Window {
         height: 43
         text: qsTr("Button")
 
-                onClicked:
-                ParallelAnimation {
-                    // We changed gears so we lost a bit of speed.
-                    NumberAnimation {
-                        target: valueSource           //动画应用于目标对象
-                         property: "kph"               //y轴方向的运动
-                         from:30
-                         to: 50
-                         duration: 1000              //运动时间为3秒
-                         // loops:10                    //运动为10个周期
-                         easing.type: Easing.Linear //匀
-                    }
-                    NumberAnimation {
-                        target: valueSource
-                        property: "agr"
-                       // easing.type: Easing.InOutSine
-                        from: 0
-                        to: 30.5
-                        duration: 1000
-                        easing.type: Easing.Linear //匀
-                    }
-                    NumberAnimation {
-                        target: valueSource
-                        property: "movelength"
-                       // easing.type: Easing.InOutSine
-                        from: 50
-                        to: 300
-                        duration: 1000
-                        easing.type: Easing.Linear //匀
-                    }
-                    NumberAnimation {
-                        target: valueSource
-                        property: "rotaAngle"
-                       // easing.type: Easing.InOutSine
-                        from: 0
-                        to: 90
-                        duration: 1000
-                        easing.type: Easing.Linear //匀
-                    }
+//                onClicked:
+//                ParallelAnimation {
+//                    // We changed gears so we lost a bit of speed.
+//                    NumberAnimation {
+//                        target: valueSource           //动画应用于目标对象
+//                         property: "kph"               //y轴方向的运动
+//                         from:30
+//                         to: 50
+//                         duration: 1000              //运动时间为3秒
+//                         // loops:10                    //运动为10个周期
+//                         easing.type: Easing.Linear //匀
+//                    }
+//                    NumberAnimation {
+//                        target: valueSource
+//                        property: "agr"
+//                       // easing.type: Easing.InOutSine
+//                        from: 0
+//                        to: 30.5
+//                        duration: 1000
+//                        easing.type: Easing.Linear //匀
+//                    }
+//                    NumberAnimation {
+//                        target: valueSource
+//                        property: "movelength"
+//                       // easing.type: Easing.InOutSine
+//                        from: 50
+//                        to: 300
+//                        duration: 1000
+//                        easing.type: Easing.Linear //匀
+//                    }
+//                    NumberAnimation {
+//                        target: valueSource
+//                        property: "rotaAngle"
+//                       // easing.type: Easing.InOutSine
+//                        from: 0
+//                        to: 90
+//                        duration: 1000
+//                        easing.type: Easing.Linear //匀
+//                    }
 
-                    NumberAnimation {
-                        target: valueSource
-                        property: "pushLength"
-                       // easing.type: Easing.InOutSine
-                        from: 0
-                        to: 10
-                        duration: 1000
-                        easing.type: Easing.Linear //匀
-                    }
-                    NumberAnimation {
-                        target: valueSource
-                        property: "distance2Base"
-                       // easing.type: Easing.InOutSine
-                        from: 100
-                        to: 0
-                        duration: 1000
-                        easing.type: Easing.Linear //匀
-                    }
-                    NumberAnimation {
-                        target: valueSource
-                        property: "controlPower"
-                       // easing.type: Easing.InOutSine
-                        from: 100
-                        to: 30
-                        duration: 1000
-                        easing.type: Easing.Linear //匀
-                    }
-                    NumberAnimation {
-                        target: valueSource
-                        property: "impetusPower"
-                       // easing.type: Easing.InOutSine
-                        from: 100
-                        to: 70
-                        duration: 1000
-                        easing.type: Easing.Linear //匀
-                    }
-                }
+//                    NumberAnimation {
+//                        target: valueSource
+//                        property: "pushLength"
+//                       // easing.type: Easing.InOutSine
+//                        from: 0
+//                        to: 10
+//                        duration: 1000
+//                        easing.type: Easing.Linear //匀
+//                    }
+//                    NumberAnimation {
+//                        target: valueSource
+//                        property: "distance2Base"
+//                       // easing.type: Easing.InOutSine
+//                        from: 100
+//                        to: 0
+//                        duration: 1000
+//                        easing.type: Easing.Linear //匀
+//                    }
+//                    NumberAnimation {
+//                        target: valueSource
+//                        property: "controlPower"
+//                       // easing.type: Easing.InOutSine
+//                        from: 100
+//                        to: 30
+//                        duration: 1000
+//                        easing.type: Easing.Linear //匀
+//                    }
+//                    NumberAnimation {
+//                        target: valueSource
+//                        property: "impetusPower"
+//                       // easing.type: Easing.InOutSine
+//                        from: 100
+//                        to: 70
+//                        duration: 1000
+//                        easing.type: Easing.Linear //匀
+//                    }
+//                }
 
 
     }
@@ -427,6 +432,7 @@ Window {
         y: 784
         width: 460
         height: 203
+       // font.pixelSize:15
         verticalAlignment: Text.AlignBottom
         placeholderText: qsTr("Text Area")
     }
@@ -482,9 +488,9 @@ Window {
 
     Rectangle
     {
-        id:buttonFiled
+        id:camerabuttonFiled
         x: 35
-        y: 987
+        y: 730
         width: 402
         height: 50
         color:"#01113a"
@@ -496,24 +502,56 @@ Window {
 
             anchors.fill: parent
             anchors.margins: 7
-            spacing: 70
-
-
+            spacing: 15
             Button {
-                                id: sadas
-                                text: qsTr("Navigation")
+                                id: cameraInt
+                                text: qsTr("注册相机")
+                                font.pixelSize:15
                                 //icon.name: "navigation"
                                 Layout.fillHeight: true
+                                onClicked:
+                                {
+                                    if(camera_obj.longID()&&camera_obj.longID_1())
+                                    {
+                                        textArea.text+="Camera Status: Init Success\n"
+                                    }
+                                    else
+                                    {
+                                        textArea.text +="Camera Status: Init Faile \n"
+                                    }
+                                }
+
+
+
                             }
+
             Button {
-                                id: dsad
-                                text: qsTr("Navigation")
+                                id: cameraopenORclose
+                                text: qsTr("开启相机")
+                                font.pixelSize:15
                                 //icon.name: "navigation"
                                 Layout.fillHeight: true
+                                onClicked:
+                                {
+                                    camera_obj.realPlayer();
+                                }
+
                             }
             Button {
-                                id: asdasd
-                                text: qsTr("Navigation")
+                                id: capture
+                                text: qsTr("单张抓拍")
+                                font.pixelSize:15
+                                //icon.name: "navigation"
+                                Layout.fillHeight: true
+                                onClicked:
+                                {
+                                   startListening()
+                                }
+                            }
+            Button {
+                                id: rec
+                                text: qsTr("开始录像")
+                                font.pixelSize:15
                                 //icon.name: "navigation"
                                 Layout.fillHeight: true
             }
@@ -524,6 +562,86 @@ Window {
 
 
     }
+    Rectangle
+    {
+        id:buttonFiled
+        x: 35
+        y: 987
+        width: 402
+        height: 50
+        color:"#01113a"
+       RowLayout
+        {
+            id:cameraButtons
+            anchors.leftMargin: 20
+            anchors.rightMargin: 20
+
+            anchors.fill: parent
+            anchors.margins: 7
+            spacing: 70
+
+
+            Button {
+                                id: socketopen
+                                text: qsTr("开启监听")
+                                font.pixelSize:15
+                                //icon.name: "navigation"
+                                Layout.fillHeight: true
+                                onClicked:
+                                {
+                                  socket_obj.socket_Int()
+                                }
+
+
+                            }
+            Button {
+                                id: sdasdasd
+                                text: qsTr("Navigation")
+                                font.pixelSize:15
+                                //icon.name: "navigation"
+                                Layout.fillHeight: true
+                                onClicked:
+                                {
+                                  socket_obj.socket_Listening()
+                                }
+                            }
+            Button {
+                                id: ewe3
+                                text: qsTr("Navigation")
+                                font.pixelSize:15
+                                //icon.name: "navigation"
+                                Layout.fillHeight: true
+            }
+
+
+        }
+
+
+
+    }
+
+
+
+//===================================================
+
+    SocketDLL
+    {
+      id:socket_obj
+    }
+    CameraDLL
+    {
+      id:camera_obj
+    }
+    Component.onCompleted://CPP-->qml信号槽链接
+    {
+
+       socket_obj.onCpp_send_netstatus.connect(send_netstatus) //触发函数的第一个字母必须大写。
+
+    }
+
+
+
+
 
 }
 

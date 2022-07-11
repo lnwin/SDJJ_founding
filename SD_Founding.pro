@@ -18,7 +18,9 @@ SOURCES += \
         camera.cpp \
         crc.cpp \
         main.cpp \
-        socket.cpp
+        mysql.cpp \
+        socket.cpp \
+        threadpond.cpp
 
 RESOURCES += qml.qrc \
     imagines.qrc\
@@ -45,7 +47,9 @@ HEADERS += \
     inlcude/DecodeCardSdk.h \
     inlcude/HCNetSDK.h \
     inlcude/plaympeg4.h \
-    socket.h
+    mysql.h \
+    socket.h \
+    threadpond.h
 
 DISTFILES += \
     imagines/button-background-checked-hovered.9.png \

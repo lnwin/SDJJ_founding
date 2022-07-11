@@ -10,7 +10,7 @@ camera::camera(QObject *parent) : QObject(parent)
 {
 
 }
-bool camera::cameraInt(HWND CM_0,HWND CM_1)
+bool camera::cameraInit(HWND CM_0,HWND CM_1)
 {
 
     CameraWidget_0=CM_0;

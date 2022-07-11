@@ -6,34 +6,40 @@
 #include <qwidget.h>
 #include <QApplication>
 #include <qwindow.h>
+#include <QThread>
+#include <QObject>
+#include <QWidget>
+#include <QQmlComponent>
+#include <QQuickView>
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QApplication app(argc, argv);
 
+    qmlRegisterType<socket_SYS>("Mysocket",1,0,"SocketDLL");//注册C++类
+    qmlRegisterType<camera>("Mycamera",1,0,"CameraDLL");//注册C++相机类
+//===================================================================
+
     QQmlApplicationEngine engine;
-//    const QUrl url(QStringLiteral("qrc:/main.qml"));
-//    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
-//                     &app, [url](QObject *obj, const QUrl &objUrl) {
-//        if (!obj && url == objUrl)
-//            QCoreApplication::exit(-1);
-//    }, Qt::QueuedConnection);
-//    engine.load(url);
 
- //   QQmlApplicationEngine engine;
-     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
-    double camera_0_startX;
-    double camera_0_startY;
-    double camera_0_width;
-    double camera_0_height;
+    const QUrl url(QStringLiteral("qrc:/main.qml"));
+    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
+                     &app, [url](QObject *obj, const QUrl &objUrl) {
+        if (!obj && url == objUrl)
+            QCoreApplication::exit(-1);
+    }, Qt::QueuedConnection);
+    engine.load(url);
 
-    double camera_1_startX;
-    double camera_1_startY;
-    double camera_1_width;
-    double camera_1_height;
+//     const QUrl url(QStringLiteral("qrc:/main.qml"));
+//     QQuickView *view = new QQuickView;
+//     view->setSource(url);
+     //view->show();
+   //  view->setResizeMode(QQuickView::SizeRootObjectToView);
+
 
     QObject *QmlObj=engine.rootObjects().first();//获取QMl的源对象
+   // QObject *QmlObj=view;//获取QMl的源对象
     QWindow *QmlWindow=qobject_cast<QWindow *>(QmlObj);//获取qml在的源窗口
     QmlWindow->setTitle("CENTER");//设置一个窗口标签，确认自己拿到的窗口句柄就是自己想要的
     WId parent_HWND = QmlWindow->winId();  //Qml窗口的句柄
@@ -58,14 +64,22 @@ int main(int argc, char *argv[])
 ///创建相机窗口句柄
    camera *CAM;
    CAM =new camera();
-   if(CAM->cameraInt(CM_0,CM_1))
+   if(CAM->cameraInit(CM_0,CM_1))
    {
      qDebug()<<"SDK Int success!";
    }
+    qDebug()<<QThread::currentThread();
 
+     socket_SYS *mainSokcet;
+//   QThread *socketThread;
 
+     mainSokcet=new socket_SYS();
 
-
+//   socketThread =new QThread;
+//   mainSokcet->moveToThread(socketThread);
+//   socketThread->start();
+//   qDebug()<<mainSokcet->thread();
+   // QObject::connect(QmlObj, SIGNAL(qmlSignal(QVariant)),&mainSokcet, SLOT(cppSlot(QVariant)));
 
     return app.exec();
 }

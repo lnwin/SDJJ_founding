@@ -1,10 +1,11 @@
-#ifndef SOCKET_H
+﻿#ifndef SOCKET_H
 #define SOCKET_H
 
 #include <QObject>
 #include <QTcpServer>
 #include <QTcpSocket>
 #include <crc.h>
+#include <QThread>
 class socket_SYS : public QObject
 {
     Q_OBJECT
@@ -14,12 +15,10 @@ public:
     QTcpSocket *waveClient;
     QTcpSocket *controlClient;
     QTcpSocket *sk;
-   // Q_INVOKABLE
-    void socket_Int();
-   // Q_INVOKABLE
-    void socket_Listening();
+    Q_INVOKABLE    void socket_Int();
+    Q_INVOKABLE    void socket_Listening();
     crc *CRC;
-
+    QThread *socketThread;
 signals:
 
 public slots:
