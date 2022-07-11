@@ -589,7 +589,7 @@ Window {
                                 Layout.fillHeight: true
                                 onClicked:
                                 {
-                                 // socket_obj.socket_Int()
+                                 threadPond_obj.socket_Init()
                                 }
 
 
@@ -602,7 +602,7 @@ Window {
                                 Layout.fillHeight: true
                                 onClicked:
                                 {
-                                 // socket_obj.socket_Listening()
+                                 threadPond_obj.socket_Listing()
                                 }
                             }
             Button {

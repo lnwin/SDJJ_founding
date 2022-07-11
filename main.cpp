@@ -18,7 +18,6 @@ int main(int argc, char *argv[])
 
     QApplication app(argc, argv);
     qmlRegisterType<threadPond>("Mythreadpond",1,0,"ThreadDLL");//注册C++类
-   // qmlRegisterType<socket_SYS>("Mysocket",1,0,"SocketDLL");//注册C++类
     qmlRegisterType<camera>("Mycamera",1,0,"CameraDLL");//注册C++相机类
 //===================================================================
 
@@ -31,13 +30,6 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     }, Qt::QueuedConnection);
     engine.load(url);
-
-//     const QUrl url(QStringLiteral("qrc:/main.qml"));
-//     QQuickView *view = new QQuickView;
-//     view->setSource(url);
-     //view->show();
-   //  view->setResizeMode(QQuickView::SizeRootObjectToView);
-
 
     QObject *QmlObj=engine.rootObjects().first();//获取QMl的源对象
    // QObject *QmlObj=view;//获取QMl的源对象
@@ -69,18 +61,7 @@ int main(int argc, char *argv[])
    {
      qDebug()<<"SDK Int success!";
    }
-    qDebug()<<QThread::currentThread();
-
-     socket_SYS *mainSokcet;
-//   QThread *socketThread;
-
-     mainSokcet=new socket_SYS();
-
-//   socketThread =new QThread;
-//   mainSokcet->moveToThread(socketThread);
-//   socketThread->start();
-//   qDebug()<<mainSokcet->thread();
-   // QObject::connect(QmlObj, SIGNAL(qmlSignal(QVariant)),&mainSokcet, SLOT(cppSlot(QVariant)));
+    qDebug()<<"Main thread"<<QThread::currentThread();
 
     return app.exec();
 }

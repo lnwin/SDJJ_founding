@@ -15,13 +15,15 @@ public:
     QTcpSocket *waveClient;
     QTcpSocket *controlClient;
     QTcpSocket *sk;
-    Q_INVOKABLE    void socket_Int();
-    Q_INVOKABLE    void socket_Listening();
+//    Q_INVOKABLE    void socket_Int();
+//    Q_INVOKABLE    bool socket_Listening();
     crc *CRC;
     QThread *socketThread;
 signals:
 
 public slots:
+    void socket_Int();
+    bool socket_Listening();
     void start_listening();
     bool server_New_Connect();
     void wave_socket_Read_Data();

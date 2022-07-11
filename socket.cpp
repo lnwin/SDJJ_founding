@@ -5,7 +5,7 @@ bool ISconnected_0=false;
 bool ISconnected_1=false;
 socket_SYS::socket_SYS(QObject *parent) : QObject(parent)
 {
-
+    qDebug()<<"socket_SYS thread"<<QThread::currentThread();
 }
 
 void socket_SYS::socket_Int()
@@ -14,14 +14,10 @@ void socket_SYS::socket_Int()
     waveClient = new QTcpSocket();
     controlClient=new QTcpSocket();
     CRC =new crc();
-//    qDebug()<<"son"<<thread()->currentThread();
-//    QThread *socketThread;
-//    socketThread =new QThread;
-//    mainServer->moveToThread(socketThread);
-//    socketThread->start();
     qDebug()<< "Socket int ok";
+    qDebug()<<"Socket init thread"<<QThread::currentThread();
 }
-void socket_SYS::socket_Listening()
+bool socket_SYS::socket_Listening()
 {
     int port = 500;
 
@@ -36,11 +32,16 @@ void socket_SYS::socket_Listening()
             connect(mainServer, SIGNAL(newConnection()), this, SLOT(server_New_Connect()));
             qDebug()<<"mainServer listening ok";
 
+            return  true;
+
          }
        else
        {
           // ui->textEdit->append("TCP_Sever listen failed, Plesas change TCP_Sever IP to >>192.168.6.516<<!");
            qDebug()<<"TCP_Sever listen failed, Plesas change TCP_Sever IP to >>192.168.1.65<<!";
+           qDebug()<<"Socket isListening thread"<<QThread::currentThread();
+            return  false;
+
        }
 
    }
@@ -104,13 +105,13 @@ bool socket_SYS::server_New_Connect()
 }
 void socket_SYS::start_listening()
 {
-    if(!severStatus)
-    {
-        socket_Int();
-        severStatus=true;
-    }
+//    if(!severStatus)
+//    {
+//        socket_Int();
+//        severStatus=true;
+//    }
 
-    socket_Listening();
+//    socket_Listening();
 
 }
 void socket_SYS::wave_socket_Read_Data()
