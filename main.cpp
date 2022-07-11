@@ -11,13 +11,14 @@
 #include <QWidget>
 #include <QQmlComponent>
 #include <QQuickView>
+#include<threadpond.h>
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QApplication app(argc, argv);
-
-    qmlRegisterType<socket_SYS>("Mysocket",1,0,"SocketDLL");//注册C++类
+    qmlRegisterType<threadPond>("Mythreadpond",1,0,"ThreadDLL");//注册C++类
+   // qmlRegisterType<socket_SYS>("Mysocket",1,0,"SocketDLL");//注册C++类
     qmlRegisterType<camera>("Mycamera",1,0,"CameraDLL");//注册C++相机类
 //===================================================================
 

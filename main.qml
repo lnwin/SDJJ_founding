@@ -8,8 +8,8 @@ import QtQuick.Controls.Imagine 2.14
 import QtQuick.Extras 1.4
 import QtQuick.Controls.Styles 1.4
 import Qt.labs.animation 1.0
-import Mysocket 1.0
 import Mycamera 1.0
+import Mythreadpond 1.0
 
 Window {
 
@@ -545,7 +545,7 @@ Window {
                                 Layout.fillHeight: true
                                 onClicked:
                                 {
-                                   startListening()
+
                                 }
                             }
             Button {
@@ -589,7 +589,7 @@ Window {
                                 Layout.fillHeight: true
                                 onClicked:
                                 {
-                                  socket_obj.socket_Int()
+                                 // socket_obj.socket_Int()
                                 }
 
 
@@ -602,7 +602,7 @@ Window {
                                 Layout.fillHeight: true
                                 onClicked:
                                 {
-                                  socket_obj.socket_Listening()
+                                 // socket_obj.socket_Listening()
                                 }
                             }
             Button {
@@ -624,9 +624,9 @@ Window {
 
 //===================================================
 
-    SocketDLL
+    ThreadDLL
     {
-      id:socket_obj
+      id:threadPond_obj
     }
     CameraDLL
     {
@@ -635,7 +635,7 @@ Window {
     Component.onCompleted://CPP-->qml信号槽链接
     {
 
-       socket_obj.onCpp_send_netstatus.connect(send_netstatus) //触发函数的第一个字母必须大写。
+       //socket_obj.onCpp_send_netstatus.connect(send_netstatus) //触发函数的第一个字母必须大写。
 
     }
 

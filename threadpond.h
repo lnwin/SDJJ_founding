@@ -1,6 +1,5 @@
 ﻿#ifndef THREADPOND_H
 #define THREADPOND_H
-
 #include <QObject>
 #include <QThread>
 
