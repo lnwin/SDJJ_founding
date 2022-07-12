@@ -10,7 +10,6 @@ public:
     explicit camera(QObject *parent = nullptr);
 
     Q_INVOKABLE bool cameraInit(HWND,HWND);
-
     Q_INVOKABLE bool realPlayer();
     Q_INVOKABLE bool stopRealPlay();
     Q_INVOKABLE bool longID();

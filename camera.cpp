@@ -1,5 +1,5 @@
-﻿#include "camera.h"
-#include <HCNetSDK.h>
+﻿#include <HCNetSDK.h>
+#include "camera.h"
 #include <iostream>
 HWND CameraWidget_0,CameraWidget_1;
 LONG lUserID_0,lUserID_1;

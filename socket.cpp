@@ -14,8 +14,9 @@ void socket_SYS::socket_Int()
     waveClient = new QTcpSocket();
     controlClient=new QTcpSocket();
     CRC =new crc();
-    qDebug()<< "Socket int ok";
-    qDebug()<<"Socket init thread"<<QThread::currentThread();
+   // qDebug()<< "Socket int ok";
+   // qDebug()<<"Socket init thread"<<QThread::currentThread();
+    socket_Listening();
 }
 bool socket_SYS::socket_Listening()
 {
@@ -30,16 +31,17 @@ bool socket_SYS::socket_Listening()
          // ui->PortButton->setText("Stop Listen");
          // ui->Net_light->setStyleSheet("border-image: url(:/new/icon/picture/yellow.png);");
             connect(mainServer, SIGNAL(newConnection()), this, SLOT(server_New_Connect()));
-            qDebug()<<"mainServer listening ok";
-
+           // qDebug()<<"mainServer listening ok";
+            emit sendSocketState2T("Listening succeed\n");
             return  true;
 
          }
        else
        {
-          // ui->textEdit->append("TCP_Sever listen failed, Plesas change TCP_Sever IP to >>192.168.6.516<<!");
-           qDebug()<<"TCP_Sever listen failed, Plesas change TCP_Sever IP to >>192.168.1.65<<!";
-           qDebug()<<"Socket isListening thread"<<QThread::currentThread();
+          // ui->textEdit->append("Listening failed, Plesas change TCP_Sever IP to >>192.168.1.65<<!");
+          // qDebug()<<"TCP_Sever listen failed, Plesas change TCP_Sever IP to >>192.168.1.65<<!";
+           //qDebug()<<"Socket isListening thread"<<QThread::currentThread();
+            emit sendSocketState2T("Listening failed, Plesas change TCP_Sever IP to >>192.168.1.65<<!\n");
             return  false;
 
        }

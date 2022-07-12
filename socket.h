@@ -20,7 +20,7 @@ public:
     crc *CRC;
     QThread *socketThread;
 signals:
-
+  void sendSocketState2T(QString);
 public slots:
     void socket_Int();
     bool socket_Listening();
@@ -30,6 +30,7 @@ public slots:
     void wave_socket_Disconnected();
     void control_socket_Read_Data();
     void control_socket_Disconnected();
+
 private:
 
 

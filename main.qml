@@ -128,7 +128,7 @@ Window {
 
     CircularGauge {
         id: speedometer
-        x: 1109
+        x: 1096
         width: 120
         height: 99
         value: valueSource.kph
@@ -142,7 +142,7 @@ Window {
         // don't want to extra space on the left and right of our gauges,
         // because they're laid out horizontally, and that would create
         // large horizontal gaps between gauges on wide screens.
-        anchors.verticalCenterOffset: 270
+        anchors.verticalCenterOffset: 114
 
         style: AKleveStyle {}
 
@@ -627,17 +627,25 @@ Window {
     ThreadDLL
     {
       id:threadPond_obj
+      onSendSocketState2QML:
+      {
+          textArea.text+=ssMsg;
+      }
+
+
+
+
     }
     CameraDLL
     {
       id:camera_obj
     }
-    Component.onCompleted://CPP-->qml信号槽链接
-    {
+//    Component.onCompleted://CPP-->qml信号槽链接
+//    {
 
-       //socket_obj.onCpp_send_netstatus.connect(send_netstatus) //触发函数的第一个字母必须大写。
+//       threadPond_obj.onSendSocketState2QML.connect(send_netstatus) //触发函数的第一个字母必须大写。
 
-    }
+//    }
 
 
 

@@ -17,10 +17,15 @@ signals:
 
     void startInit();
     void startListing();
+    void sendSocketState2QML(QString ssMsg);
 
+//Q_SIGNALS:
+//    void sendSocketState2QML(QString);
+
+public slots:
+    void getSocketState(QString);
 
 public:
-
    socket_SYS *SK2;
    QThread *socketThread;
 
