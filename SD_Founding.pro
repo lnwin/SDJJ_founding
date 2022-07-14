@@ -19,6 +19,7 @@ SOURCES += \
         crc.cpp \
         main.cpp \
         mysql.cpp \
+        mystruct.cpp \
         socket.cpp \
         threadpond.cpp
 
@@ -48,6 +49,7 @@ HEADERS += \
     inlcude/HCNetSDK.h \
     inlcude/plaympeg4.h \
     mysql.h \
+    mystruct.h \
     socket.h \
     threadpond.h
 

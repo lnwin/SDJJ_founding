@@ -6,6 +6,7 @@
 #include <QTcpSocket>
 #include <crc.h>
 #include <QThread>
+#include <mystruct.h>
 class socket_SYS : public QObject
 {
     Q_OBJECT
@@ -23,7 +24,7 @@ signals:
   void sendSocketState2T(QString);
 public slots:
     void socket_Int();
-    bool socket_Listening();
+    bool socket_Listening();    
     void start_listening();
     bool server_New_Connect();
     void wave_socket_Read_Data();

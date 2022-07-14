@@ -17,6 +17,7 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QApplication app(argc, argv);
+    qRegisterMetaType<waveMSG>( "waveMSG" );
     qmlRegisterType<threadPond>("Mythreadpond",1,0,"ThreadDLL");//注册C++类
     qmlRegisterType<camera>("Mycamera",1,0,"CameraDLL");//注册C++相机类
 //===================================================================
