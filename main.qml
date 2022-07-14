@@ -74,7 +74,7 @@ Window {
                     }
                     NumberAnimation {
                         target: valueSource
-                        property: "rotaAngle"
+                        property: "rotateAngle"
                        // easing.type: Easing.InOutSine
                         from: 0
                         to: 90
@@ -166,7 +166,7 @@ Window {
         width: 502
         height: 694
         moveLength: valueSource.movelength
-        rotaAngle: valueSource.rotaAngle
+        rotateAngle: valueSource.rotateAngle
         pushLength: valueSource.pushLength
         distance2Base:valueSource.distance2Base
         waterDepth: valueSource.waterDepth
@@ -591,8 +591,11 @@ Window {
                                 onClicked:
                                 {
                                    threadPond_obj.socket_Listing()
+                                   var sk=threadPond_obj.wmsg;
+                                   sk.Max=100;
                                    //threadPond_obj.wmsg.min=225
-                                  // console.log(threadPond_obj.wmsg.min)
+                                    threadPond_obj.getwaveMSGFromQml(sk);//传递参数到C++
+                                   console.log(sk.Max)
 
                                 }
 
@@ -635,7 +638,9 @@ Window {
       {
 
 
-          textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss==")+ssMsg;
+          textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" "+ssMsg;
+
+
       }
 
 

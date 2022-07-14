@@ -6,7 +6,7 @@ Item {
     property real kph: 30
     property real agr: 0
     property real movelength: 50
-    property real rotaAngle: 0
+    property real rotateAngle: 0
     property real pushLength: 0
     property real distance2Base: 0
     property real waterDepth: 30

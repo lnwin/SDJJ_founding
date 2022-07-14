@@ -27,7 +27,6 @@ void threadPond::socket_Init()
 void threadPond::socket_Listing()
 {
     emit startListing();//直接调用SK2的函数，线程不变，使用信号槽才会改变线程
-
 }
 
 void threadPond::getSocketState(QString msg)

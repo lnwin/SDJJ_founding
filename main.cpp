@@ -18,6 +18,8 @@ int main(int argc, char *argv[])
 
     QApplication app(argc, argv);
     qRegisterMetaType<waveMSG>( "waveMSG" );
+    qRegisterMetaType<controlMSG>( "controlMSG");
+    qRegisterMetaType<monitoredMSG>( "monitoredMSG");
     qmlRegisterType<threadPond>("Mythreadpond",1,0,"ThreadDLL");//注册C++类
     qmlRegisterType<camera>("Mycamera",1,0,"CameraDLL");//注册C++相机类
 //===================================================================

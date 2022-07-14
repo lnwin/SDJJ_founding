@@ -19,7 +19,7 @@ Item {
     //=======================================参数变量
     property double moveLength:100
     property double pushLength: 0
-    property double rotaAngle: 30
+    property double rotateAngle: 30
     property double distance2Base:1
     property double waterDepth: 30
     property double transducerPressure:0
@@ -29,7 +29,7 @@ Item {
 
     onMoveLengthChanged:total.requestPaint()
     onPushLengthChanged:total.requestPaint()
-    onRotaAngleChanged: total.requestPaint()
+    onRotateAngleChanged: total.requestPaint()
     onDistance2BaseChanged: total.requestPaint()
     onWaterDepthChanged: total.requestPaint()
     onTransducerPressureChanged: total.requestPaint()
@@ -62,62 +62,62 @@ Item {
 
     //===================================================摆臂属性
     property double bichang_0 :toPixels(0.15)
-    property double bichang_0_endx:dianjiCenter_x+Math.cos(degToRad(90-rotaAngle))*bichang_0;
-    property double bichang_0_endy:dianjiCenter_y-Math.sin(degToRad(90-rotaAngle))*bichang_0
+    property double bichang_0_endx:dianjiCenter_x+Math.cos(degToRad(90-rotateAngle))*bichang_0;
+    property double bichang_0_endy:dianjiCenter_y-Math.sin(degToRad(90-rotateAngle))*bichang_0
     property double bichang_1:toPixels(0.07);
-    property double bichang_1_endx:bichang_0_endx+Math.sin(degToRad(90-rotaAngle))*bichang_1;
-    property double bichang_1_endy:bichang_0_endy+Math.sin(degToRad(rotaAngle))*bichang_1;
+    property double bichang_1_endx:bichang_0_endx+Math.sin(degToRad(90-rotateAngle))*bichang_1;
+    property double bichang_1_endy:bichang_0_endy+Math.sin(degToRad(rotateAngle))*bichang_1;
     property double bichang_2:toPixels(0.7);
-    property double bichang_2_endx:bichang_1_endx+Math.cos(degToRad(90-rotaAngle))*bichang_2;
-    property double bichang_2_endy:bichang_1_endy-Math.sin(degToRad(90-rotaAngle))*bichang_2;
+    property double bichang_2_endx:bichang_1_endx+Math.cos(degToRad(90-rotateAngle))*bichang_2;
+    property double bichang_2_endy:bichang_1_endy-Math.sin(degToRad(90-rotateAngle))*bichang_2;
 
     property double sensordistance:toPixels(0.15);
     property double sensorArmLength:toPixels(0.1);
 
 
-    property double sensor_0_start_x: bichang_1_endx+Math.cos(degToRad(90-rotaAngle))*toPixels(0.07);
-    property double sensor_0_start_y: bichang_1_endy-Math.sin(degToRad(90-rotaAngle))*toPixels(0.07);
-    property double sensor_0_end_x:sensor_0_start_x+Math.cos(degToRad(rotaAngle))*sensorArmLength;
-    property double sensor_0_end_y:sensor_0_start_y+Math.sin(degToRad(rotaAngle))*sensorArmLength;
+    property double sensor_0_start_x: bichang_1_endx+Math.cos(degToRad(90-rotateAngle))*toPixels(0.07);
+    property double sensor_0_start_y: bichang_1_endy-Math.sin(degToRad(90-rotateAngle))*toPixels(0.07);
+    property double sensor_0_end_x:sensor_0_start_x+Math.cos(degToRad(rotateAngle))*sensorArmLength;
+    property double sensor_0_end_y:sensor_0_start_y+Math.sin(degToRad(rotateAngle))*sensorArmLength;
 
-    property double sensor_0_ball_x: sensor_0_start_x+Math.cos(degToRad(rotaAngle))*sensorArmLength*0.6;
-    property double sensor_0_ball_y: sensor_0_start_y+Math.sin(degToRad(rotaAngle))*sensorArmLength*0.6;
+    property double sensor_0_ball_x: sensor_0_start_x+Math.cos(degToRad(rotateAngle))*sensorArmLength*0.6;
+    property double sensor_0_ball_y: sensor_0_start_y+Math.sin(degToRad(rotateAngle))*sensorArmLength*0.6;
 
 
-    property double sensor_1_start_x: sensor_0_start_x+Math.cos(degToRad(90-rotaAngle))*sensordistance;
-    property double sensor_1_start_y:sensor_0_start_y-Math.sin(degToRad(90-rotaAngle))*sensordistance;
-    property double sensor_1_end_x:sensor_1_start_x+Math.cos(degToRad(rotaAngle))*sensorArmLength
-    property double sensor_1_end_y:sensor_1_start_y+Math.sin(degToRad(rotaAngle))*sensorArmLength
+    property double sensor_1_start_x: sensor_0_start_x+Math.cos(degToRad(90-rotateAngle))*sensordistance;
+    property double sensor_1_start_y:sensor_0_start_y-Math.sin(degToRad(90-rotateAngle))*sensordistance;
+    property double sensor_1_end_x:sensor_1_start_x+Math.cos(degToRad(rotateAngle))*sensorArmLength
+    property double sensor_1_end_y:sensor_1_start_y+Math.sin(degToRad(rotateAngle))*sensorArmLength
 
-    property double sensor_1_ball_x: sensor_1_start_x+Math.cos(degToRad(rotaAngle))*sensorArmLength*0.6;
-    property double sensor_1_ball_y: sensor_1_start_y+Math.sin(degToRad(rotaAngle))*sensorArmLength*0.6;
+    property double sensor_1_ball_x: sensor_1_start_x+Math.cos(degToRad(rotateAngle))*sensorArmLength*0.6;
+    property double sensor_1_ball_y: sensor_1_start_y+Math.sin(degToRad(rotateAngle))*sensorArmLength*0.6;
 
-    property double sensor_2_start_x: sensor_1_start_x+Math.cos(degToRad(90-rotaAngle))*sensordistance;
-    property double sensor_2_start_y:sensor_1_start_y-Math.sin(degToRad(90-rotaAngle))*sensordistance;
-    property double sensor_2_end_x:sensor_2_start_x+Math.cos(degToRad(rotaAngle))*sensorArmLength
-    property double sensor_2_end_y:sensor_2_start_y+Math.sin(degToRad(rotaAngle))*sensorArmLength
+    property double sensor_2_start_x: sensor_1_start_x+Math.cos(degToRad(90-rotateAngle))*sensordistance;
+    property double sensor_2_start_y:sensor_1_start_y-Math.sin(degToRad(90-rotateAngle))*sensordistance;
+    property double sensor_2_end_x:sensor_2_start_x+Math.cos(degToRad(rotateAngle))*sensorArmLength
+    property double sensor_2_end_y:sensor_2_start_y+Math.sin(degToRad(rotateAngle))*sensorArmLength
 
-    property double sensor_2_ball_x: sensor_2_start_x+Math.cos(degToRad(rotaAngle))*sensorArmLength*0.6;
-    property double sensor_2_ball_y: sensor_2_start_y+Math.sin(degToRad(rotaAngle))*sensorArmLength*0.6;
+    property double sensor_2_ball_x: sensor_2_start_x+Math.cos(degToRad(rotateAngle))*sensorArmLength*0.6;
+    property double sensor_2_ball_y: sensor_2_start_y+Math.sin(degToRad(rotateAngle))*sensorArmLength*0.6;
 
-    property double sensor_3_start_x: sensor_2_start_x+Math.cos(degToRad(90-rotaAngle))*sensordistance;
-    property double sensor_3_start_y:sensor_2_start_y-Math.sin(degToRad(90-rotaAngle))*sensordistance;
-    property double sensor_3_end_x:sensor_3_start_x+Math.cos(degToRad(rotaAngle))*sensorArmLength
-    property double sensor_3_end_y:sensor_3_start_y+Math.sin(degToRad(rotaAngle))*sensorArmLength
+    property double sensor_3_start_x: sensor_2_start_x+Math.cos(degToRad(90-rotateAngle))*sensordistance;
+    property double sensor_3_start_y:sensor_2_start_y-Math.sin(degToRad(90-rotateAngle))*sensordistance;
+    property double sensor_3_end_x:sensor_3_start_x+Math.cos(degToRad(rotateAngle))*sensorArmLength
+    property double sensor_3_end_y:sensor_3_start_y+Math.sin(degToRad(rotateAngle))*sensorArmLength
 
-    property double tP_x:sensor_3_end_x+Math.cos(degToRad(rotaAngle))*sensorArmLength*2
-    property double tP_y:sensor_3_end_y+Math.sin(degToRad(rotaAngle))*sensorArmLength*2
+    property double tP_x:sensor_3_end_x+Math.cos(degToRad(rotateAngle))*sensorArmLength*2
+    property double tP_y:sensor_3_end_y+Math.sin(degToRad(rotateAngle))*sensorArmLength*2
 
-    property double sensor_3_ball_x: sensor_3_start_x+Math.cos(degToRad(rotaAngle))*sensorArmLength*0.6;
-    property double sensor_3_ball_y: sensor_3_start_y+Math.sin(degToRad(rotaAngle))*sensorArmLength*0.6;
+    property double sensor_3_ball_x: sensor_3_start_x+Math.cos(degToRad(rotateAngle))*sensorArmLength*0.6;
+    property double sensor_3_ball_y: sensor_3_start_y+Math.sin(degToRad(rotateAngle))*sensorArmLength*0.6;
 
-    property double sensor_4_start_x: sensor_3_start_x+Math.cos(degToRad(90-rotaAngle))*sensordistance;
-    property double sensor_4_start_y:sensor_3_start_y-Math.sin(degToRad(90-rotaAngle))*sensordistance;
-    property double sensor_4_end_x:sensor_4_start_x+Math.cos(degToRad(rotaAngle))*sensorArmLength
-    property double sensor_4_end_y:sensor_4_start_y+Math.sin(degToRad(rotaAngle))*sensorArmLength
+    property double sensor_4_start_x: sensor_3_start_x+Math.cos(degToRad(90-rotateAngle))*sensordistance;
+    property double sensor_4_start_y:sensor_3_start_y-Math.sin(degToRad(90-rotateAngle))*sensordistance;
+    property double sensor_4_end_x:sensor_4_start_x+Math.cos(degToRad(rotateAngle))*sensorArmLength
+    property double sensor_4_end_y:sensor_4_start_y+Math.sin(degToRad(rotateAngle))*sensorArmLength
 
-    property double sensor_4_ball_x: sensor_4_start_x+Math.cos(degToRad(rotaAngle))*sensorArmLength*0.6;
-    property double sensor_4_ball_y: sensor_4_start_y+Math.sin(degToRad(rotaAngle))*sensorArmLength*0.6;
+    property double sensor_4_ball_x: sensor_4_start_x+Math.cos(degToRad(rotateAngle))*sensorArmLength*0.6;
+    property double sensor_4_ball_y: sensor_4_start_y+Math.sin(degToRad(rotateAngle))*sensorArmLength*0.6;
     //====================================海底尺寸
     property double base_mid_x:width*0.3
     property double base_mid_y:frameWork_bottomRight_y+toPixels(0.1);
@@ -702,7 +702,7 @@ Item {
                 ctx.fillText(String("摆臂角度:"),sensor_3_ball_x-toPixels(0.1),sensor_4_ball_y-toPixels(0.4))
                  ctx.fillStyle=textColor
                 var bd = "%1°"
-                var count_4 = rotaAngle.toFixed(1)
+                var count_4 = rotateAngle.toFixed(1)
                 ctx.textAlign="left";
                 ctx.font="25px Arial"
                // console.log(message.arg(count))
