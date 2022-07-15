@@ -36,89 +36,89 @@ Window {
 
     Button {
         id: button
-        x: 1135
-        y: 892
+        x: 940
+        y: 533
         width: 68
         height: 43
         text: qsTr("Button")
 
-                onClicked:
-                ParallelAnimation {
-                    // We changed gears so we lost a bit of speed.
-                    NumberAnimation {
-                        target: valueSource           //动画应用于目标对象
-                         property: "kph"               //y轴方向的运动
-                         from:30
-                         to: 50
-                         duration: 1000              //运动时间为3秒
-                         // loops:10                    //运动为10个周期
-                         easing.type: Easing.Linear //匀
-                    }
-                    NumberAnimation {
-                        target: valueSource
-                        property: "agr"
-                       // easing.type: Easing.InOutSine
-                        from: 0
-                        to: 30.5
-                        duration: 1000
-                        easing.type: Easing.Linear //匀
-                    }
-                    NumberAnimation {
-                        target: valueSource
-                        property: "movelength"
-                       // easing.type: Easing.InOutSine
-                        from: 50
-                        to: 300
-                        duration: 1000
-                        easing.type: Easing.Linear //匀
-                    }
-                    NumberAnimation {
-                        target: valueSource
-                        property: "rotateAngle"
-                       // easing.type: Easing.InOutSine
-                        from: 0
-                        to: 90
-                        duration: 1000
-                        easing.type: Easing.Linear //匀
-                    }
+//                onClicked:
+//                ParallelAnimation {
+//                    // We changed gears so we lost a bit of speed.
+//                    NumberAnimation {
+//                        target: valueSource           //动画应用于目标对象
+//                         property: "kph"               //y轴方向的运动
+//                         from:30
+//                         to: 50
+//                         duration: 1000              //运动时间为3秒
+//                         // loops:10                    //运动为10个周期
+//                         easing.type: Easing.Linear //匀
+//                    }
+//                    NumberAnimation {
+//                        target: valueSource
+//                        property: "agr"
+//                       // easing.type: Easing.InOutSine
+//                        from: 0
+//                        to: 30.5
+//                        duration: 1000
+//                        easing.type: Easing.Linear //匀
+//                    }
+//                    NumberAnimation {
+//                        target: valueSource
+//                        property: "movelength"
+//                       // easing.type: Easing.InOutSine
+//                        from: 50
+//                        to: 300
+//                        duration: 1000
+//                        easing.type: Easing.Linear //匀
+//                    }
+//                    NumberAnimation {
+//                        target: valueSource
+//                        property: "rotateAngle"
+//                       // easing.type: Easing.InOutSine
+//                        from: 0
+//                        to: 90
+//                        duration: 1000
+//                        easing.type: Easing.Linear //匀
+//                    }
 
-                    NumberAnimation {
-                        target: valueSource
-                        property: "pushLength"
-                       // easing.type: Easing.InOutSine
-                        from: 0
-                        to: 10
-                        duration: 1000
-                        easing.type: Easing.Linear //匀
-                    }
-                    NumberAnimation {
-                        target: valueSource
-                        property: "distance2Base"
-                       // easing.type: Easing.InOutSine
-                        from: 100
-                        to: 0
-                        duration: 1000
-                        easing.type: Easing.Linear //匀
-                    }
-                    NumberAnimation {
-                        target: valueSource
-                        property: "controlPower"
-                       // easing.type: Easing.InOutSine
-                        from: 100
-                        to: 30
-                        duration: 1000
-                        easing.type: Easing.Linear //匀
-                    }
-                    NumberAnimation {
-                        target: valueSource
-                        property: "impetusPower"
-                       // easing.type: Easing.InOutSine
-                        from: 100
-                        to: 70
-                        duration: 1000
-                        easing.type: Easing.Linear //匀
-                    }
-                }
+//                    NumberAnimation {
+//                        target: valueSource
+//                        property: "pushLength"
+//                       // easing.type: Easing.InOutSine
+//                        from: 0
+//                        to: 10
+//                        duration: 1000
+//                        easing.type: Easing.Linear //匀
+//                    }
+//                    NumberAnimation {
+//                        target: valueSource
+//                        property: "distance2Base"
+//                       // easing.type: Easing.InOutSine
+//                        from: 100
+//                        to: 0
+//                        duration: 1000
+//                        easing.type: Easing.Linear //匀
+//                    }
+//                    NumberAnimation {
+//                        target: valueSource
+//                        property: "controlPower"
+//                       // easing.type: Easing.InOutSine
+//                        from: 100
+//                        to: 30
+//                        duration: 1000
+//                        easing.type: Easing.Linear //匀
+//                    }
+//                    NumberAnimation {
+//                        target: valueSource
+//                        property: "impetusPower"
+//                       // easing.type: Easing.InOutSine
+//                        from: 100
+//                        to: 70
+//                        duration: 1000
+//                        easing.type: Easing.Linear //匀
+//                    }
+//                }
 
 
     }
@@ -128,7 +128,7 @@ Window {
 
     CircularGauge {
         id: speedometer
-        x: 1096
+        x: 865
         width: 120
         height: 99
         value: valueSource.kph
@@ -142,7 +142,7 @@ Window {
         // don't want to extra space on the left and right of our gauges,
         // because they're laid out horizontally, and that would create
         // large horizontal gaps between gauges on wide screens.
-        anchors.verticalCenterOffset: 114
+        anchors.verticalCenterOffset: 126
 
         style: AKleveStyle {}
 
@@ -228,202 +228,6 @@ Window {
         y: 23
         width: 143
         height: 130
-    }
-
-    ChartView {
-        id: spline
-        x: 1019
-        y: 69
-        width: 443
-        height: 242
-        layer.smooth: true
-        layer.samples: 16
-        layer.enabled: false
-        titleColor: "#01122d"
-        plotAreaColor: "#0e89cf"
-        backgroundColor: "#01122d"
-        SplineSeries {
-            name: "SplineSeries"
-            XYPoint {
-                x: 0
-                y: 1
-            }
-
-            XYPoint {
-                x: 3
-                y: 4.3
-            }
-
-            XYPoint {
-                x: 5
-                y: 3.1
-            }
-
-            XYPoint {
-                x: 8
-                y: 5.8
-            }
-        }
-    }
-
-    ChartView {
-        id: spline1
-        x: 1462
-        y: 69
-        width: 444
-        height: 242
-        backgroundColor: "#01122d"
-        plotAreaColor: "#01122d"
-        SplineSeries {
-            name: "SplineSeries"
-            XYPoint {
-                x: 0
-                y: 1
-            }
-
-            XYPoint {
-                x: 3
-                y: 4.3
-            }
-
-            XYPoint {
-                x: 5
-                y: 3.1
-            }
-
-            XYPoint {
-                x: 8
-                y: 5.8
-            }
-        }
-    }
-
-    ChartView {
-        id: spline2
-        x: 1019
-        y: 288
-        width: 443
-        height: 242
-        backgroundColor: "#01122d"
-        plotAreaColor: "#01122d"
-        SplineSeries {
-            name: "SplineSeries"
-            XYPoint {
-                x: 0
-                y: 1
-            }
-
-            XYPoint {
-                x: 3
-                y: 4.3
-            }
-
-            XYPoint {
-                x: 5
-                y: 3.1
-            }
-
-            XYPoint {
-                x: 8
-                y: 5.8
-            }
-        }
-    }
-
-    ChartView {
-        id: spline3
-        x: 1463
-        y: 288
-        width: 443
-        height: 242
-        backgroundColor: "#01122d"
-        plotAreaColor: "#01122d"
-        SplineSeries {
-            name: "SplineSeries"
-            XYPoint {
-                x: 0
-                y: 1
-            }
-
-            XYPoint {
-                x: 3
-                y: 4.3
-            }
-
-            XYPoint {
-                x: 5
-                y: 3.1
-            }
-
-            XYPoint {
-                x: 8
-                y: 5.8
-            }
-        }
-    }
-
-    ChartView {
-        id: spline4
-        x: 1019
-        y: 512
-        width: 443
-        height: 242
-        backgroundColor: "#01122d"
-        plotAreaColor: "#01122d"
-        SplineSeries {
-            name: "SplineSeries"
-            XYPoint {
-                x: 0
-                y: 1
-            }
-
-            XYPoint {
-                x: 3
-                y: 4.3
-            }
-
-            XYPoint {
-                x: 5
-                y: 3.1
-            }
-
-            XYPoint {
-                x: 8
-                y: 5.8
-            }
-        }
-    }
-
-    ChartView {
-        id: spline5
-        x: 1463
-        y: 512
-        width: 443
-        height: 242
-        backgroundColor: "#01122d"
-        plotAreaColor: "#01122d"
-        SplineSeries {
-            name: "SplineSeries"
-            XYPoint {
-                x: 0
-                y: 1
-            }
-
-            XYPoint {
-                x: 3
-                y: 4.3
-            }
-
-            XYPoint {
-                x: 5
-                y: 3.1
-            }
-
-            XYPoint {
-                x: 8
-                y: 5.8
-            }
-        }
     }
 
     TextArea {
@@ -627,6 +431,55 @@ Window {
 
     }
 
+    Rectangle {
+        id: tabRec
+        x: 1036
+        y: 48
+        width: 875
+        height: 989
+       // color: mainColor
+
+        TabBar {    //点击相应的按钮实现切换
+               id: bar
+               width: parent.width
+               TabButton {
+                  // style
+                   text: qsTr("First")
+               }
+               TabButton {
+                   text: qsTr("Second")
+               }
+               TabButton {
+                   text: qsTr("Third")
+               }
+           }
+        StackLayout {   //栈布局管理器
+               anchors.centerIn: parent
+               width: parent.width
+               currentIndex: bar.currentIndex  //当前视图的索引
+               Item {
+                   Text {
+                       anchors.centerIn: parent
+                       text: qsTr("First")
+                   }
+               }
+               Item {
+                   Text {
+                       anchors.centerIn: parent
+                       text: qsTr("Second")
+                   }
+               }
+               Item {
+                   Text {
+                       anchors.centerIn: parent
+                       text: qsTr("Third")
+                   }
+               }
+           }
+
+
+
+    }
 
 
 //===================================================
@@ -649,8 +502,10 @@ Window {
     }
     CameraDLL
     {
-      id:camera_obj
+        id:camera_obj
     }
+
+
 //    Component.onCompleted://CPP-->qml信号槽链接
 //    {
 
