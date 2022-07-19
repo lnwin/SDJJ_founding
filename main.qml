@@ -19,7 +19,8 @@ Window {
     y:0
     width: 1920
     height: 1080
-    color: "#01113a"
+    color: bgColor
+    property string bgColor:"#01113a"
     property string mainColor:"#4682B4"
     title: qsTr("abc")
     //====================================================qml 信号槽
@@ -437,44 +438,46 @@ Window {
         y: 48
         width: 875
         height: 989
+        color: bgColor
+        border.color: mainColor
        // color: mainColor
-
+       //  TableView
         TabBar {    //点击相应的按钮实现切换
                id: bar
                width: parent.width
+               height: parent.height
                TabButton {
-                  // style
-                   text: qsTr("First")
+                   font.pixelSize:15
+                   text: qsTr("控制界面")
+                  // height: 20
                }
                TabButton {
-                   text: qsTr("Second")
+                   font.pixelSize:15
+                   text: qsTr("波形界面")
                }
-               TabButton {
-                   text: qsTr("Third")
-               }
+
            }
         StackLayout {   //栈布局管理器
                anchors.centerIn: parent
                width: parent.width
+               height: parent.height
                currentIndex: bar.currentIndex  //当前视图的索引
                Item {
                    Text {
                        anchors.centerIn: parent
                        text: qsTr("First")
+                       color: mainColor
                    }
                }
                Item {
                    Text {
                        anchors.centerIn: parent
                        text: qsTr("Second")
+                       color: mainColor
                    }
                }
-               Item {
-                   Text {
-                       anchors.centerIn: parent
-                       text: qsTr("Third")
-                   }
-               }
+
+
            }
 
 
