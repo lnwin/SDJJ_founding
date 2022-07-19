@@ -7,5 +7,6 @@
         <file>SK2level.qml</file>
         <file>SK2machinery.qml</file>
         <file>SK2power.qml</file>
+        <file>SK2button.qml</file>
     </qresource>
 </RCC>

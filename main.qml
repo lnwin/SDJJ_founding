@@ -380,7 +380,6 @@ Window {
             id:cameraButtons
             anchors.leftMargin: 20
             anchors.rightMargin: 20
-
             anchors.fill: parent
             anchors.margins: 7
             spacing: 25
@@ -423,6 +422,7 @@ Window {
                                 font.pixelSize:15
                                 //icon.name: "navigation"
                                 Layout.fillHeight: true
+
             }
 
 
@@ -446,10 +446,11 @@ Window {
                id: bar
                width: parent.width
                height: parent.height
+               currentIndex: 0
                TabButton {
                    font.pixelSize:15
                    text: qsTr("控制界面")
-                  // height: 20
+                  //height: 20
                }
                TabButton {
                    font.pixelSize:15
@@ -463,10 +464,65 @@ Window {
                height: parent.height
                currentIndex: bar.currentIndex  //当前视图的索引
                Item {
-                   Text {
-                       anchors.centerIn: parent
-                       text: qsTr("First")
-                       color: mainColor
+                   ColumnLayout//垂直总布局
+                   {
+                       id:controlColumnLayout
+                       anchors.fill: parent
+                       spacing: 16
+                       //leftMargin:10
+                      // Layout.leftMargin:50
+                       Rectangle
+                       {
+                         id:extensionArm
+                         height: 400
+                         width: 850
+                         Layout.alignment:Qt.AlignCenter
+                         border.color: mainColor
+                         Text {
+                             id: name
+                             text: qsTr("text")
+                         }
+
+                       }
+
+                       Rectangle
+                       {
+                         id:extensionArm_AUTO
+                         height: 400
+                         width: 850
+                         Layout.alignment:Qt.AlignCenter
+
+                       }
+
+
+
+
+                   }
+
+
+
+
+                   SK2button
+                   {
+                       id:sk2
+                       x: 582
+                       y: 187
+                       onMyPress:
+                       {
+                            imageUrl="qrc:/imagines/buttons_press.png"
+                       }
+                       onMyEntered:
+                       {
+
+                           imageUrl="qrc:/imagines/buttons_hoved.png";
+                       }
+                       onMyExited:
+                       {
+                           imageUrl="qrc:/imagines/buttons_normal.png"
+                       }
+
+
+
                    }
                }
                Item {
@@ -475,6 +531,9 @@ Window {
                        text: qsTr("Second")
                        color: mainColor
                    }
+               }
+
+               Item {
                }
 
 
