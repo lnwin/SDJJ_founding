@@ -480,9 +480,61 @@ Window {
                            border.color: mainColor
                            width: 850
                            Layout.alignment:Qt.AlignCenter
-                           Text {
-                               id: name
-                               text: qsTr("text")
+
+
+                           RowLayout
+                           {
+                               anchors.fill: parent
+                               spacing: 50
+
+                           Button {
+                               id: button2
+                               width: 149
+                               height: 70
+                               text: qsTr("扩展臂释放")
+                               font.pointSize: 15
+                               Layout.leftMargin:50
+                           }
+
+                           Button {
+                               id: button3
+
+                               width: 149
+                               height: 70
+                               text: qsTr("扩展臂停")
+                               font.pointSize: 15
+                           }
+
+                           Button {
+                               id: button4
+
+                               width: 149
+                               height: 70
+                               text: qsTr("扩展臂回收")
+                               font.pointSize: 15
+                           }
+                           SK2button
+                           {
+                               id:sk2
+                               width: 80
+                               height: 80
+                               onMyPress:
+                               {
+                                    imageUrl="qrc:/imagines/buttons_press.png"
+                               }
+                               onMyEntered:
+                               {
+
+                                   imageUrl="qrc:/imagines/buttons_hoved.png";
+                               }
+                               onMyExited:
+                               {
+                                   imageUrl="qrc:/imagines/buttons_normal.png"
+                               }
+
+
+
+                           }
                            }
 
                        }
@@ -586,30 +638,7 @@ Window {
 
 
 
-                   SK2button
-                   {
-                       id:sk2
-                       x: 731
-                       y: 21
-                       width: 80
-                       height: 69
-                       onMyPress:
-                       {
-                            imageUrl="qrc:/imagines/buttons_press.png"
-                       }
-                       onMyEntered:
-                       {
 
-                           imageUrl="qrc:/imagines/buttons_hoved.png";
-                       }
-                       onMyExited:
-                       {
-                           imageUrl="qrc:/imagines/buttons_normal.png"
-                       }
-
-
-
-                   }
                }
                Item {
                    Text {
@@ -653,35 +682,7 @@ Window {
         id:camera_obj
     }
 
-    Button {
-        id: button2
-        x: 1110
-        y: 134
-        width: 149
-        height: 54
-        text: qsTr("扩展臂释放")
-        font.pointSize: 15
-    }
 
-    Button {
-        id: button3
-        x: 1353
-        y: 134
-        width: 149
-        height: 54
-        text: qsTr("扩展臂停")
-        font.pointSize: 15
-    }
-
-    Button {
-        id: button4
-        x: 1560
-        y: 134
-        width: 149
-        height: 54
-        text: qsTr("扩展臂回收")
-        font.pointSize: 15
-    }
 
 
 //    Component.onCompleted://CPP-->qml信号槽链接
