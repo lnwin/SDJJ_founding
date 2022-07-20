@@ -22,6 +22,7 @@ Window {
     color: bgColor
     property string bgColor:"#01113a"
     property string mainColor:"#4682B4"
+    property string itemColor:"#98F5FF"
     title: qsTr("abc")
     //====================================================qml 信号槽
     // signal startListening()
@@ -43,7 +44,7 @@ Window {
         height: 43
         text: qsTr("Button")
 
-//                onClicked:
+/*//                onClicked:
 //                ParallelAnimation {
 //                    // We changed gears so we lost a bit of speed.
 //                    NumberAnimation {
@@ -120,7 +121,7 @@ Window {
 //                        easing.type: Easing.Linear //匀
 //                    }
 //                }
-
+*/
 
     }
 
@@ -461,37 +462,120 @@ Window {
         StackLayout {   //栈布局管理器
                anchors.centerIn: parent
                width: parent.width
-               height: parent.height
+               height: parent.height*0.9
                currentIndex: bar.currentIndex  //当前视图的索引
                Item {
                    ColumnLayout//垂直总布局
                    {
                        id:controlColumnLayout
                        anchors.fill: parent
-                       spacing: 16
+                       spacing: 1
                        //leftMargin:10
-                      // Layout.leftMargin:50
-                       Rectangle
+                       // Layout.leftMargin:50
+                       Rectangle//扩展臂释放
                        {
-                         id:extensionArm
-                         height: 400
-                         width: 850
-                         Layout.alignment:Qt.AlignCenter
-                         border.color: mainColor
-                         Text {
-                             id: name
-                             text: qsTr("text")
-                         }
+                           id:extensionArm
+                           height: 100
+                           color: "#00000000"
+                           border.color: mainColor
+                           width: 850
+                           Layout.alignment:Qt.AlignCenter
+                           Text {
+                               id: name
+                               text: qsTr("text")
+                           }
 
                        }
-
-                       Rectangle
+                       Rectangle//扩展臂移动
                        {
-                         id:extensionArm_AUTO
-                         height: 400
+                           id:extensionArm_move
+                           height: 230
+                           color: "#00000000"
+                           border.color: mainColor
+                           width: 850
+                           Layout.alignment:Qt.AlignCenter
+                        RowLayout
+                        {
+                            anchors.fill: parent
+                            spacing: 50
+                           ColumnLayout
+                           {
+                               height: 230
+                               width: 100
+                               spacing: 50
+                               Layout.leftMargin: 20
+                               Text
+                               {
+                                   id: kmu
+                                   text: qsTr("扩展臂上移")
+                                   font.pixelSize: 20
+                                   font.family: "Times New Roman"
+                                   color: itemColor
+                                  // anchors.fill: parent
+                                 //  Layout.preferredWidth: 40
+                                         //  Layout.preferredHeight: 40
+
+
+                               }
+                               Text
+                               {
+                                   id: kmd
+                                   color: itemColor
+                                   text: qsTr("扩展臂下移")
+                                   font.pixelSize: 20
+                                   //anchors.fill: parent
+                                    Layout.alignment: Qt.AlignHCenter
+                                   //Layout.preferredWidth: 40
+                                  // Layout.preferredHeight: 40
+
+
+                               }
+                           }
+                           ColumnLayout
+                           {
+                               id:ss1
+                               height: 230
+                               width: 100
+
+                           }
+                           ColumnLayout
+                           {
+                               id:ss2
+                               height: 230
+                               width: 100
+
+                           }
+                           ColumnLayout
+                           {
+                               id:ss3
+                               height: 230
+                               width: 100
+
+                           }
+
+
+                        }
+
+
+
+                       }
+                       Rectangle//探杆下插
+                       {
+                           id:drill_downup
+                           height: 230
+                           color: "#00000000"
+                           border.color: mainColor
                          width: 850
                          Layout.alignment:Qt.AlignCenter
-
+                       }
+                       Rectangle//探杆自动探测
+                       {
+                           id:extensionArm_AUTO
+                           height: 300
+                           color: "#00000000"
+                           border.color: mainColor
+                         width: 850
+                         Layout.alignment:Qt.AlignCenter
                        }
 
 
@@ -505,8 +589,10 @@ Window {
                    SK2button
                    {
                        id:sk2
-                       x: 582
-                       y: 187
+                       x: 731
+                       y: 21
+                       width: 80
+                       height: 69
                        onMyPress:
                        {
                             imageUrl="qrc:/imagines/buttons_press.png"
@@ -565,6 +651,36 @@ Window {
     CameraDLL
     {
         id:camera_obj
+    }
+
+    Button {
+        id: button2
+        x: 1110
+        y: 134
+        width: 149
+        height: 54
+        text: qsTr("扩展臂释放")
+        font.pointSize: 15
+    }
+
+    Button {
+        id: button3
+        x: 1353
+        y: 134
+        width: 149
+        height: 54
+        text: qsTr("扩展臂停")
+        font.pointSize: 15
+    }
+
+    Button {
+        id: button4
+        x: 1560
+        y: 134
+        width: 149
+        height: 54
+        text: qsTr("扩展臂回收")
+        font.pointSize: 15
     }
 
 
