@@ -23,6 +23,7 @@ Window {
     property string bgColor:"#01113a"
     property string mainColor:"#4682B4"
     property string itemColor:"#98F5FF"
+     property string textColor:"#9AFF9A"
     title: qsTr("abc")
     //====================================================qml 信号槽
     // signal startListening()
@@ -43,8 +44,8 @@ Window {
         width: 68
         height: 43
         text: qsTr("Button")
-
-/*//                onClicked:
+/*
+//                onClicked:
 //                ParallelAnimation {
 //                    // We changed gears so we lost a bit of speed.
 //                    NumberAnimation {
@@ -128,28 +129,6 @@ Window {
 
 
 
-    CircularGauge {
-        id: speedometer
-        x: 865
-        width: 120
-        height: 99
-        value: valueSource.kph
-        minimumValue: -150
-        maximumValue: 150
-        anchors.verticalCenter: parent.verticalCenter
-
-        // We set the width to the height, because the height will always be
-        // the more limited factor. Also, all circular controls letterbox
-        // their contents to ensure that they remain circular. However, we
-        // don't want to extra space on the left and right of our gauges,
-        // because they're laid out horizontally, and that would create
-        // large horizontal gaps between gauges on wide screens.
-        anchors.verticalCenterOffset: 126
-
-        style: AKleveStyle {}
-
-    }
-
     SK2level
     {
         id:pitch
@@ -176,6 +155,8 @@ Window {
         cylinderPressure:valueSource.cylinderPressure
 
 
+
+
     }
 
     SK2power
@@ -184,7 +165,7 @@ Window {
         id:controlP
         x: 573
         y: 177
-        width: 303
+        width: 425
         height: 53
         itemName:"控制电池"
         inputPower:valueSource.controlPower
@@ -198,7 +179,7 @@ Window {
         id:impetusP
         x: 573
         y: 230
-        width: 303
+        width: 425
         height: 53
         itemName:"动力电池"
         inputPower:valueSource.impetusPower
@@ -491,6 +472,10 @@ Window {
                                id: button2
                                width: 149
                                height: 70
+                               icon.width: 30
+                               icon.height: 30
+                               icon.source: "qrc:/imagines/activity-outline.svg"
+                               display: Button.TextUnderIcon
                                text: qsTr("扩展臂释放")
                                font.pointSize: 15
                                Layout.leftMargin:50
@@ -501,7 +486,11 @@ Window {
 
                                width: 149
                                height: 70
-                               text: qsTr("扩展臂停")
+                               icon.width: 30
+                               icon.height: 30
+                               icon.source: "qrc:/imagines/slash-outline.svg"
+                               display: Button.TextUnderIcon
+                               text: qsTr("扩展臂制动")
                                font.pointSize: 15
                            }
 
@@ -510,6 +499,10 @@ Window {
 
                                width: 149
                                height: 70
+                               icon.width: 30
+                               icon.height: 30
+                               icon.source: "qrc:/imagines/undo-outline.svg"
+                               display: Button.TextUnderIcon
                                text: qsTr("扩展臂回收")
                                font.pointSize: 15
                            }
@@ -548,24 +541,26 @@ Window {
                            Layout.alignment:Qt.AlignCenter
                         RowLayout
                         {
-                            anchors.fill: parent
-                            spacing: 50
+                           // anchors.fill: parent
+                            Layout.alignment:Qt.AlignCenter
+                            spacing: 10
                            ColumnLayout
                            {
                                height: 230
                                width: 100
                                spacing: 50
-                               Layout.leftMargin: 20
+                               Layout.leftMargin: 50
+                               Layout.topMargin: 70
                                Text
                                {
                                    id: kmu
-                                   text: qsTr("扩展臂上移")
+                                   text: qsTr("扩展臂上移距离(mm):")
                                    font.pixelSize: 20
-                                   font.family: "Times New Roman"
+                                  // font.family: "Times New Roman"
                                    color: itemColor
                                   // anchors.fill: parent
-                                 //  Layout.preferredWidth: 40
-                                         //  Layout.preferredHeight: 40
+                                  //  Layout.preferredWidth: 40
+                                  //  Layout.preferredHeight: 40
 
 
                                }
@@ -573,12 +568,12 @@ Window {
                                {
                                    id: kmd
                                    color: itemColor
-                                   text: qsTr("扩展臂下移")
+                                   text: qsTr("扩展臂下移距离(mm):")
                                    font.pixelSize: 20
                                    //anchors.fill: parent
                                     Layout.alignment: Qt.AlignHCenter
                                    //Layout.preferredWidth: 40
-                                  // Layout.preferredHeight: 40
+                                   // Layout.preferredHeight: 40
 
 
                                }
@@ -587,7 +582,35 @@ Window {
                            {
                                id:ss1
                                height: 230
-                               width: 100
+                               width: 20
+                               spacing: 50
+                               Layout.topMargin: 70
+                               TextField {
+                                   id: kmu_numb
+                                   x: 361
+                                   y: 16
+                                   width: 77
+                                   height: 34
+                                   font.pixelSize: 18
+                                   font.bold: true
+                                   color: textColor
+                                   placeholderText: qsTr("_______")
+                               }
+                               TextField {
+                                   id: kmd_numb
+                                   x: 361
+                                   y: 16
+                                   width: 77
+                                   height: 34
+                                   font.bold: true
+                                   color: textColor
+                                   font.pixelSize: 18
+                                   placeholderText: qsTr("_______")
+                               }
+
+
+
+
 
                            }
                            ColumnLayout
@@ -595,6 +618,26 @@ Window {
                                id:ss2
                                height: 230
                                width: 100
+                               spacing: 30
+                               Layout.topMargin: 70
+                               Layout.leftMargin: 10
+                               Button {
+                                   id: kmu_button
+
+                                  width: 149
+                                   height: 20
+                                   icon.source: "qrc:/imagines/arrow-circle-up-outline.svg"
+                                   text: qsTr("上移")
+                                   font.pointSize: 15
+                               }
+                               Button {
+                                   id: kmd_button
+                                   width: 149
+                                   height: 50
+                                   icon.source: "qrc:/imagines/arrow-circle-down-outline.svg"
+                                   text: qsTr("下移")
+                                   font.pointSize: 15
+                               }
 
                            }
                            ColumnLayout
@@ -602,6 +645,19 @@ Window {
                                id:ss3
                                height: 230
                                width: 100
+                               Layout.topMargin: 70
+                               Button {
+                                   id: kmd_stop
+                                   width: 149
+                                   height: 50
+                                   text: qsTr("停止")
+                                   icon.source: "qrc:/imagines/close-circle-outline.svg"
+                                   icon.width: 50
+                                   icon.height: 50
+                                   display: Button.TextUnderIcon
+                                   Layout.fillHeight: true
+                                   font.pointSize: 15
+                               }
 
                            }
 
@@ -617,8 +673,128 @@ Window {
                            height: 230
                            color: "#00000000"
                            border.color: mainColor
-                         width: 850
-                         Layout.alignment:Qt.AlignCenter
+                           width: 850
+                           Layout.alignment:Qt.AlignCenter
+                           RowLayout
+                           {
+                              // anchors.fill: parent
+                               Layout.alignment:Qt.AlignCenter
+                               spacing: 10
+                              ColumnLayout
+                              {
+                                  height: 230
+                                  width: 100
+                                  spacing: 50
+                                  Layout.leftMargin: 50
+                                  Layout.topMargin: 70
+                                  Text
+                                  {
+                                      id: tgu
+                                      text: qsTr("探杆上移距离(mm):")
+                                      font.pixelSize: 20
+                                     // font.family: "Times New Roman"
+                                      color: itemColor
+                                     // anchors.fill: parent
+                                     //  Layout.preferredWidth: 40
+                                     //  Layout.preferredHeight: 40
+
+
+                                  }
+                                  Text
+                                  {
+                                      id: tgd
+                                      color: itemColor
+                                      text: qsTr("探杆下移距离(mm):")
+                                      font.pixelSize: 20
+                                      //anchors.fill: parent
+                                       Layout.alignment: Qt.AlignHCenter
+                                      //Layout.preferredWidth: 40
+                                      // Layout.preferredHeight: 40
+
+
+                                  }
+                              }
+                              ColumnLayout
+                              {
+                                  id:s1
+                                  height: 230
+                                  width: 20
+                                  spacing: 50
+                                  Layout.topMargin: 70
+                                  Layout.leftMargin: 20
+                                  TextField {
+                                      id: tgu_numb
+                                      x: 361
+                                      y: 16
+                                      width: 77
+                                      height: 34
+                                      font.pixelSize: 18
+                                      font.bold: true
+                                      color: textColor
+                                      placeholderText: qsTr("_______")
+                                  }
+                                  TextField {
+                                      id: tgd_numb
+                                      x: 361
+                                      y: 16
+                                      width: 77
+                                      height: 34
+                                      font.bold: true
+                                      color: textColor
+                                      font.pixelSize: 18
+                                      placeholderText: qsTr("_______")
+                                  }
+                              }
+                              ColumnLayout
+                              {
+                                  id:s2
+                                  height: 230
+                                  width: 100
+                                  spacing: 30
+                                  Layout.topMargin: 70
+                                  Layout.leftMargin: 10
+                                  Button {
+                                      id: tgu_button
+
+                                      width: 149
+                                      height: 20
+                                      icon.source: "qrc:/imagines/arrowhead-up-outline.svg"
+                                      text: qsTr("上提")
+                                      font.pointSize: 15
+                                  }
+                                  Button {
+                                      id: tgd_button
+                                      width: 149
+                                      height: 50
+                                      icon.source: "qrc:/imagines/arrowhead-down-outline.svg"
+                                      text: qsTr("下插")
+                                      font.pointSize: 15
+                                  }
+
+                              }
+                              ColumnLayout
+                              {
+                                  id:s3
+                                  height: 230
+                                  width: 100
+                                  Layout.topMargin: 70
+                                  Button {
+                                      id: tgu_stop
+                                      width: 149
+                                      height: 50
+                                      icon.source: "qrc:/imagines/close-circle-outline.svg"
+                                      icon.width: 50
+                                      icon.height: 50
+                                      display: Button.TextUnderIcon
+                                      text: qsTr("停止")
+                                      Layout.fillHeight: true
+                                      font.pointSize: 15
+                                  }
+
+                              }
+
+                           }
+
                        }
                        Rectangle//探杆自动探测
                        {
@@ -628,6 +804,108 @@ Window {
                            border.color: mainColor
                          width: 850
                          Layout.alignment:Qt.AlignCenter
+                         RowLayout
+                         {
+                         ColumnLayout
+                         {
+                             height: 230
+                             width: 100
+                             spacing: 50
+                             Layout.leftMargin: 50
+                             Layout.topMargin: 70
+                             Text
+                             {
+                                 id: xcjl
+                                 text: qsTr("探杆下插距离(mm):")
+                                 font.pixelSize: 20
+                                // font.family: "Times New Roman"
+                                 color: itemColor
+                                // anchors.fill: parent
+                                //  Layout.preferredWidth: 40
+                                //  Layout.preferredHeight: 40
+
+
+                             }
+                             Text
+                             {
+                                 id: stepA
+                                 color: itemColor
+                                 text: qsTr("探杆下插步长(mm):")
+                                 font.pixelSize: 20
+                                 //anchors.fill: parent
+                                 //Layout.preferredWidth: 40
+                                 // Layout.preferredHeight: 40
+
+
+                             }
+                             Text
+                             {
+                                 id: sxml
+                                 color: itemColor
+                                 text: qsTr("声学命令选择:")
+                                 font.pixelSize: 20
+                                 //anchors.fill: parent
+                                 //Layout.preferredWidth: 40
+                                 // Layout.preferredHeight: 40
+
+
+                             }
+                         }
+                         ColumnLayout
+                         {
+                             id:s4
+                             height: 230
+                             width: 20
+                             spacing: 50
+                             Layout.topMargin: 70
+                             Layout.leftMargin: 20
+                             TextField {
+                                 id: atgjl
+                                 x: 361
+                                 y: 16
+                                 width: 77
+                                 height: 34
+                                 font.pixelSize: 18
+                                 font.bold: true
+                                 color: textColor
+                                 placeholderText: qsTr("_______")
+                             }
+                             TextField {
+                                 id: atgjl_bc
+                                 x: 361
+                                 y: 16
+                                 width: 77
+                                 height: 34
+                                 font.bold: true
+                                 color: textColor
+                                 font.pixelSize: 18
+                                 placeholderText: qsTr("_______")
+                             }
+                             ComboBox
+                             {
+
+                                  editable: false
+                                  width: 77
+                                  height: 34
+                                //  font.pointSize: 15
+                                  enabled: true
+                                  focusPolicy: Qt.ClickFocus
+
+                                  model:[1,2,3,4,5,6,7,8,9]
+
+                                             onActivated: {
+                                                 console.log(displayText)
+                                             }
+                             }
+                         }
+
+
+
+
+                 }
+
+
+
                        }
 
 

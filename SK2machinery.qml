@@ -287,15 +287,15 @@ Item {
                 ctx.fillText(ldgd.arg(ldgdt_value),base_mid_x+toPixels(0.3),base_mid_y+distance2Base+toPixels(0.3))
                 ctx.fillStyle=itemColor
                 ctx.textAlign="center";
-                ctx.font="17px Arial"
-                ctx.fillText(String("入水深度:"),dianjiCenter_x+toPixels(0.5),dianjikuangjialeft_y-toPixels(1.2))
+                ctx.font="20px Arial"
+                ctx.fillText(String("入水深度:"),dianjiCenter_x+toPixels(0.5),dianjikuangjialeft_y-toPixels(1.4))
                 ctx.fillStyle=textColor
                 ctx.textAlign="left";
                 var rssd = "%1m"
                 var rssd_text = waterDepth.toFixed(0)
                 ctx.font="25px Arial"
                // console.log(message.arg(count))
-                ctx.fillText(rssd.arg(rssd_text),dianjiCenter_x+toPixels(0.65),dianjikuangjialeft_y-toPixels(1.2))
+                ctx.fillText(rssd.arg(rssd_text),dianjiCenter_x+toPixels(0.7),dianjikuangjialeft_y-toPixels(1.4))
 
 
                 //=========================================画布边框

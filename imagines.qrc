@@ -26,5 +26,15 @@
         <file>imagines/buttons_normal.png</file>
         <file>imagines/buttons_press.png</file>
         <file>imagines/buttons_PNG127.png</file>
+        <file>imagines/arrow-circle-down-outline.svg</file>
+        <file>imagines/arrow-circle-left-outline.svg</file>
+        <file>imagines/arrow-circle-right-outline.svg</file>
+        <file>imagines/arrow-circle-up-outline.svg</file>
+        <file>imagines/close-circle-outline.svg</file>
+        <file>imagines/arrowhead-down-outline.svg</file>
+        <file>imagines/arrowhead-up-outline.svg</file>
+        <file>imagines/activity-outline.svg</file>
+        <file>imagines/slash-outline.svg</file>
+        <file>imagines/undo-outline.svg</file>
     </qresource>
 </RCC>
