@@ -2,13 +2,10 @@
     <qresource prefix="/">
         <file>imagines/button-background-checked-hovered.9.png</file>
         <file>imagines/button-background-checked-hovered@2x.9.png</file>
-        <file>imagines/button-background-checked.9.png</file>
-        <file>imagines/button-background-checked@2x.9.png</file>
         <file>imagines/button-background-hovered.9.png</file>
         <file>imagines/button-background-hovered@2x.9.png</file>
         <file>imagines/button-background-pressed.9.png</file>
         <file>imagines/button-background-pressed@2x.9.png</file>
-        <file>imagines/button-background.9.png</file>
         <file>imagines/button-background@2x.9.png</file>
         <file>imagines/rect1798.png</file>
         <file>imagines/tabbutton-background@2x.9 .png</file>
@@ -21,8 +18,6 @@
         <file>imagines/tabbutton-background-hovered@2x.9.png</file>
         <file>imagines/tabbutton-background-pressed.9.png</file>
         <file>imagines/tabbutton-background-pressed@2x.9.png</file>
-        <file>imagines/1.jpg</file>
-        <file>imagines/buttons_hoved.png</file>
         <file>imagines/buttons_normal.png</file>
         <file>imagines/buttons_press.png</file>
         <file>imagines/buttons_PNG127.png</file>
@@ -36,5 +31,17 @@
         <file>imagines/activity-outline.svg</file>
         <file>imagines/slash-outline.svg</file>
         <file>imagines/undo-outline.svg</file>
+        <file>imagines/button-background-checked.9.png</file>
+        <file>imagines/button-background-checked@2x.9.png</file>
+        <file>imagines/combobox-background-hovered.9.png</file>
+        <file>imagines/combobox-background-hovered@2x.9.png</file>
+        <file>imagines/combobox-background-pressed.9.png</file>
+        <file>imagines/combobox-background-pressed@2x.9.png</file>
+        <file>imagines/combobox-popup.9.png</file>
+        <file>imagines/combobox-popup-editable.9.png</file>
+        <file>imagines/combobox-background-open.9.png</file>
+        <file>imagines/combobox-background.9.png</file>
+        <file>imagines/button-background.9.png</file>
+        <file>imagines/shake-outline.svg</file>
     </qresource>
 </RCC>

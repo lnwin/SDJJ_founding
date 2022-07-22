@@ -270,6 +270,20 @@ Window {
             ctx.lineTo(460, 206);
             ctx.stroke();
 
+//            var grd2=ctx.createLinearGradient(865, 40, 1000, 40);
+//            grd2.addColorStop(0,color);
+//            grd2.addColorStop(0.5,mainColor);
+//            grd2.addColorStop(1,color);
+//            // 将渐变赋值给线的样式
+//            ctx.strokeStyle=grd2;
+//            // 设置线的宽度
+//            ctx.lineWidth = 10;
+//            // 绘制线
+//            ctx.beginPath();
+//            ctx.moveTo(865, 40);
+//            ctx.lineTo(1000, 40);
+//            ctx.stroke();
+
         }
     }
 
@@ -458,7 +472,7 @@ Window {
                            id:extensionArm
                            height: 100
                            color: "#00000000"
-                           border.color: mainColor
+                          // border.color: mainColor
                            width: 850
                            Layout.alignment:Qt.AlignCenter
 
@@ -536,7 +550,7 @@ Window {
                            id:extensionArm_move
                            height: 230
                            color: "#00000000"
-                           border.color: mainColor
+                          // border.color: mainColor
                            width: 850
                            Layout.alignment:Qt.AlignCenter
                         RowLayout
@@ -672,7 +686,7 @@ Window {
                            id:drill_downup
                            height: 230
                            color: "#00000000"
-                           border.color: mainColor
+                          // border.color: mainColor
                            width: 850
                            Layout.alignment:Qt.AlignCenter
                            RowLayout
@@ -801,7 +815,7 @@ Window {
                            id:extensionArm_AUTO
                            height: 300
                            color: "#00000000"
-                           border.color: mainColor
+                          // border.color: mainColor
                          width: 850
                          Layout.alignment:Qt.AlignCenter
                          RowLayout
@@ -883,22 +897,56 @@ Window {
                              }
                              ComboBox
                              {
-
+                                  id:comID
+                         //         x:900
+                         //         y:800
+                                  width: 100
+                                  height: 30
+                                  Layout.fillWidth: true
                                   editable: false
-                                  width: 77
-                                  height: 34
-                                //  font.pointSize: 15
+                                  flat: false
+                                  clip: true
+                                //clip: true
+                                  visible: true
+                                  font.pixelSize: 15
+                                  popup.font.pixelSize: 15//下拉菜单字体大小
+                                  popup.topPadding:33 //距离选定数字的距离，必须设置
+                                  popup.margins: 20
                                   enabled: true
                                   focusPolicy: Qt.ClickFocus
-
-                                  model:[1,2,3,4,5,6,7,8,9]
+                                  model:["1号","2号","3号","4号","5号"]
 
                                              onActivated: {
                                                  console.log(displayText)
+                                                 console.log(index)
                                              }
                              }
+
                          }
 
+                         ColumnLayout
+                         {
+                             id:s5
+                             height: 230
+                             width: 20
+                             spacing: 50
+                             Layout.topMargin: 70
+                             Layout.leftMargin: 20
+                             Button {
+                                id: atoD1
+                                width: 149
+                                 height: 20
+                                 Layout.fillHeight: true
+                                 icon.source: "qrc:/imagines/shake-outline.svg"
+                                 icon.width: 50
+                                 icon.height: 50
+                                 display: Button.TextUnderIcon
+                                 text: qsTr("开始自动探测")
+                                 font.pointSize: 15
+                             }
+
+
+                         }
 
 
 
@@ -913,7 +961,70 @@ Window {
 
                    }
 
+                   Canvas
+                   {
 
+                       id:textLine1
+                       //parent: textArea
+                       // width: parent.width
+                       //height:parent.height
+                       x: 0
+                       y: 0
+                       width: 850
+                       height: 900
+                       layer.enabled: true
+                       enabled: false
+
+                       onPaint:
+                       {
+
+                           var ctx = textLine1.getContext('2d');
+                           var grd2=ctx.createLinearGradient(10, 130, 850, 130);
+                           grd2.addColorStop(0,color);
+                           grd2.addColorStop(0.5,mainColor);
+                           grd2.addColorStop(1,color);
+                           // 将渐变赋值给线的样式
+                           ctx.strokeStyle=grd2;
+                           // 设置线的宽度
+                           ctx.lineWidth = 3;
+                           // 绘制线
+                           ctx.beginPath();
+                           ctx.moveTo(10, 130);
+                           ctx.lineTo(850, 130);
+                           ctx.stroke();
+
+
+                           var grd3=ctx.createLinearGradient(10, 350, 850, 350);
+                           grd3.addColorStop(0,color);
+                           grd3.addColorStop(0.5,mainColor);
+                           grd3.addColorStop(1,color);
+                           // 将渐变赋值给线的样式
+                           ctx.strokeStyle=grd3;
+                           // 设置线的宽度
+                           ctx.lineWidth = 3;
+                           // 绘制线
+                           ctx.beginPath();
+                           ctx.moveTo(10, 350);
+                           ctx.lineTo(850, 350);
+                           ctx.stroke();
+
+
+                           var grd4=ctx.createLinearGradient(10, 570, 850, 570);
+                           grd4.addColorStop(0,color);
+                           grd4.addColorStop(0.5,mainColor);
+                           grd4.addColorStop(1,color);
+                           // 将渐变赋值给线的样式
+                           ctx.strokeStyle=grd4;
+                           // 设置线的宽度
+                           ctx.lineWidth = 3;
+                           // 绘制线
+                           ctx.beginPath();
+                           ctx.moveTo(10, 570);
+                           ctx.lineTo(850, 570);
+                           ctx.stroke();
+
+                       }
+                   }
 
 
 
