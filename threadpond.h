@@ -19,7 +19,23 @@ public:
    Q_INVOKABLE void socket_Listing();
    Q_INVOKABLE void getwaveMSGFromQml(waveMSG val);
   // Q_INVOKABLE void getcontrolMSGFromSocket(controlMSG val);
+
+    Q_INVOKABLE void TGup(double length);
+    Q_INVOKABLE void TGstop();
+    Q_INVOKABLE void TGdown(double length);
+
+    Q_INVOKABLE void Armrelease();
+    Q_INVOKABLE void Armstop();
+    Q_INVOKABLE void Armrecover();
+
+    Q_INVOKABLE void Armmoveup(double length);
+    Q_INVOKABLE void Armmovestop();
+    Q_INVOKABLE void Armmovedown(double length);
+
+
+
    Q_INVOKABLE void crctest();
+
 
 
 signals:
@@ -30,6 +46,10 @@ signals:
     void sendcontrolMSG2QML(monitoredMSG mMSG);
     void sendWaveControlMsg();
     void readWaveFile();
+
+    void sendTGMSG2Socket(double type,double length);
+    void sendArmMSG2Socket(double type);
+    void sendArmMoveMSG2sOCKET(double type,double length);
 
 //Q_SIGNALS:
 //    void sendSocketState2QML(QString);

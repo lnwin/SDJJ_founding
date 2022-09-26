@@ -428,8 +428,6 @@ Window {
 
         }
 
-
-
     }
 
     Rectangle {
@@ -1051,7 +1049,6 @@ Window {
 
     }
 
-
 //===================================================
 
     ThreadDLL
@@ -1080,19 +1077,12 @@ Window {
         id:camera_obj
     }
 
-
-
-
 //    Component.onCompleted://CPP-->qml信号槽链接
 //    {
 
 //       threadPond_obj.onSendSocketState2QML.connect(send_netstatus) //触发函数的第一个字母必须大写。
 
 //    }
-
-
-
-
 
 }
 

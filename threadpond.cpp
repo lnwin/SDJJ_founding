@@ -46,6 +46,60 @@ void threadPond::getwaveMSGFromQml(waveMSG sk)
 }
 
 
+void threadPond::TGup(double length)
+{
+
+};
+void threadPond::TGdown(double length)
+{
+
+};
+void threadPond::TGstop()
+{
+
+};
+void threadPond::Armrelease()
+{
+
+};
+void threadPond::Armstop()
+{
+
+};
+void threadPond::Armrecover()
+{
+
+};
+
+
+void threadPond::Armmoveup(double length)
+{
+
+};
+void threadPond:: Armmovestop()
+{
+
+};
+void threadPond::Armmovedown(double length)
+{
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void threadPond::crctest()
 {
