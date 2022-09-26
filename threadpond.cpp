@@ -7,6 +7,7 @@ threadPond::threadPond()
 
     connect(this,SIGNAL(startListing()),SK2,SLOT(start_listening()));
     connect(SK2,SIGNAL(sendSocketState2T(QString)),this,SLOT(getSocketState(QString)));
+    connect(SK2,SIGNAL(sendcontrolMSG2T(monitoredMSG)),this,SLOT(getcontrolMSGFromSocket(monitoredMSG)));
     SK2->moveToThread(socketThread);
     socketThread->start();
 
@@ -34,10 +35,18 @@ void threadPond::getSocketState(QString msg)
    emit sendSocketState2QML(msg);
 }
 
+void threadPond::getcontrolMSGFromSocket(monitoredMSG val)
+{
+    emit sendcontrolMSG2QML(val);
+}
+
 void threadPond::getwaveMSGFromQml(waveMSG sk)
 {
     qDebug()<<"skwan="<< sk.wave_Number ;
 }
+
+
+
 void threadPond::crctest()
 {
     // 01 06 01 01 FF FF 46 D8  //打开
@@ -46,7 +55,7 @@ void threadPond::crctest()
      t1[0]=0x01;
      t1[1]=0x80;
      t1[2]=0x01;
-     t1[3]=0x0a;
+     t1[3]=0x0A;
      t1[4]=0x13;
      t1[5]=0x0f;
      t1[6]=0x05;
@@ -55,11 +64,6 @@ void threadPond::crctest()
      dd[0]=0x46;
      dd[1]=0xd8;
 //16进制转换
-
-     QByteArray controlDataforcheck=t1.remove(6,2);
-
-
-
      uint16_t skk=jdks->ModbusCRC16(t1);
      qDebug()<<"crctest=="<<skk;
      qDebug()<<"crctest=="<<QString::number(skk,16);

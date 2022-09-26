@@ -22,6 +22,7 @@ public:
     QThread *socketThread;
 signals:
   void sendSocketState2T(QString);
+  void sendcontrolMSG2T(controlMSG val);
 public slots:
     void socket_Int();
     bool socket_Listening();    

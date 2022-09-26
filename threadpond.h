@@ -18,13 +18,16 @@ public:
    Q_INVOKABLE void socket_Init();
    Q_INVOKABLE void socket_Listing();
    Q_INVOKABLE void getwaveMSGFromQml(waveMSG val);
+  // Q_INVOKABLE void getcontrolMSGFromSocket(controlMSG val);
    Q_INVOKABLE void crctest();
+
 
 signals:
 
     void startInit();
     void startListing();
     void sendSocketState2QML(QString ssMsg);
+    void sendcontrolMSG2QML(monitoredMSG mMSG);
     void sendWaveControlMsg();
     void readWaveFile();
 
@@ -33,6 +36,7 @@ signals:
 
 public slots:
     void getSocketState(QString);
+    void getcontrolMSGFromSocket(monitoredMSG val);
 
 public:
    socket_SYS *SK2;

@@ -1066,6 +1066,10 @@ Window {
 
 
       }
+      onSendcontrolMSG2QML://传感器参数接收
+      {
+          mMSG.control_Power;
+      }
 
 
 
