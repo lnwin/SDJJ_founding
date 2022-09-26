@@ -18,6 +18,7 @@ public:
    Q_INVOKABLE void socket_Init();
    Q_INVOKABLE void socket_Listing();
    Q_INVOKABLE void getwaveMSGFromQml(waveMSG val);
+   Q_INVOKABLE void crctest();
 
 signals:
 
@@ -39,6 +40,8 @@ public:
    waveMSG  wmsg;
    controlMSG conmsg;
    monitoredMSG monmsg;
+   crc *jdks;
+
 //   waveMSG getWmsg()
 //   {
 //       return wmsg ;

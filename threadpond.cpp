@@ -36,5 +36,36 @@ void threadPond::getSocketState(QString msg)
 
 void threadPond::getwaveMSGFromQml(waveMSG sk)
 {
+    qDebug()<<"skwan="<< sk.wave_Number ;
+}
+void threadPond::crctest()
+{
+    // 01 06 01 01 FF FF 46 D8  //打开
+     jdks=new crc();
+     QByteArray t1;
+     t1[0]=0x01;
+     t1[1]=0x80;
+     t1[2]=0x01;
+     t1[3]=0x0a;
+     t1[4]=0x13;
+     t1[5]=0x0f;
+     t1[6]=0x05;
+     t1[7]=0x01;
+     QByteArray dd;
+     dd[0]=0x46;
+     dd[1]=0xd8;
+//16进制转换
+
+     QByteArray controlDataforcheck=t1.remove(6,2);
+
+
+
+     uint16_t skk=jdks->ModbusCRC16(t1);
+     qDebug()<<"crctest=="<<skk;
+     qDebug()<<"crctest=="<<QString::number(skk,16);
+     qDebug()<<"crctest=="<<dd.toHex().toInt(0,16);
+//16进制转换
+
+
 
 }

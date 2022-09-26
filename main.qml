@@ -39,90 +39,90 @@ Window {
 
     Button {
         id: button
-        x: 940
-        y: 533
-        width: 68
-        height: 43
+        x: 949
+        y: 194
+        width: 49
+        height: 20
         text: qsTr("Button")
-/*
-//                onClicked:
-//                ParallelAnimation {
-//                    // We changed gears so we lost a bit of speed.
-//                    NumberAnimation {
-//                        target: valueSource           //动画应用于目标对象
-//                         property: "kph"               //y轴方向的运动
-//                         from:30
-//                         to: 50
-//                         duration: 1000              //运动时间为3秒
-//                         // loops:10                    //运动为10个周期
-//                         easing.type: Easing.Linear //匀
-//                    }
-//                    NumberAnimation {
-//                        target: valueSource
-//                        property: "agr"
-//                       // easing.type: Easing.InOutSine
-//                        from: 0
-//                        to: 30.5
-//                        duration: 1000
-//                        easing.type: Easing.Linear //匀
-//                    }
-//                    NumberAnimation {
-//                        target: valueSource
-//                        property: "movelength"
-//                       // easing.type: Easing.InOutSine
-//                        from: 50
-//                        to: 300
-//                        duration: 1000
-//                        easing.type: Easing.Linear //匀
-//                    }
-//                    NumberAnimation {
-//                        target: valueSource
-//                        property: "rotateAngle"
-//                       // easing.type: Easing.InOutSine
-//                        from: 0
-//                        to: 90
-//                        duration: 1000
-//                        easing.type: Easing.Linear //匀
-//                    }
 
-//                    NumberAnimation {
-//                        target: valueSource
-//                        property: "pushLength"
-//                       // easing.type: Easing.InOutSine
-//                        from: 0
-//                        to: 10
-//                        duration: 1000
-//                        easing.type: Easing.Linear //匀
-//                    }
-//                    NumberAnimation {
-//                        target: valueSource
-//                        property: "distance2Base"
-//                       // easing.type: Easing.InOutSine
-//                        from: 100
-//                        to: 0
-//                        duration: 1000
-//                        easing.type: Easing.Linear //匀
-//                    }
-//                    NumberAnimation {
-//                        target: valueSource
-//                        property: "controlPower"
-//                       // easing.type: Easing.InOutSine
-//                        from: 100
-//                        to: 30
-//                        duration: 1000
-//                        easing.type: Easing.Linear //匀
-//                    }
-//                    NumberAnimation {
-//                        target: valueSource
-//                        property: "impetusPower"
-//                       // easing.type: Easing.InOutSine
-//                        from: 100
-//                        to: 70
-//                        duration: 1000
-//                        easing.type: Easing.Linear //匀
-//                    }
-//                }
-*/
+                onClicked:
+                ParallelAnimation {
+                    // We changed gears so we lost a bit of speed.
+                    NumberAnimation {
+                        target: valueSource           //动画应用于目标对象
+                         property: "kph"               //y轴方向的运动
+                         from:30
+                         to: 50
+                         duration: 3000              //运动时间为3秒
+                         // loops:10                    //运动为10个周期
+                         easing.type: Easing.Linear //匀
+                    }
+                    NumberAnimation {
+                        target: valueSource
+                        property: "agr"
+                       // easing.type: Easing.InOutSine
+                        from: 0
+                        to: 30.5
+                        duration: 3000
+                        easing.type: Easing.Linear //匀
+                    }
+                    NumberAnimation {
+                        target: valueSource
+                        property: "movelength"
+                       // easing.type: Easing.InOutSine
+                        from: 50
+                        to: 300
+                        duration: 3000
+                        easing.type: Easing.Linear //匀
+                    }
+                    NumberAnimation {
+                        target: valueSource
+                        property: "rotateAngle"
+                       // easing.type: Easing.InOutSine
+                        from: 0
+                        to: 90
+                        duration: 3000
+                        easing.type: Easing.Linear //匀
+                    }
+
+                    NumberAnimation {
+                        target: valueSource
+                        property: "pushLength"
+                       // easing.type: Easing.InOutSine
+                        from: 0
+                        to: 10
+                        duration: 3000
+                        easing.type: Easing.Linear //匀
+                    }
+                    NumberAnimation {
+                        target: valueSource
+                        property: "distance2Base"
+                       // easing.type: Easing.InOutSine
+                        from: 100
+                        to: 0
+                        duration: 3000
+                        easing.type: Easing.Linear //匀
+                    }
+                    NumberAnimation {
+                        target: valueSource
+                        property: "controlPower"
+                       // easing.type: Easing.InOutSine
+                        from: 100
+                        to: 30
+                        duration: 3000
+                        easing.type: Easing.Linear //匀
+                    }
+                    NumberAnimation {
+                        target: valueSource
+                        property: "impetusPower"
+                       // easing.type: Easing.InOutSine
+                        from: 100
+                        to: 70
+                        duration: 3000
+                        easing.type: Easing.Linear //匀
+                    }
+                }
+
 
     }
 
@@ -203,6 +203,7 @@ Window {
         y: 23
         width: 142
         height: 130
+         itemName:"Roll"
     }
 
     SK2level {
@@ -211,6 +212,7 @@ Window {
         y: 23
         width: 143
         height: 130
+        itemName:"Yaw"
     }
 
     TextArea {
@@ -392,10 +394,12 @@ Window {
                                 {
                                    threadPond_obj.socket_Listing()
                                    var sk=threadPond_obj.wmsg;
-                                   sk.Max=100;
+                                   sk.wave_Number=100;
                                    //threadPond_obj.wmsg.min=225
-                                    threadPond_obj.getwaveMSGFromQml(sk);//传递参数到C++
-                                   console.log(sk.Max)
+                                   threadPond_obj.getwaveMSGFromQml(sk);//传递参数到C++
+                                   console.log(sk.wave_Number)
+
+                                    threadPond_obj.crctest();
 
                                 }
 
@@ -1053,7 +1057,8 @@ Window {
     ThreadDLL
     {
       id:threadPond_obj
-      onSendSocketState2QML:
+
+      onSendSocketState2QML://CPP 信号函数
       {
 
 

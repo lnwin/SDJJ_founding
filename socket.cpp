@@ -127,6 +127,16 @@ void socket_SYS::start_listening()
 void socket_SYS::wave_socket_Read_Data()
 {
     QByteArray waveData = waveClient->readAll();
+
+    QByteArray waveDataC1;
+    waveDataC1[0]= waveData.at(6);
+    waveDataC1[1]= waveData.at(7);
+    int C1=waveDataC1.toHex().toInt(0,16);
+    QByteArray waveDataforcheck=waveData.remove(6,2);
+    uint16_t C2=CRC->ModbusCRC16(waveDataforcheck);
+
+
+
     qDebug()<<"waveData";
 }
 void socket_SYS::wave_socket_Disconnected()
@@ -136,7 +146,25 @@ void socket_SYS::wave_socket_Disconnected()
 void socket_SYS::control_socket_Read_Data()
 {
     QByteArray controlData = controlClient->readAll();
-    qDebug()<<"controlData";
+    QByteArray controlDataC1;
+    controlDataC1[0]= controlData.at(6);
+    controlDataC1[1]= controlData.at(7);
+    int C1=controlDataC1.toHex().toInt(0,16);
+    QByteArray controlDataforcheck=controlData.remove(6,2);
+    uint16_t C2=CRC->ModbusCRC16(controlDataforcheck);
+
+
+    if(C1==C2)
+    {
+
+    }
+
+    else
+    {
+
+    }
+
+
 }
 void socket_SYS::control_socket_Disconnected()
 {
