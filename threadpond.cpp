@@ -132,14 +132,16 @@ void threadPond::crctest()
      t1[6]=0x05;
      t1[7]=0x01;
      QByteArray dd;
-     dd[0]=0x46;
-     dd[1]=0xd8;
+     dd[0]=0x1f;
+     dd[1]=0x1f;
 
 //16进制转换
-     uint16_t skk=jdks->ModbusCRC16(t1);
-     dd.append(skk);
-     qDebug()<<"crctest=="<<skk;
-     qDebug()<<"crctest=="<<QString::number(skk,16);
+//     int aal=1000;
+//     dd[0]=aal>>8;
+//     dd[1]=(aal<<8)>>8;
+
+     qDebug()<<"crctest=="<< dd.toHex().toInt() ;
+     //qDebug()<<"crctest=="<<QString::number(skk,16);
      qDebug()<<"crctest=="<<QString::number(dd[2],16) ;
      qDebug()<<"crctest=="<<QString::number(dd[3],16) ;
 //16进制转换

@@ -25,8 +25,36 @@ Window {
     property string itemColor:"#98F5FF"
      property string textColor:"#9AFF9A"
     title: qsTr("abc")
-    //====================================================qml 信号槽
-    // signal startListening()
+    //====================================================qml 信号槽   仪表盘中转值
+
+   // property var  kphPreviously:50
+    property var  pitchPreviously:0
+    property var  rollPreviously:0
+    property var  yawPreviously:0
+    property var  movelengthPreviously:0
+    property var  rotateAnglePreviously:0
+    property var  pushLengthPreviously:0
+    property var  distance2BasePreviously:100
+    property var  controlPowerPreviously:0
+    property var  depthPreviously:0
+    property var transducerPressurePreviously:0
+    property var cylinderPressurePreviously:100
+
+
+   // property var  kphNow:50
+    property var  pitchNow:0
+    property var  rollNow:0
+    property var  yawNow:0
+    property var  movelengthNow:0
+    property var  rotateAngleNow:0
+    property var  pushLengthNow:0
+    property var  distance2BaseNow:100
+    property var  controlPowerNow:0
+    property var  depthNow:0
+    property var transducerPressureNow:0
+    property var cylinderPressureNow:100
+    //var kphPreviously=0
+
     //====================================================qml 信号槽
 
     ValueSource
@@ -34,7 +62,109 @@ Window {
         id: valueSource
     }
 
+    ParallelAnimation {
 
+        id:mainCarton
+        NumberAnimation {
+            target: valueSource
+            property: "pitch"
+           // easing.type: Easing.InOutSine //仪表盘
+            from: pitchPreviously
+            to: pitchNow
+            duration: 1000
+            easing.type: Easing.Linear //匀
+
+        }
+        NumberAnimation {
+            target: valueSource
+            property: "roll"
+           // easing.type: Easing.InOutSine //仪表盘
+            from: rollPreviously
+            to: rollNow
+            duration: 1000
+            easing.type: Easing.Linear //匀
+        }
+        NumberAnimation {
+            target: valueSource
+            property: "yaw"
+           // easing.type: Easing.InOutSine //仪表盘
+            from: yawPreviously
+            to: yawNow
+            duration: 1000
+            easing.type: Easing.Linear //匀
+        }
+        NumberAnimation {
+            target: valueSource
+            property: "movelength"
+           // easing.type: Easing.InOutSine
+            from: movelengthPreviously
+            to: movelengthNow
+            duration: 1000
+            easing.type: Easing.Linear //匀
+        }
+        NumberAnimation {
+            target: valueSource
+            property: "rotateAngle"
+           // easing.type: Easing.InOutSine
+            from: rotateAnglePreviously
+            to: rotateAngleNow
+            duration: 1000
+            easing.type: Easing.Linear //匀
+        }
+
+        NumberAnimation {
+            target: valueSource
+            property: "pushLength"
+           // easing.type: Easing.InOutSine
+            from: pushLengthPreviously
+            to: pushLengthNow
+            duration: 1000
+            easing.type: Easing.Linear //匀
+        }
+        NumberAnimation {
+            target: valueSource
+            property: "distance2Base"
+           // easing.type: Easing.InOutSine
+            from: distance2BasePreviously
+            to: distance2BaseNow
+            duration: 1000
+            easing.type: Easing.Linear //匀
+        }
+        NumberAnimation {
+            target: valueSource
+            property: "controlPower"
+           // easing.type: Easing.InOutSine
+            from: controlPowerPreviously
+            to: controlPowerNow
+            duration: 1000
+            easing.type: Easing.Linear //匀
+        }
+        NumberAnimation {
+            target: valueSource
+            property: "impetusPower"
+           // easing.type: Easing.InOutSine
+            from: 100
+            to: 70
+            duration: 1000
+            easing.type: Easing.Linear //匀
+        }
+
+        onFinished:
+        {
+            rollPreviously=rollNow
+            pitchPreviously=pitchNow
+            yawPreviously=yawNow
+            depthPreviously=depthNow
+            distance2BasePreviously=distance2BaseNow
+            rotateAnglePreviously=rotateAngleNow
+            pushLengthPreviously= pushLengthNow
+            movelengthPreviously= movelengthNow
+            transducerPressurePreviously=transducerPressureNow
+            cylinderPressurePreviously= cylinderPressureNow
+            console.log("finish");
+        }
+
+    }
 
 
     Button {
@@ -46,82 +176,10 @@ Window {
         text: qsTr("Button")
 
                 onClicked:
-                ParallelAnimation {
-                    // We changed gears so we lost a bit of speed.
-                    NumberAnimation {
-                        target: valueSource           //动画应用于目标对象
-                         property: "kph"               //y轴方向的运动
-                         from:30
-                         to: 50
-                         duration: 3000              //运动时间为3秒
-                         // loops:10                    //运动为10个周期
-                         easing.type: Easing.Linear //匀
-                    }
-                    NumberAnimation {
-                        target: valueSource
-                        property: "agr"
-                       // easing.type: Easing.InOutSine
-                        from: 0
-                        to: 30.5
-                        duration: 3000
-                        easing.type: Easing.Linear //匀
-                    }
-                    NumberAnimation {
-                        target: valueSource
-                        property: "movelength"
-                       // easing.type: Easing.InOutSine
-                        from: 50
-                        to: 300
-                        duration: 3000
-                        easing.type: Easing.Linear //匀
-                    }
-                    NumberAnimation {
-                        target: valueSource
-                        property: "rotateAngle"
-                       // easing.type: Easing.InOutSine
-                        from: 0
-                        to: 90
-                        duration: 3000
-                        easing.type: Easing.Linear //匀
-                    }
+                {
 
-                    NumberAnimation {
-                        target: valueSource
-                        property: "pushLength"
-                       // easing.type: Easing.InOutSine
-                        from: 0
-                        to: 10
-                        duration: 3000
-                        easing.type: Easing.Linear //匀
-                    }
-                    NumberAnimation {
-                        target: valueSource
-                        property: "distance2Base"
-                       // easing.type: Easing.InOutSine
-                        from: 100
-                        to: 0
-                        duration: 3000
-                        easing.type: Easing.Linear //匀
-                    }
-                    NumberAnimation {
-                        target: valueSource
-                        property: "controlPower"
-                       // easing.type: Easing.InOutSine
-                        from: 100
-                        to: 30
-                        duration: 3000
-                        easing.type: Easing.Linear //匀
-                    }
-                    NumberAnimation {
-                        target: valueSource
-                        property: "impetusPower"
-                       // easing.type: Easing.InOutSine
-                        from: 100
-                        to: 70
-                        duration: 3000
-                        easing.type: Easing.Linear //匀
-                    }
                 }
+
 
 
     }
@@ -136,7 +194,7 @@ Window {
         y:23
         width: 140
         height: 130
-        angleValue: valueSource.agr
+        angleValue: valueSource.pitch
         itemName:"Pitch"
 
     }
@@ -198,20 +256,22 @@ Window {
     }
 
     SK2level {
-        id: sK2level
+        id: roll
         x: 707
         y: 23
         width: 142
         height: 130
+        angleValue: valueSource.roll
          itemName:"Roll"
     }
 
     SK2level {
-        id: sK2level1
+        id: yaw
         x: 865
         y: 23
         width: 143
         height: 130
+        angleValue: valueSource.yaw
         itemName:"Yaw"
     }
 
@@ -394,8 +454,6 @@ Window {
                                 onClicked:
                                 {
                                    threadPond_obj.socket_Listing()
-                                   console.log()
-                                   threadPond_obj.crctest();
 
                                 }
 
@@ -1100,7 +1158,43 @@ Window {
       }
       onSendcontrolMSG2QML://传感器参数接收
       {
-           mMSG ;
+          textArea.text+=mMSG[0].toFixed(2);
+          rollNow=mMSG[0].toFixed(2)
+          pitchNow=mMSG[1].toFixed(2);
+          yawNow=mMSG[2].toFixed(2);
+          depthNow=mMSG[3].toFixed(2);
+          distance2BaseNow=mMSG[4].toFixed(2);
+          rotateAngleNow=mMSG[5].toFixed(2);
+          pushLengthNow=mMSG[6].toFixed(2);
+          movelengthNow=mMSG[7].toFixed(2);
+          transducerPressureNow=mMSG[8].toFixed(2);
+          cylinderPressureNow=mMSG[9].toFixed(2);
+//           console.log("rollNow",rollNow);
+//           console.log("pitchNow",pitchNow);
+//           console.log("yawNow",yawNow);
+//           console.log("depthNow",depthNow);
+//           console.log("distance2BaseNow",distance2BaseNow);
+//           console.log("rotateAngleNow",rotateAngleNow);
+//           console.log("pushLengthNow",pushLengthNow);
+//           console.log("movelengthNow",movelengthNow);
+//           console.log("transducerPressureNow",transducerPressureNow);
+//           console.log("cylinderPressureNow",cylinderPressureNow);
+
+          //controlPowerNow=mMSG[1].toFixed(2);
+          mainCarton.start();
+
+
+//          rollPreviously=rollNow
+//          pitcPreviously=pitchNow
+//          yawPreviously=yawNow
+//          depthPreviously=depthNow
+//          distance2BasePreviously=distance2BaseNow
+//          rotateAnglePreviously=rotateAngleNow
+//          pushLengthPreviously= pushLengthNow
+//          movelengthPreviously= movelengthNow
+//          transducerPressurePreviously=transducerPressureNow
+//          cylinderPressurePreviously= cylinderPressureNow
+
       }
 
 

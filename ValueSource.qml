@@ -4,7 +4,9 @@ Item {
 
     id: valueSource
     property real kph: 30
-    property real agr: 0
+    property real pitch: 0
+    property real roll: 0
+    property real yaw: 0
     property real movelength: 50
     property real rotateAngle: 0
     property real pushLength: 0
