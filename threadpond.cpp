@@ -7,7 +7,16 @@ threadPond::threadPond()
 
     connect(this,SIGNAL(startListing()),SK2,SLOT(start_listening()));
     connect(SK2,SIGNAL(sendSocketState2T(QString)),this,SLOT(getSocketState(QString)));
-    connect(SK2,SIGNAL(sendcontrolMSG2T(monitoredMSG)),this,SLOT(getcontrolMSGFromSocket(monitoredMSG)));
+    connect(SK2,SIGNAL(sendcontrolMSG2T(QVariantList)),this,SLOT(getcontrolMSGFromSocket(QVariantList)));
+//    connect(this,SIGNAL(sendTGMSG2Socket(double,double)),SK2,SLOT(void ControlTG(double,double));
+//    connect(this,SIGNAL(sendArmMSG2Socket(double ),SK2,SLOT(ControlARMST(double));
+//    connect(this,SIGNAL(sendArmMoveMSG2sOCKET(double ,double),SK2,SLOT(ControlARMMove(double ,double));
+   connect(this,SIGNAL(sendTGMSG2Socket(int,int)),SK2,SLOT(ControlTG(int,int)));
+   connect(this,SIGNAL(sendArmMSG2Socket(int)),SK2,SLOT(ControlARMST(int)));
+   connect(this,SIGNAL(sendArmMoveMSG2sOCKET(int ,int)),SK2,SLOT(ControlARMMove(int ,int)));
+
+
+
     SK2->moveToThread(socketThread);
     socketThread->start();
 
@@ -29,60 +38,68 @@ void threadPond::socket_Listing()
 {
     emit startListing();//直接调用SK2的函数，线程不变，使用信号槽才会改变线程
 }
+QVariantList threadPond::getControlList()
+{
+    QVariantList sk;
+    sk.append(11);
+    sk.append(22);
+    sk.append(33);
+    return sk;
 
+};
 void threadPond::getSocketState(QString msg)
 {
-   emit sendSocketState2QML(msg);
+   emit sendSocketState2QML(msg);//在QML中被调用；
 }
 
-void threadPond::getcontrolMSGFromSocket(monitoredMSG val)
+void threadPond::getcontrolMSGFromSocket(QVariantList val)
 {
     emit sendcontrolMSG2QML(val);
 }
 
-void threadPond::getwaveMSGFromQml(waveMSG sk)
+void threadPond::tGup(int length)
 {
-    qDebug()<<"skwan="<< sk.wave_Number ;
-}
-
-
-void threadPond::TGup(double length)
-{
-
+    emit sendTGMSG2Socket(Up,length);
 };
-void threadPond::TGdown(double length)
+void threadPond::tGdown(int length)
 {
-
+    emit sendTGMSG2Socket(Down,length);
 };
-void threadPond::TGstop()
+void threadPond::tGstop()
 {
-
+    emit sendTGMSG2Socket(Stop,9);
 };
-void threadPond::Armrelease()
+void threadPond::armrelease()
 {
-
+    emit sendArmMSG2Socket(Release);
 };
-void threadPond::Armstop()
+void threadPond::armstop()
 {
-
+    emit sendArmMSG2Socket(Stop);
 };
-void threadPond::Armrecover()
+void threadPond::armrecover()
 {
-
+    emit sendArmMSG2Socket(Recover);
 };
 
 
-void threadPond::Armmoveup(double length)
+void threadPond::armmoveup(int length)
 {
-
+//    void sendTGMSG2Socket(double type,double length);
+//    void sendArmMSG2Socket(double type);
+//    void sendArmMoveMSG2sOCKET(double type,double length);
 };
-void threadPond:: Armmovestop()
+void threadPond:: armmovestop()
 {
-
+//    void sendTGMSG2Socket(double type,double length);
+//    void sendArmMSG2Socket(double type);
+//    void sendArmMoveMSG2sOCKET(double type,double length);
 };
-void threadPond::Armmovedown(double length)
+void threadPond::armmovedown(int length)
 {
-
+//    void sendTGMSG2Socket(double type,double length);
+//    void sendArmMSG2Socket(double type);
+//    void sendArmMoveMSG2sOCKET(double type,double length);
 };
 
 
@@ -117,13 +134,14 @@ void threadPond::crctest()
      QByteArray dd;
      dd[0]=0x46;
      dd[1]=0xd8;
+
 //16进制转换
      uint16_t skk=jdks->ModbusCRC16(t1);
+     dd.append(skk);
      qDebug()<<"crctest=="<<skk;
      qDebug()<<"crctest=="<<QString::number(skk,16);
-     qDebug()<<"crctest=="<<dd.toHex().toInt(0,16);
+     qDebug()<<"crctest=="<<QString::number(dd[2],16) ;
+     qDebug()<<"crctest=="<<QString::number(dd[3],16) ;
 //16进制转换
-
-
 
 }

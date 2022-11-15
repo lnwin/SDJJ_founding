@@ -5,6 +5,20 @@
 #include <QMetaType>
 
 
+typedef  enum MoveModel
+{
+
+     Up=0,
+     Down=1,
+     Start=2,
+     Stop=3,
+     Release=4,
+     Recover=5
+
+}MoveModel;
+
+
+
 struct waveMSG
 {
 

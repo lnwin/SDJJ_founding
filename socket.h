@@ -22,7 +22,7 @@ public:
     QThread *socketThread;
 signals:
   void sendSocketState2T(QString);
-  void sendcontrolMSG2T(controlMSG val);
+  void sendcontrolMSG2T(QVariantList val);
 public slots:
     void socket_Int();
     bool socket_Listening();    
@@ -32,6 +32,9 @@ public slots:
     void wave_socket_Disconnected();
     void control_socket_Read_Data();
     void control_socket_Disconnected();
+    void ControlTG(int type,int length);
+    void ControlARMST(int type);
+    void ControlARMMove(int type,int length);
 
 private:
 

@@ -10,6 +10,7 @@
 #include <QObject>
 #include <QWidget>
 #include <QQmlComponent>
+#include <QQmlContext>
 #include <QQuickView>
 #include<threadpond.h>
 int main(int argc, char *argv[])
@@ -17,15 +18,15 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QApplication app(argc, argv);
-    qRegisterMetaType<waveMSG>( "waveMSG" );
-    qRegisterMetaType<controlMSG>( "controlMSG");
-    qRegisterMetaType<monitoredMSG>( "monitoredMSG");
+  //  qRegisterMetaType<waveMSG>( "waveMSG" );
+  //  qRegisterMetaType<controlMSG>( "controlMSG");
+  //  qRegisterMetaType<monitoredMSG>( "monitoredMSG");
     qmlRegisterType<threadPond>("Mythreadpond",1,0,"ThreadDLL");//注册C++类
     qmlRegisterType<camera>("Mycamera",1,0,"CameraDLL");//注册C++相机类
+
 //===================================================================
 
     QQmlApplicationEngine engine;
-
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
@@ -65,6 +66,8 @@ int main(int argc, char *argv[])
      qDebug()<<"SDK Int success!";
    }
     qDebug()<<"Main thread"<<QThread::currentThread();
+    QVariantList list;
+    list << 10 << QColor(Qt::green) << "bottles";
 
     return app.exec();
 }

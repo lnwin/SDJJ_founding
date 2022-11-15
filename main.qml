@@ -382,6 +382,7 @@ Window {
             anchors.margins: 7
             spacing: 25
 
+             //property var listOfLists: mpwaveMSG
 
             Button {
                                 id: socketopen
@@ -393,13 +394,8 @@ Window {
                                 onClicked:
                                 {
                                    threadPond_obj.socket_Listing()
-                                   var sk=threadPond_obj.wmsg;
-                                   sk.wave_Number=100;
-                                   //threadPond_obj.wmsg.min=225
-                                   threadPond_obj.getwaveMSGFromQml(sk);//传递参数到C++
-                                   console.log(sk.wave_Number)
-
-                                    threadPond_obj.crctest();
+                                   console.log()
+                                   threadPond_obj.crctest();
 
                                 }
 
@@ -495,6 +491,10 @@ Window {
                                text: qsTr("扩展臂释放")
                                font.pointSize: 15
                                Layout.leftMargin:50
+                               onClicked:
+                               {
+                                  threadPond_obj.armrelease() ;
+                               }
                            }
 
                            Button {
@@ -508,6 +508,10 @@ Window {
                                display: Button.TextUnderIcon
                                text: qsTr("扩展臂制动")
                                font.pointSize: 15
+                               onClicked:
+                               {
+                                  threadPond_obj.armstop();
+                               }
                            }
 
                            Button {
@@ -521,6 +525,10 @@ Window {
                                display: Button.TextUnderIcon
                                text: qsTr("扩展臂回收")
                                font.pointSize: 15
+                               onClicked:
+                               {
+                                  threadPond_obj.armrecover() ;
+                               }
                            }
                            SK2button
                            {
@@ -645,6 +653,10 @@ Window {
                                    icon.source: "qrc:/imagines/arrow-circle-up-outline.svg"
                                    text: qsTr("上移")
                                    font.pointSize: 15
+                                   onClicked:
+                                   {
+                                      threadPond_obj .armmoveup(Number(kmu_numb.text));
+                                   }
                                }
                                Button {
                                    id: kmd_button
@@ -653,6 +665,11 @@ Window {
                                    icon.source: "qrc:/imagines/arrow-circle-down-outline.svg"
                                    text: qsTr("下移")
                                    font.pointSize: 15
+                                   onClicked:
+                                   {
+                                      threadPond_obj .armmoveup(Number(kmd_numb.text));
+                                   }
+
                                }
 
                            }
@@ -673,6 +690,10 @@ Window {
                                    display: Button.TextUnderIcon
                                    Layout.fillHeight: true
                                    font.pointSize: 15
+                                   onClicked:
+                                   {
+                                      threadPond_obj.armstop();
+                                   }
                                }
 
                            }
@@ -777,6 +798,10 @@ Window {
                                       icon.source: "qrc:/imagines/arrowhead-up-outline.svg"
                                       text: qsTr("上提")
                                       font.pointSize: 15
+                                      onClicked:
+                                      {
+                                         threadPond_obj.tGup(Number(tgu_numb.text));
+                                      }
                                   }
                                   Button {
                                       id: tgd_button
@@ -785,6 +810,11 @@ Window {
                                       icon.source: "qrc:/imagines/arrowhead-down-outline.svg"
                                       text: qsTr("下插")
                                       font.pointSize: 15
+                                      onClicked:
+                                      {
+                                         threadPond_obj.tGup(Number(tgd_numb.text));
+                                      }
+
                                   }
 
                               }
@@ -805,6 +835,11 @@ Window {
                                       text: qsTr("停止")
                                       Layout.fillHeight: true
                                       font.pointSize: 15
+                                      onClicked:
+                                      {
+                                         threadPond_obj.tGstop() ;
+                                      }
+
                                   }
 
                               }
@@ -1065,7 +1100,7 @@ Window {
       }
       onSendcontrolMSG2QML://传感器参数接收
       {
-          mMSG.control_Power;
+           mMSG ;
       }
 
 

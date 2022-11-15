@@ -31,8 +31,8 @@ bool socket_SYS::socket_Listening()
          // ui->PortButton->setText("Stop Listen");
          // ui->Net_light->setStyleSheet("border-image: url(:/new/icon/picture/yellow.png);");
             connect(mainServer, SIGNAL(newConnection()), this, SLOT(server_New_Connect()));
-          //  connect(mainServer, SIGNAL(close()),this, SLOT(socket_SoptListening()));
-           // qDebug()<<"mainServer listening ok";
+         // connect(mainServer, SIGNAL(close()),this, SLOT(socket_SoptListening()));
+         // qDebug()<<"mainServer listening ok";
             emit sendSocketState2T(QStringLiteral("监听成功！\n"));
             return  true;
 
@@ -105,7 +105,7 @@ bool socket_SYS::server_New_Connect()
                connect(controlClient, SIGNAL(disconnected()), this, SLOT(control_socket_Disconnected()));
                return true;
 
-           }
+           }          
        }
 
 
@@ -127,7 +127,6 @@ void socket_SYS::start_listening()
 void socket_SYS::wave_socket_Read_Data()
 {
     QByteArray waveData = waveClient->readAll();
-
     QByteArray waveDataC1;
     waveDataC1[0]= waveData.at(6);
     waveDataC1[1]= waveData.at(7);
@@ -147,16 +146,16 @@ void socket_SYS::control_socket_Read_Data()
 {
     QByteArray controlData = controlClient->readAll();
     QByteArray controlDataC1;
-    controlDataC1[0]= controlData.at(6);
-    controlDataC1[1]= controlData.at(7);
+    controlDataC1[0]= controlData.at(27);
+    controlDataC1[1]= controlData.at(28);
     int C1=controlDataC1.toHex().toInt(0,16);
-    QByteArray controlDataforcheck=controlData.remove(6,2);
-    uint16_t C2=CRC->ModbusCRC16(controlDataforcheck);
-
+  //QByteArray controlDataforcheck=controlData.remove(6,2);
+    uint16_t C2=CRC->ModbusCRC16(controlData);
+   QVariantList val;
 
     if(C1==C2)
     {
-
+         emit sendcontrolMSG2T(val);
     }
 
     else
@@ -170,3 +169,49 @@ void socket_SYS::control_socket_Disconnected()
 {
     emit sendSocketState2T(QStringLiteral("控制网络已断开！\n"));
 }
+void socket_SYS::ControlTG(int type,int length)
+{
+
+       QByteArray MSG;
+       MSG[0]=0x01;
+       MSG[1]=0x06;
+       MSG[2]=0x03;
+       MSG[3]=0x01;
+       MSG[4]=length>>8;
+       MSG[5]=(length<<8)>>8;
+    // int C1=waveDataC1.toHex().toInt(0,16);
+    // QByteArray waveDataforcheck=waveData.remove(6,2);
+
+    if(type==Up)
+    {
+         MSG[3]=0x01;
+         uint16_t C2=CRC->ModbusCRC16(MSG);
+         MSG[6]=C2>>8;
+         MSG[7]=(C2<<8)>>8;
+         controlClient->write(MSG);
+    }
+    else if(type==Down)
+    {
+         MSG[3]=0x00;
+         uint16_t C2=CRC->ModbusCRC16(MSG);
+         MSG[6]=C2>>8;
+         MSG[7]=(C2<<8)>>8;
+         controlClient->write(MSG);
+    }
+    else
+    {
+        MSG[3]=0x00;
+        MSG[4]=0xff;
+        MSG[5]=0xff;
+        uint16_t C2=CRC->ModbusCRC16(MSG);
+        MSG[6]=C2>>8;
+        MSG[7]=(C2<<8)>>8;
+        controlClient->write(MSG);
+
+    }
+
+};
+void socket_SYS::ControlARMST(int type)
+{};
+void socket_SYS::ControlARMMove(int type,int length)
+{};
