@@ -149,41 +149,46 @@ void socket_SYS::control_socket_Read_Data()
     controlDataC1[0]= controlData.at(31);
     controlDataC1[1]= controlData.at(32);
     int C1=controlDataC1.toHex().toInt(0,16);
-    qDebug()<<"Received nO =="<<controlData.size();
-    qDebug()<<"Received crc =="<<controlDataC1.toHex();
-    QByteArray controlDataforcheck=controlData.mid(0,30);
+
+    QByteArray controlDataforcheck=controlData.mid(0,31);
     uint16_t C2=CRC->ModbusCRC16(controlDataforcheck);
     QVariantList val;
-    qDebug()<<"controlDataforcheck =="<<controlDataforcheck.toHex();
-    qDebug()<<"controlData =="<<controlData.toHex();
-    qDebug()<<"c1=="<<C1;
-    qDebug()<<"c2=="<<C2;
+
     if(C1==C2)
     {
 
-         float RollAngle=float((controlData.mid(2,2).toHex().toInt(0,16)/32768)*180);
+         float RollAngle=(float(controlData.mid(2,2).toHex().toInt(0,16)*180)/32768);
          val.append(RollAngle);
-          qDebug()<<"RollAngle========="<<RollAngle;
-         float PitchAngle=(float(controlData.mid(4,2).toHex().toInt(0,16))/32768)*180;
+
+         float PitchAngle=(float(controlData.mid(4,2).toHex().toInt(0,16))*180)/32768;
          val.append(PitchAngle);
-         float YawAngle=(float(controlData.mid(6,2).toHex().toInt(0,16))/32768)*180;
+         float YawAngle=(float(controlData.mid(6,2).toHex().toInt(0,16))*180)/32768;
          val.append(YawAngle);
          float Depth =controlData.mid(8,2).toHex().toInt(0,16)*1000;//单位毫米
                Depth +=controlData.mid(10,2).toHex().toInt(0,16);
                val.append(Depth);
+               qDebug()<<"Depth========="<<Depth;
          float Tofloor =controlData.mid(12,2).toHex().toInt(0,16)*1000;//单位毫米
                Tofloor+=controlData.mid(13,1).toHex().toInt(0,16);//单位毫米
                val.append(Tofloor);
+               qDebug()<<"Tofloor========="<<Tofloor;
          float ArmAngle= controlData.mid(15,2).toHex().toInt(0,16)*0.01;//单位毫米
          val.append(ArmAngle);
-         float TGMoveLength =((controlData.mid(17,2).toHex().toInt(0,16))-819)/((4095-819)*500);//单位毫米
+         qDebug()<<"ArmAngle========="<<ArmAngle;
+         float TGMoveLength =float(float(controlData.mid(17,2).toHex().toInt(0,16))-819)*500/(4095-819);//单位毫米
          val.append(TGMoveLength);
-         float ArmMoveLength =((controlData.mid(19,2).toHex().toInt(0,16))-819)/((4095-819)*500);//单位毫米
+          qDebug()<<"TGMoveLength= ORIGIN========"<<controlData.mid(17,2).toHex().toInt(0,16);
+         qDebug()<<"TGMoveLength========="<<TGMoveLength;
+         float ArmMoveLength =float(float(controlData.mid(19,2).toHex().toInt(0,16))-819)*500/(4095-819);//单位毫米
          val.append(ArmMoveLength);
-         float ArmPress =((controlData.mid(21,2).toHex().toInt(0,16))-819)/((4095-819)*500);//单位bar
+
+         qDebug()<<"ArmMoveLength========="<<ArmMoveLength;
+         float ArmPress =float(float(controlData.mid(21,2).toHex().toInt(0,16))-819)*250/(4095-819);//单位bar
          val.append(ArmPress);
-         float YYPress =((controlData.mid(23,2).toHex().toInt(0,16))-819)/((4095-819)*500);//单位bar
+         qDebug()<<"ArmPress========="<<ArmPress;
+         float YYPress =float(float(controlData.mid(23,2).toHex().toInt(0,16))-819)*250/(4095-819);//单位bar
          val.append(YYPress);
+         qDebug()<<"YYPress========="<<YYPress;
          emit sendcontrolMSG2T(val);
     }
 
@@ -216,7 +221,7 @@ void socket_SYS::ControlTG(int type,int length)
 
     if(type==Up)
     {
-         MSG[3]=0x01;
+         MSG[3]=0x02;
          uint16_t C2=CRC->ModbusCRC16(MSG);
          MSG[6]=C2>>8;
          MSG[7]=(C2<<8)>>8;
@@ -224,7 +229,7 @@ void socket_SYS::ControlTG(int type,int length)
     }
     else if(type==Down)
     {
-         MSG[3]=0x00;
+         MSG[3]=0x01;
          uint16_t C2=CRC->ModbusCRC16(MSG);
          MSG[6]=C2>>8;
          MSG[7]=(C2<<8)>>8;

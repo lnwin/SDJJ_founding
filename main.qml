@@ -71,7 +71,7 @@ Window {
            // easing.type: Easing.InOutSine //仪表盘
             from: pitchPreviously
             to: pitchNow
-            duration: 1000
+            duration: 300
             easing.type: Easing.Linear //匀
 
         }
@@ -81,7 +81,7 @@ Window {
            // easing.type: Easing.InOutSine //仪表盘
             from: rollPreviously
             to: rollNow
-            duration: 1000
+            duration: 300
             easing.type: Easing.Linear //匀
         }
         NumberAnimation {
@@ -90,16 +90,16 @@ Window {
            // easing.type: Easing.InOutSine //仪表盘
             from: yawPreviously
             to: yawNow
-            duration: 1000
+            duration: 300
             easing.type: Easing.Linear //匀
         }
         NumberAnimation {
             target: valueSource
             property: "movelength"
            // easing.type: Easing.InOutSine
-            from: movelengthPreviously
-            to: movelengthNow
-            duration: 1000
+            from: pushLengthPreviously
+            to: pushLengthNow
+            duration: 300
             easing.type: Easing.Linear //匀
         }
         NumberAnimation {
@@ -108,7 +108,7 @@ Window {
            // easing.type: Easing.InOutSine
             from: rotateAnglePreviously
             to: rotateAngleNow
-            duration: 1000
+            duration: 300
             easing.type: Easing.Linear //匀
         }
 
@@ -116,9 +116,9 @@ Window {
             target: valueSource
             property: "pushLength"
            // easing.type: Easing.InOutSine
-            from: pushLengthPreviously
-            to: pushLengthNow
-            duration: 1000
+            from: movelengthPreviously
+            to: movelengthNow
+            duration: 300
             easing.type: Easing.Linear //匀
         }
         NumberAnimation {
@@ -127,7 +127,7 @@ Window {
            // easing.type: Easing.InOutSine
             from: distance2BasePreviously
             to: distance2BaseNow
-            duration: 1000
+            duration: 300
             easing.type: Easing.Linear //匀
         }
         NumberAnimation {
@@ -136,7 +136,7 @@ Window {
            // easing.type: Easing.InOutSine
             from: controlPowerPreviously
             to: controlPowerNow
-            duration: 1000
+            duration: 300
             easing.type: Easing.Linear //匀
         }
         NumberAnimation {
@@ -145,7 +145,7 @@ Window {
            // easing.type: Easing.InOutSine
             from: 100
             to: 70
-            duration: 1000
+            duration: 300
             easing.type: Easing.Linear //匀
         }
 
@@ -171,15 +171,98 @@ Window {
         id: button
         x: 949
         y: 194
-        width: 49
-        height: 20
-        text: qsTr("Button")
+        width: 60
+        height: 30
+        text: qsTr("Test ")
 
                 onClicked:
-                {
 
-                }
+                    ParallelAnimation {
 
+                        NumberAnimation {
+                            target: valueSource
+                            property: "pitch"
+                           // easing.type: Easing.InOutSine //仪表盘
+                            from: 10
+                            to: 30
+                            duration: 2000
+                            easing.type: Easing.Linear //匀
+
+                        }
+                        NumberAnimation {
+                            target: valueSource
+                            property: "roll"
+                           // easing.type: Easing.InOutSine //仪表盘
+                            from: 10
+                            to: 45
+                            duration: 2000
+                            easing.type: Easing.Linear //匀
+                        }
+                        NumberAnimation {
+                            target: valueSource
+                            property: "yaw"
+                           // easing.type: Easing.InOutSine //仪表盘
+                            from: 0
+                            to: 60
+                            duration: 2000
+                            easing.type: Easing.Linear //匀
+                        }
+                        NumberAnimation {
+                            target: valueSource
+                            property: "movelength"
+                           // easing.type: Easing.InOutSine
+                            from: 0
+                            to: 200
+                            duration: 2000
+                            easing.type: Easing.Linear //匀
+                        }
+                        NumberAnimation {
+                            target: valueSource
+                            property: "rotateAngle"
+                           // easing.type: Easing.InOutSine
+                            from: 0
+                            to: 75
+                            duration: 2000
+                            easing.type: Easing.Linear //匀
+                        }
+
+                        NumberAnimation {
+                            target: valueSource
+                            property: "pushLength"
+                           // easing.type: Easing.InOutSine
+                            from: 10
+                            to: 20
+                            duration: 2000
+                            easing.type: Easing.Linear //匀
+                        }
+                        NumberAnimation {
+                            target: valueSource
+                            property: "distance2Base"
+                           // easing.type: Easing.InOutSine
+                            from: 50
+                            to: 0
+                            duration: 2000
+                            easing.type: Easing.Linear //匀
+                        }
+                        NumberAnimation {
+                            target: valueSource
+                            property: "controlPower"
+                           // easing.type: Easing.InOutSine
+                            from: 70
+                            to: 20
+                            duration: 2000
+                            easing.type: Easing.Linear //匀
+                        }
+                        NumberAnimation {
+                            target: valueSource
+                            property: "impetusPower"
+                           // easing.type: Easing.InOutSine
+                            from: 100
+                            to: 70
+                            duration: 1000
+                            easing.type: Easing.Linear //匀
+                        }
+                    }
 
 
     }
@@ -467,7 +550,7 @@ Window {
                                 Layout.fillHeight: true
                                 onClicked:
                                 {
-                                // threadPond_obj.socket_Listing()
+                                //threadPond_obj.socket_Listing()
 
                                 }
                             }
@@ -871,7 +954,7 @@ Window {
                                       font.pointSize: 15
                                       onClicked:
                                       {
-                                         threadPond_obj.tGup(Number(tgd_numb.text));
+                                         threadPond_obj.tGdown((Number(tgd_numb.text)));
                                       }
 
                                   }
@@ -1130,11 +1213,47 @@ Window {
                        anchors.centerIn: parent
                        text: qsTr("Second")
                        color: mainColor
-                   }
-               }
+                          }
+                       ChartView
+                       {
+                               id:chartView
+                               //animationOptions: chartView.NoAnimation
+                              // theme: chartView.ChartThemeBlueIcy
+                               property bool openGL: true
+                               property bool openGLSupported: true
+                               anchors.fill: parent
 
-               Item {
-               }
+                               Component.onCompleted: {  //初始化时发生
+                                  // dataSource.setSeries(chartView.series(0));//传入要操作的序列QXYSeries
+                               }
+
+                               Component.onDestruction: {  //销毁时发生
+                                  // dataSource.setSeries(0);//销毁时传空，在写入数据时对QXYSeries做非空判断
+                               }
+
+                               ValueAxis{
+                                   id:axisY1
+                                   min: -1
+                                   max: 1
+                               }
+
+                               ValueAxis{
+                                   id:axisX
+                                   min: 0
+                                   max: 2000
+                               }
+
+                               LineSeries{
+                                   id: lineSeries
+                                   name: "Audio Sample"
+                                   axisX: axisX
+                                   axisY: axisY1
+                                   useOpenGL: chartView.openGL
+                               }
+
+
+                           }
+                       }
 
 
            }
@@ -1159,7 +1278,7 @@ Window {
       }
       onSendcontrolMSG2QML://传感器参数接收
       {
-          textArea.text+=mMSG[0].toFixed(2);
+         // textArea.text+=mMSG[0].toFixed(2);
           rollNow=mMSG[0].toFixed(2)
           pitchNow=mMSG[1].toFixed(2);
           yawNow=mMSG[2].toFixed(2);
@@ -1176,8 +1295,8 @@ Window {
 //           console.log("depthNow",depthNow);
 //           console.log("distance2BaseNow",distance2BaseNow);
 //           console.log("rotateAngleNow",rotateAngleNow);
-//           console.log("pushLengthNow",pushLengthNow);
-//           console.log("movelengthNow",movelengthNow);
+          // console.log("pushLengthNow",pushLengthNow);
+         //  console.log("movelengthNow",movelengthNow);
 //           console.log("transducerPressureNow",transducerPressureNow);
 //           console.log("cylinderPressureNow",cylinderPressureNow);
 
