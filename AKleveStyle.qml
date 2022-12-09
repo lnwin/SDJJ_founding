@@ -1,5 +1,5 @@
-﻿import QtQuick 2.0
-import QtQuick.Controls.Styles 1.4
+﻿import QtQuick
+import QtQuick.Controls
 
 CircularGaugeStyle {
     id:levelchart
@@ -142,3 +142,9 @@ CircularGaugeStyle {
     foreground: null
 }
 
+
+/*##^##
+Designer {
+    D{i:0;autoSize:true;height:480;width:640}
+}
+##^##*/

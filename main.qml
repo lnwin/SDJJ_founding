@@ -1,13 +1,10 @@
-﻿import QtQuick.Window 2.12
-import QtQuick 2.14
-import QtQuick.Layouts 1.14
-import QtQuick.Controls 2.14
-import QtCharts 2.3
-import QtQuick.Controls 2.14
-import QtQuick.Controls.Imagine 2.14
-import QtQuick.Extras 1.4
-import QtQuick.Controls.Styles 1.4
-import Qt.labs.animation 1.0
+﻿import QtQuick 6.4
+import QtQuick.Layouts 6.4
+import QtQuick.Controls 6.4
+//import QtQuick.Controls.Imagine
+//import QtQuick.Extras
+//import QtQuick.Controls.Styles
+import Qt.labs.animation
 import Mycamera 1.0
 import Mythreadpond 1.0
 
@@ -24,6 +21,10 @@ Window {
     property string mainColor:"#4682B4"
     property string itemColor:"#98F5FF"
      property string textColor:"#9AFF9A"
+//    property string bgColor:"gray"
+//    property string mainColor:"#4682B4"
+//    property string itemColor:"#98F5FF"
+//     property string textColor:"#9AFF9A"
     title: qsTr("abc")
     //====================================================qml 信号槽   仪表盘中转值
 
@@ -173,7 +174,7 @@ Window {
         y: 194
         width: 60
         height: 30
-        text: qsTr("Test ")
+        text: qsTr("调试 ")
 
                 onClicked:
 
@@ -270,23 +271,12 @@ Window {
 
 
 
-    SK2level
+     SK2machinery
     {
-        id:pitch
-        x: 540
-        y:23
-        width: 140
-        height: 130
-        angleValue: valueSource.pitch
-        itemName:"Pitch"
-
-    }
-    SK2machinery
-    {
-        x: 511
-        y: 299
+        x: 50
+        y: 289
         width: 502
-        height: 694
+        height: 704
         moveLength: valueSource.movelength
         rotateAngle: valueSource.rotateAngle
         pushLength: valueSource.pushLength
@@ -294,17 +284,13 @@ Window {
         waterDepth: valueSource.waterDepth
         transducerPressure:valueSource.transducerPressure
         cylinderPressure:valueSource.cylinderPressure
-
-
-
-
     }
 
     SK2power
     {
 
         id:controlP
-        x: 573
+        x: 150
         y: 177
         width: 425
         height: 53
@@ -318,7 +304,7 @@ Window {
     {
 
         id:impetusP
-        x: 573
+        x: 150
         y: 230
         width: 425
         height: 53
@@ -339,10 +325,21 @@ Window {
     }
 
     SK2level {
+        id:pitch
+        x: 20
+        y:23
+        width: 140
+        height: 130
+        angleValue: valueSource.pitch
+        itemName:"Pitch"
+
+    }
+
+    SK2level {
         id: roll
-        x: 707
+        x: 120
         y: 23
-        width: 142
+        width: 270
         height: 130
         angleValue: valueSource.roll
          itemName:"Roll"
@@ -350,7 +347,7 @@ Window {
 
     SK2level {
         id: yaw
-        x: 865
+        x: 350
         y: 23
         width: 143
         height: 130
@@ -360,9 +357,9 @@ Window {
 
     TextArea {
         id: textArea
-        x: 35
+        x: 600
         y: 784
-        width: 460
+        width: 751
         height: 203
        // font.pixelSize:15
         verticalAlignment: Text.AlignBottom
@@ -376,9 +373,9 @@ Window {
         //parent: textArea
         // width: parent.width
         //height:parent.height
-        x: 35
+        x: 600
         y: 782
-        width: 460
+        width: 686
         height: 206
         layer.enabled: true
         enabled: false
@@ -435,7 +432,7 @@ Window {
     Rectangle
     {
         id:camerabuttonFiled
-        x: 35
+        x: 1400
         y: 730
         width: 402
         height: 50
@@ -480,6 +477,7 @@ Window {
                                 onClicked:
                                 {
                                     camera_obj.realPlayer();
+                                    camera_obj.realPlayer_1();
                                 }
 
                             }
@@ -513,7 +511,7 @@ Window {
         id:buttonFiled
         x: 35
         y: 987
-        width: 402
+        //width: 402
         height: 50
         color:"#01113a"
        RowLayout
@@ -523,13 +521,13 @@ Window {
             anchors.rightMargin: 20
             anchors.fill: parent
             anchors.margins: 7
-            spacing: 25
+            spacing: 5
 
              //property var listOfLists: mpwaveMSG
 
             Button {
                                 id: socketopen
-                                text: qsTr("开启监听")
+                                text: qsTr("连接网络")
                                 font.pixelSize:15
                                 //icon.name: "navigation"
                                 Layout.fillHeight: true
@@ -554,26 +552,18 @@ Window {
 
                                 }
                             }
-            Button {
-                                id: ewe3
-                                text: qsTr("Navigation")
-                                font.pixelSize:15
-                                //icon.name: "navigation"
-                                Layout.fillHeight: true
-
-            }
 
 
         }
 
     }
-
+// 控制按键面板
     Rectangle {
         id: tabRec
-        x: 1036
-        y: 48
-        width: 875
-        height: 989
+        x: 600
+        y: 47
+        width: 700
+        height: 700
         color: bgColor
         border.color: mainColor
        // color: mainColor
@@ -581,42 +571,43 @@ Window {
         TabBar {    //点击相应的按钮实现切换
                id: bar
                width: parent.width
-               height: parent.height
+             //  height: parent.height
                currentIndex: 0
                TabButton {
                    font.pixelSize:15
-                   text: qsTr("控制界面")
+                   text: qsTr("调试模式")
                   //height: 20
                }
                TabButton {
                    font.pixelSize:15
-                   text: qsTr("波形界面")
+                   text: qsTr("工作模式")
                }
 
            }
         StackLayout {   //栈布局管理器
-               anchors.centerIn: parent
-               width: parent.width
-               height: parent.height*0.9
+
+               y:parent.y
+               //width: 700
+             //  height: 400
                currentIndex: bar.currentIndex  //当前视图的索引
                Item {
                    ColumnLayout//垂直总布局
                    {
                        id:controlColumnLayout
-                       anchors.fill: parent
-                       spacing: 1
+                       //anchors.fill: parent
+                       spacing: 70
                        //leftMargin:10
                        // Layout.leftMargin:50
+
                        Rectangle//扩展臂释放
                        {
                            id:extensionArm
-                           height: 100
+                           //height: 70
                            color: "#00000000"
                           // border.color: mainColor
-                           width: 850
-                           Layout.alignment:Qt.AlignCenter
-
-
+                           //width: 20
+                           //Layout.alignment:Qt.LeftToRight
+                           Layout.topMargin: 30
                            RowLayout
                            {
                                anchors.fill: parent
@@ -700,23 +691,24 @@ Window {
                        Rectangle//扩展臂移动
                        {
                            id:extensionArm_move
-                           height: 230
+                          // height: 70
                            color: "#00000000"
                           // border.color: mainColor
-                           width: 850
-                           Layout.alignment:Qt.AlignCenter
+                           width: 700
+                           //Layout.alignment:Qt.LeftToRight
+
                         RowLayout
                         {
                            // anchors.fill: parent
-                            Layout.alignment:Qt.AlignCenter
+                            //Layout.alignment:Qt.LeftToRight
                             spacing: 10
                            ColumnLayout
                            {
-                               height: 230
-                               width: 100
-                               spacing: 50
+                             //  height: 100
+                              // width: 100
+                               spacing: 20
                                Layout.leftMargin: 50
-                               Layout.topMargin: 70
+                               Layout.topMargin: 30
                                Text
                                {
                                    id: kmu
@@ -737,7 +729,7 @@ Window {
                                    text: qsTr("扩展臂下移距离(mm):")
                                    font.pixelSize: 20
                                    //anchors.fill: parent
-                                    Layout.alignment: Qt.AlignHCenter
+                                  //  Layout.alignment: Qt.AlignHCenter
                                    //Layout.preferredWidth: 40
                                    // Layout.preferredHeight: 40
 
@@ -747,28 +739,30 @@ Window {
                            ColumnLayout
                            {
                                id:ss1
-                               height: 230
-                               width: 20
-                               spacing: 50
-                               Layout.topMargin: 70
+                             //  height: 230
+                             //  width: 20
+                               spacing: 30
+                               Layout.topMargin: 30
                                TextField {
                                    id: kmu_numb
-                                   x: 361
-                                   y: 16
+                                 //  x: 361
+                                 //  y: 16
                                    width: 77
                                    height: 34
                                    font.pixelSize: 18
                                    font.bold: true
+                                   placeholderTextColor:itemColor
                                    color: textColor
                                    placeholderText: qsTr("_______")
                                }
                                TextField {
                                    id: kmd_numb
-                                   x: 361
-                                   y: 16
-                                   width: 77
-                                   height: 34
+                                  // x: 361
+                                  // y: 16
+                                  // width: 77
+                                  // height: 34
                                    font.bold: true
+                                   placeholderTextColor:itemColor
                                    color: textColor
                                    font.pixelSize: 18
                                    placeholderText: qsTr("_______")
@@ -782,16 +776,16 @@ Window {
                            ColumnLayout
                            {
                                id:ss2
-                               height: 230
-                               width: 100
-                               spacing: 30
-                               Layout.topMargin: 70
+                              // height: 230
+                              // width: 100
+                               spacing: 10
+                               Layout.topMargin: 30
                                Layout.leftMargin: 10
                                Button {
                                    id: kmu_button
 
-                                  width: 149
-                                   height: 20
+                                 //  width: 149
+                                  // height: 20
                                    icon.source: "qrc:/imagines/arrow-circle-up-outline.svg"
                                    text: qsTr("上移")
                                    font.pointSize: 15
@@ -802,8 +796,8 @@ Window {
                                }
                                Button {
                                    id: kmd_button
-                                   width: 149
-                                   height: 50
+                                  // width: 149
+                                  // height: 50
                                    icon.source: "qrc:/imagines/arrow-circle-down-outline.svg"
                                    text: qsTr("下移")
                                    font.pointSize: 15
@@ -818,17 +812,17 @@ Window {
                            ColumnLayout
                            {
                                id:ss3
-                               height: 230
-                               width: 100
-                               Layout.topMargin: 70
+                              // height: 230
+                              // width: 100
+                               Layout.topMargin: 30
                                Button {
                                    id: kmd_stop
-                                   width: 149
+                                   //width: 149
                                    height: 50
                                    text: qsTr("停止")
                                    icon.source: "qrc:/imagines/close-circle-outline.svg"
-                                   icon.width: 50
-                                   icon.height: 50
+                                   icon.width: 40
+                                   icon.height: 40
                                    display: Button.TextUnderIcon
                                    Layout.fillHeight: true
                                    font.pointSize: 15
@@ -849,21 +843,21 @@ Window {
                        Rectangle//探杆下插
                        {
                            id:drill_downup
-                           height: 230
+                          // height: 230
                            color: "#00000000"
                           // border.color: mainColor
-                           width: 850
-                           Layout.alignment:Qt.AlignCenter
+                          // width: 850
+                           //Layout.alignment:Qt.AlignCenter
                            RowLayout
                            {
                               // anchors.fill: parent
-                               Layout.alignment:Qt.AlignCenter
+                              // Layout.alignment:Qt.AlignCenter
                                spacing: 10
                               ColumnLayout
                               {
-                                  height: 230
-                                  width: 100
-                                  spacing: 50
+                                  //height: 230
+                                 // width: 100
+                                  spacing: 10
                                   Layout.leftMargin: 50
                                   Layout.topMargin: 70
                                   Text
@@ -878,6 +872,7 @@ Window {
                                      //  Layout.preferredHeight: 40
 
 
+
                                   }
                                   Text
                                   {
@@ -886,7 +881,7 @@ Window {
                                       text: qsTr("探杆下移距离(mm):")
                                       font.pixelSize: 20
                                       //anchors.fill: parent
-                                       Layout.alignment: Qt.AlignHCenter
+                                     //  Layout.alignment: Qt.AlignHCenter
                                       //Layout.preferredWidth: 40
                                       // Layout.preferredHeight: 40
 
@@ -896,50 +891,56 @@ Window {
                               ColumnLayout
                               {
                                   id:s1
-                                  height: 230
-                                  width: 20
-                                  spacing: 50
+                                 // height: 230
+                                 // width: 20
+                                  spacing: 20
                                   Layout.topMargin: 70
                                   Layout.leftMargin: 20
                                   TextField {
                                       id: tgu_numb
-                                      x: 361
-                                      y: 16
-                                      width: 77
-                                      height: 34
+                                      //x: 361
+                                     // y: 16
+                                     // width: 77
+                                     // height: 34
                                       font.pixelSize: 18
                                       font.bold: true
                                       color: textColor
+                                      placeholderTextColor:itemColor
                                       placeholderText: qsTr("_______")
                                   }
                                   TextField {
                                       id: tgd_numb
-                                      x: 361
-                                      y: 16
-                                      width: 77
-                                      height: 34
+                                      //x: 361
+                                      //y: 16
+                                     // width: 77
+                                     // height: 34
                                       font.bold: true
                                       color: textColor
                                       font.pixelSize: 18
+                                      placeholderTextColor:itemColor
                                       placeholderText: qsTr("_______")
                                   }
                               }
                               ColumnLayout
                               {
                                   id:s2
-                                  height: 230
-                                  width: 100
-                                  spacing: 30
+                                  //height: 230
+                                 // width: 100
+                                  spacing: 10
                                   Layout.topMargin: 70
                                   Layout.leftMargin: 10
                                   Button {
                                       id: tgu_button
 
-                                      width: 149
-                                      height: 20
+                                     // width: 200
+                                     // height: 20
                                       icon.source: "qrc:/imagines/arrowhead-up-outline.svg"
                                       text: qsTr("上提")
                                       font.pointSize: 15
+//                                      Layout.preferredWidth: 150
+//                                       Layout.preferredHeight: 40
+//                                      Layout.fillWidth: true      //占据为其分配的所有宽度
+//                                      Layout.fillHeight: true
                                       onClicked:
                                       {
                                          threadPond_obj.tGup(Number(tgu_numb.text));
@@ -947,8 +948,8 @@ Window {
                                   }
                                   Button {
                                       id: tgd_button
-                                      width: 149
-                                      height: 50
+                                      //width: 149
+                                     // height: 50
                                       icon.source: "qrc:/imagines/arrowhead-down-outline.svg"
                                       text: qsTr("下插")
                                       font.pointSize: 15
@@ -963,16 +964,16 @@ Window {
                               ColumnLayout
                               {
                                   id:s3
-                                  height: 230
-                                  width: 100
+                                 // height: 230
+                                 // width: 100
                                   Layout.topMargin: 70
                                   Button {
                                       id: tgu_stop
-                                      width: 149
-                                      height: 50
+                                     // width: 149
+                                     // height: 50
                                       icon.source: "qrc:/imagines/close-circle-outline.svg"
-                                      icon.width: 50
-                                      icon.height: 50
+                                      icon.width: 40
+                                      icon.height: 40
                                       display: Button.TextUnderIcon
                                       text: qsTr("停止")
                                       Layout.fillHeight: true
@@ -992,20 +993,20 @@ Window {
                        Rectangle//探杆自动探测
                        {
                            id:extensionArm_AUTO
-                           height: 300
+                         //  height: 300
                            color: "#00000000"
                           // border.color: mainColor
-                         width: 850
-                         Layout.alignment:Qt.AlignCenter
+                         //width: 850
+                         //Layout.alignment:Qt.AlignCenter
                          RowLayout
                          {
                          ColumnLayout
                          {
-                             height: 230
-                             width: 100
-                             spacing: 50
+                             //height: 230
+                             //width: 100
+                             spacing: 20
                              Layout.leftMargin: 50
-                             Layout.topMargin: 70
+                             Layout.topMargin: 120
                              Text
                              {
                                  id: xcjl
@@ -1047,31 +1048,35 @@ Window {
                          ColumnLayout
                          {
                              id:s4
-                             height: 230
-                             width: 20
-                             spacing: 50
-                             Layout.topMargin: 70
-                             Layout.leftMargin: 20
+                             //height: 230
+                            // width: 20
+                            // spacing: 15
+                             Layout.topMargin: 120
+                             Layout.leftMargin: 25
                              TextField {
                                  id: atgjl
-                                 x: 361
-                                 y: 16
-                                 width: 77
-                                 height: 34
+                                 //x: 361
+                                 //y: 16
+                                 //width: 77
+                                // height: 34
+                                  Layout.topMargin: 10
                                  font.pixelSize: 18
                                  font.bold: true
+                                 placeholderTextColor:itemColor
                                  color: textColor
                                  placeholderText: qsTr("_______")
                              }
                              TextField {
                                  id: atgjl_bc
-                                 x: 361
-                                 y: 16
-                                 width: 77
-                                 height: 34
+                                 //x: 361
+                                 //y: 16
+                                 //width: 77
+                                 //height: 34
+                                  Layout.topMargin: 20
                                  font.bold: true
                                  color: textColor
                                  font.pixelSize: 18
+                                 placeholderTextColor:itemColor
                                  placeholderText: qsTr("_______")
                              }
                              ComboBox
@@ -1079,8 +1084,9 @@ Window {
                                   id:comID
                          //         x:900
                          //         y:800
-                                  width: 100
-                                  height: 30
+                                 // width: 100
+                                 // height: 30
+                                  Layout.topMargin: 20
                                   Layout.fillWidth: true
                                   editable: false
                                   flat: false
@@ -1106,15 +1112,18 @@ Window {
                          ColumnLayout
                          {
                              id:s5
-                             height: 230
-                             width: 20
+                            // height: 230
+                             //width: 50
                              spacing: 50
-                             Layout.topMargin: 70
+                             Layout.topMargin: 120
                              Layout.leftMargin: 20
                              Button {
                                 id: atoD1
-                                width: 149
-                                 height: 20
+                                 //width: 160
+                                // height: 20
+                                 Layout.preferredWidth: 160
+                                 Layout.preferredHeight: 40
+                                 Layout.fillWidth: true      //占据为其分配的所有宽度
                                  Layout.fillHeight: true
                                  icon.source: "qrc:/imagines/shake-outline.svg"
                                  icon.width: 50
@@ -1140,70 +1149,70 @@ Window {
 
                    }
 
-                   Canvas
-                   {
+//                   Canvas
+//                   {
 
-                       id:textLine1
-                       //parent: textArea
-                       // width: parent.width
-                       //height:parent.height
-                       x: 0
-                       y: 0
-                       width: 850
-                       height: 900
-                       layer.enabled: true
-                       enabled: false
+//                       id:textLine1
+//                       //parent: textArea
+//                       // width: parent.width
+//                       //height:parent.height
+//                       x: 0
+//                       y: 0
+//                       width: 850
+//                       height: 900
+//                       layer.enabled: true
+//                       enabled: false
 
-                       onPaint:
-                       {
+//                       onPaint:
+//                       {
 
-                           var ctx = textLine1.getContext('2d');
-                           var grd2=ctx.createLinearGradient(10, 130, 850, 130);
-                           grd2.addColorStop(0,color);
-                           grd2.addColorStop(0.5,mainColor);
-                           grd2.addColorStop(1,color);
-                           // 将渐变赋值给线的样式
-                           ctx.strokeStyle=grd2;
-                           // 设置线的宽度
-                           ctx.lineWidth = 3;
-                           // 绘制线
-                           ctx.beginPath();
-                           ctx.moveTo(10, 130);
-                           ctx.lineTo(850, 130);
-                           ctx.stroke();
-
-
-                           var grd3=ctx.createLinearGradient(10, 350, 850, 350);
-                           grd3.addColorStop(0,color);
-                           grd3.addColorStop(0.5,mainColor);
-                           grd3.addColorStop(1,color);
-                           // 将渐变赋值给线的样式
-                           ctx.strokeStyle=grd3;
-                           // 设置线的宽度
-                           ctx.lineWidth = 3;
-                           // 绘制线
-                           ctx.beginPath();
-                           ctx.moveTo(10, 350);
-                           ctx.lineTo(850, 350);
-                           ctx.stroke();
+//                           var ctx = textLine1.getContext('2d');
+//                           var grd2=ctx.createLinearGradient(10, 130, 850, 130);
+//                           grd2.addColorStop(0,color);
+//                           grd2.addColorStop(0.5,mainColor);
+//                           grd2.addColorStop(1,color);
+//                           // 将渐变赋值给线的样式
+//                           ctx.strokeStyle=grd2;
+//                           // 设置线的宽度
+//                           ctx.lineWidth = 3;
+//                           // 绘制线
+//                           ctx.beginPath();
+//                           ctx.moveTo(10, 130);
+//                           ctx.lineTo(850, 130);
+//                           ctx.stroke();
 
 
-                           var grd4=ctx.createLinearGradient(10, 570, 850, 570);
-                           grd4.addColorStop(0,color);
-                           grd4.addColorStop(0.5,mainColor);
-                           grd4.addColorStop(1,color);
-                           // 将渐变赋值给线的样式
-                           ctx.strokeStyle=grd4;
-                           // 设置线的宽度
-                           ctx.lineWidth = 3;
-                           // 绘制线
-                           ctx.beginPath();
-                           ctx.moveTo(10, 570);
-                           ctx.lineTo(850, 570);
-                           ctx.stroke();
+//                           var grd3=ctx.createLinearGradient(10, 350, 850, 350);
+//                           grd3.addColorStop(0,color);
+//                           grd3.addColorStop(0.5,mainColor);
+//                           grd3.addColorStop(1,color);
+//                           // 将渐变赋值给线的样式
+//                           ctx.strokeStyle=grd3;
+//                           // 设置线的宽度
+//                           ctx.lineWidth = 3;
+//                           // 绘制线
+//                           ctx.beginPath();
+//                           ctx.moveTo(10, 350);
+//                           ctx.lineTo(850, 350);
+//                           ctx.stroke();
 
-                       }
-                   }
+
+//                           var grd4=ctx.createLinearGradient(10, 570, 850, 570);
+//                           grd4.addColorStop(0,color);
+//                           grd4.addColorStop(0.5,mainColor);
+//                           grd4.addColorStop(1,color);
+//                           // 将渐变赋值给线的样式
+//                           ctx.strokeStyle=grd4;
+//                           // 设置线的宽度
+//                           ctx.lineWidth = 3;
+//                           // 绘制线
+//                           ctx.beginPath();
+//                           ctx.moveTo(10, 570);
+//                           ctx.lineTo(850, 570);
+//                           ctx.stroke();
+
+//                       }
+//                   }
 
 
 
@@ -1213,50 +1222,12 @@ Window {
                        anchors.centerIn: parent
                        text: qsTr("Second")
                        color: mainColor
-                          }
-                       ChartView
-                       {
-                               id:chartView
-                               //animationOptions: chartView.NoAnimation
-                              // theme: chartView.ChartThemeBlueIcy
-                               property bool openGL: true
-                               property bool openGLSupported: true
-                               anchors.fill: parent
+                   }
 
-                               Component.onCompleted: {  //初始化时发生
-                                  // dataSource.setSeries(chartView.series(0));//传入要操作的序列QXYSeries
-                               }
-
-                               Component.onDestruction: {  //销毁时发生
-                                  // dataSource.setSeries(0);//销毁时传空，在写入数据时对QXYSeries做非空判断
-                               }
-
-                               ValueAxis{
-                                   id:axisY1
-                                   min: -1
-                                   max: 1
-                               }
-
-                               ValueAxis{
-                                   id:axisX
-                                   min: 0
-                                   max: 2000
-                               }
-
-                               LineSeries{
-                                   id: lineSeries
-                                   name: "Audio Sample"
-                                   axisX: axisX
-                                   axisY: axisY1
-                                   useOpenGL: chartView.openGL
-                               }
+               }
 
 
-                           }
-                       }
-
-
-           }
+        }
 
 
 
@@ -1337,3 +1308,9 @@ Window {
 
 
 
+
+/*##^##
+Designer {
+    D{i:0;formeditorZoom:0.9}
+}
+##^##*/
