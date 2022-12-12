@@ -15,6 +15,13 @@ threadPond::threadPond()
    connect(this,SIGNAL(sendArmMSG2Socket(int)),SK2,SLOT(ControlARMST(int)));
    connect(this,SIGNAL(sendArmMoveMSG2sOCKET(int ,int)),SK2,SLOT(ControlARMMove(int ,int)));
 
+   connect(this,SIGNAL(sendZhendongKG()),SK2,SLOT(zhendongKZ()));
+   connect(this,SIGNAL(sendShuibengKG()),SK2,SLOT(shuibengKZ()));
+   connect(this,SIGNAL(sendZuanjinKG()),SK2,SLOT(zhuanjinKZ()));
+   connect(this,SIGNAL(sendYeyaKG()),SK2,SLOT(yeyaKZ()));
+   connect(this,SIGNAL(sendCircle(int,int)),SK2,SLOT(getCircle(int,int)));
+
+   connect(this,SIGNAL(sendShutDown()),SK2,SLOT(getShutDown()));
 
 
     SK2->moveToThread(socketThread);
@@ -82,7 +89,23 @@ void threadPond::armrecover()
     emit sendArmMSG2Socket(Recover);
 };
 
+void threadPond:: zhendongKG()
+{
+  emit sendZhendongKG();
+}
+void threadPond:: shuibengKG()
+{
+   emit sendShuibengKG();
+}
+void threadPond:: zuanjinKG()
+{
+   emit sendZuanjinKG();
+}
 
+void threadPond::yeyaKG()
+{
+  emit sendYeyaKG();
+}
 void threadPond::armmoveup(int length)
 {
 //    void sendTGMSG2Socket(double type,double length);
@@ -101,49 +124,36 @@ void threadPond::armmovedown(int length)
 //    void sendArmMSG2Socket(double type);
 //    void sendArmMoveMSG2sOCKET(double type,double length);
 };
+void threadPond::startCircle(int cout,int step)
+{
+    emit sendCircle(cout,step);
+};
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+void threadPond::shutDown()
+{
+  emit sendShutDown();
+}
 
 
 
 void threadPond::crctest()
 {
     // 01 06 01 01 FF FF 46 D8  //打开
-     jdks=new crc();
-     QByteArray t1;
-     t1[0]=0x01;
-     t1[1]=0x80;
-     t1[2]=0x01;
-     t1[3]=0x0A;
-     t1[4]=0x13;
-     t1[5]=0x0f;
-     t1[6]=0x05;
-     t1[7]=0x01;
+
      QByteArray dd;
+     dd.resize(2);
      dd[0]=0x1f;
      dd[1]=0x1f;
 
 //16进制转换
-//     int aal=1000;
-//     dd[0]=aal>>8;
-//     dd[1]=(aal<<8)>>8;
+     int aal=300;
+     dd[0]=aal>>8;
+     dd[1]=(aal<<8)>>8;
 
      qDebug()<<"crctest=="<< dd.toHex().toInt() ;
-     //qDebug()<<"crctest=="<<QString::number(skk,16);
-     qDebug()<<"crctest=="<<QString::number(dd[2],16) ;
-     qDebug()<<"crctest=="<<QString::number(dd[3],16) ;
+     qDebug()<<"crctest=="<<dd.toHex();
+     //qDebug()<<"crctest=="<<QString::number(dd[2],16) ;
+    // qDebug()<<"crctest=="<<QString::number(dd[3],16) ;
 //16进制转换
 
 }

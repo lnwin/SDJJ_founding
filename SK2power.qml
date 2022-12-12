@@ -1,4 +1,4 @@
-﻿import QtQuick
+﻿import QtQuick 6.4
 
 Item {
     id:power
@@ -28,9 +28,11 @@ Item {
      property double cornerRadius:toPixels(0.1)
      property double start_x:toPixels(0.3)
      property double start_y:toPixels(0.3)
-     property double powerWidth:toPixels(4.5)
+     property double powerWidth:toPixels(10)
+
      property double powerHeight:toPixels(1.4)
-     property double powerMargin:toPixels(0.43)
+     property double powerMargin:powerWidth/20
+     //property double powerMargin:toPixels(0.43)
 
 
     //=====================================
@@ -103,12 +105,12 @@ Item {
                 //==================================================电量格子
                 ctx.lineWidth = toPixels(0.3);
                 ctx.strokeStyle = itemColor ;
-                var cout=inputPower/totalPower*10;
+                var cout=inputPower/totalPower*20;
                 for(var i=0;i<cout;i++)
                 {
                     ctx.beginPath();
-                    ctx.moveTo(start_x+cornerRadius*4+i*powerMargin,start_y+cornerRadius*2);
-                    ctx.lineTo(start_x+cornerRadius*4+i*powerMargin,start_y+cornerRadius*13);
+                    ctx.moveTo(start_x+cornerRadius*5+i*powerMargin,start_y+cornerRadius*2);
+                    ctx.lineTo(start_x+cornerRadius*5+i*powerMargin,start_y+cornerRadius*13);
                     ctx.stroke();
                 }
 

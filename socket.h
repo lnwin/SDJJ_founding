@@ -36,8 +36,17 @@ public slots:
     void ControlARMST(int type);
     void ControlARMMove(int type,int length);
 
+    void zhendongKZ();
+    void shuibengKZ();
+    void zhuanjinKZ();
+    void yeyaKZ();
+    void getShutDown();
+    void getCircle(int cout,int step);
 private:
-
+    bool zhendongOPEN=false;
+    bool shuibengOPEN=false;
+    bool zuanjinOPEN=false;
+    bool yeyaOPEN=false;
 
 };
 

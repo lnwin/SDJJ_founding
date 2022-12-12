@@ -167,28 +167,46 @@ void socket_SYS::control_socket_Read_Data()
          float Depth =controlData.mid(8,2).toHex().toInt(0,16)*1000;//单位毫米
                Depth +=controlData.mid(10,2).toHex().toInt(0,16);
                val.append(Depth);
-               qDebug()<<"Depth========="<<Depth;
+             //  qDebug()<<"Depth========="<<Depth;
          float Tofloor =controlData.mid(12,2).toHex().toInt(0,16)*1000;//单位毫米
                Tofloor+=controlData.mid(13,1).toHex().toInt(0,16);//单位毫米
                val.append(Tofloor);
-               qDebug()<<"Tofloor========="<<Tofloor;
+           //    qDebug()<<"Tofloor========="<<Tofloor;
          float ArmAngle= controlData.mid(15,2).toHex().toInt(0,16)*0.01;//单位毫米
          val.append(ArmAngle);
-         qDebug()<<"ArmAngle========="<<ArmAngle;
+        // qDebug()<<"ArmAngle========="<<ArmAngle;
          float TGMoveLength =float(float(controlData.mid(17,2).toHex().toInt(0,16))-819)*500/(4095-819);//单位毫米
          val.append(TGMoveLength);
-          qDebug()<<"TGMoveLength= ORIGIN========"<<controlData.mid(17,2).toHex().toInt(0,16);
-         qDebug()<<"TGMoveLength========="<<TGMoveLength;
+        //  qDebug()<<"TGMoveLength= ORIGIN========"<<controlData.mid(17,2).toHex().toInt(0,16);
+        // qDebug()<<"TGMoveLength========="<<TGMoveLength;
          float ArmMoveLength =float(float(controlData.mid(19,2).toHex().toInt(0,16))-819)*500/(4095-819);//单位毫米
          val.append(ArmMoveLength);
 
-         qDebug()<<"ArmMoveLength========="<<ArmMoveLength;
+        // qDebug()<<"ArmMoveLength========="<<ArmMoveLength;
          float ArmPress =float(float(controlData.mid(21,2).toHex().toInt(0,16))-819)*250/(4095-819);//单位bar
          val.append(ArmPress);
-         qDebug()<<"ArmPress========="<<ArmPress;
+        // qDebug()<<"ArmPress========="<<ArmPress;
          float YYPress =float(float(controlData.mid(23,2).toHex().toInt(0,16))-819)*250/(4095-819);//单位bar
          val.append(YYPress);
-         qDebug()<<"YYPress========="<<YYPress;
+       // qDebug()<<"YYPress========="<<YYPress;
+
+//         float YYPress =float(float(controlData.mid(23,2).toHex().toInt(0,16))-819)*250/(4095-819);//单位bar
+//         val.append(YYPress);
+//         float YYPress =float(float(controlData.mid(23,2).toHex().toInt(0,16))-819)*250/(4095-819);//单位bar
+//         val.append(YYPress);
+//         float YYPress =float(float(controlData.mid(23,2).toHex().toInt(0,16))-819)*250/(4095-819);//单位bar
+//         val.append(YYPress);
+         int zdState =int(controlData.mid(31,1).toHex().toInt(0,16));//单位bar
+         val.append(zdState);
+         int yyState =int(controlData.mid(32,1).toHex().toInt(0,16));//单位bar
+         val.append(yyState);
+         int sbState =int(controlData.mid(33,1).toHex().toInt(0,16));//单位bar
+         val.append(sbState);
+         int zjState =int(controlData.mid(34,1).toHex().toInt(0,16));//单位bar
+         val.append(zjState);
+
+
+
          emit sendcontrolMSG2T(val);
     }
 
@@ -252,3 +270,139 @@ void socket_SYS::ControlARMST(int type)
 {};
 void socket_SYS::ControlARMMove(int type,int length)
 {};
+
+
+void socket_SYS:: zhendongKZ()
+{
+//01 06 06 01 xx xx 32 D9
+    QByteArray MSG;
+    MSG[0]=0x01;
+    MSG[1]=0x06;
+    MSG[2]=0x06;
+    if(!zhendongOPEN)
+    {
+
+        MSG[3]=0x01;
+        zhendongOPEN=true;
+
+    }
+    else
+    {
+        MSG[3]=0x00;
+        zhendongOPEN=false;
+    }
+    MSG[4]=0x00;
+    MSG[5]=0x00;
+    uint16_t C2=CRC->ModbusCRC16(MSG);
+    MSG[6]=C2>>8;
+    MSG[7]=(C2<<8)>>8;
+    controlClient->write(MSG);
+
+}
+
+void socket_SYS:: shuibengKZ()
+{
+    QByteArray MSG;
+    MSG[0]=0x01;
+    MSG[1]=0x06;
+    MSG[2]=0x07;
+    if(!shuibengOPEN)
+    {
+
+        MSG[3]=0x01;
+        shuibengOPEN=true;
+
+    }
+    else
+    {
+        MSG[3]=0x00;
+        shuibengOPEN=false;
+    }
+    MSG[4]=0x00;
+    MSG[5]=0x00;
+    uint16_t C2=CRC->ModbusCRC16(MSG);
+    MSG[6]=C2>>8;
+    MSG[7]=(C2<<8)>>8;
+    controlClient->write(MSG);
+}
+void socket_SYS:: zhuanjinKZ()
+{
+    QByteArray MSG;
+    MSG[0]=0x01;
+    MSG[1]=0x06;
+    MSG[2]=0x08;
+    if(!zuanjinOPEN)
+    {
+
+        MSG[3]=0x01;
+        zuanjinOPEN=true;
+
+    }
+    else
+    {
+        MSG[3]=0x00;
+        zuanjinOPEN=false;
+    }
+    MSG[4]=0x00;
+    MSG[5]=0x00;
+    uint16_t C2=CRC->ModbusCRC16(MSG);
+    MSG[6]=C2>>8;
+    MSG[7]=(C2<<8)>>8;
+    controlClient->write(MSG);
+}
+void socket_SYS::yeyaKZ()
+{
+
+            QByteArray MSG;
+            MSG[0]=0x01;
+            MSG[1]=0x06;
+            MSG[2]=0x05;
+            if(!yeyaOPEN)
+            {
+
+                MSG[3]=0x01;
+                yeyaOPEN=true;
+
+            }
+            else
+            {
+                MSG[3]=0x00;
+                yeyaOPEN=false;
+            }
+            MSG[4]=0x00;
+            MSG[5]=0x00;
+            uint16_t C2=CRC->ModbusCRC16(MSG);
+            MSG[6]=C2>>8;
+            MSG[7]=(C2<<8)>>8;
+            controlClient->write(MSG);
+
+}
+
+void socket_SYS::getShutDown()
+{
+    QByteArray MSG;
+    MSG[0]=0x01;
+    MSG[1]=0x06;
+    MSG[2]=0x10;
+    MSG[3]=0x01;
+    MSG[4]=0x00;
+    MSG[5]=0x00;
+    uint16_t C2=CRC->ModbusCRC16(MSG);
+    MSG[6]=C2>>8;
+    MSG[7]=(C2<<8)>>8;
+    controlClient->write(MSG);
+}
+void socket_SYS::getCircle(int cout,int step)
+{
+    QByteArray MSG;
+    MSG[0]=0x01;
+    MSG[1]=0x06;
+    MSG[2]=0x09;
+    MSG[3]=cout;
+    MSG[4]=step>>8;
+    MSG[5]=(step<<8)>>8;
+    uint16_t C2=CRC->ModbusCRC16(MSG);
+    MSG[6]=C2>>8;
+    MSG[7]=(C2<<8)>>8;
+    controlClient->write(MSG);
+}

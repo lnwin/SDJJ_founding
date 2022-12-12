@@ -31,7 +31,13 @@ public:
     Q_INVOKABLE void armmovestop();
     Q_INVOKABLE void armmovedown(int length);
 
+    Q_INVOKABLE void zhendongKG();
+    Q_INVOKABLE void shuibengKG();
+    Q_INVOKABLE void zuanjinKG();
+    Q_INVOKABLE void yeyaKG();
+    Q_INVOKABLE void shutDown();
 
+    Q_INVOKABLE void startCircle(int cout,int step);
 
     Q_INVOKABLE void crctest();
     Q_INVOKABLE QVariantList getControlList();
@@ -50,6 +56,13 @@ signals:
     void sendTGMSG2Socket(int type,int length);
     void sendArmMSG2Socket(int type);
     void sendArmMoveMSG2sOCKET(int type,int length);
+
+    void sendZhendongKG();
+    void sendShuibengKG();
+    void sendZuanjinKG();
+    void sendYeyaKG();
+    void sendShutDown();
+    void sendCircle(int cout,int step);
 
 //Q_SIGNALS:
    // void sendSocketState2QML(QString);
