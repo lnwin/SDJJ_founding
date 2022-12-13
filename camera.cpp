@@ -160,6 +160,50 @@ bool camera::stopRealPlay()
    // NET_DVR_Cleanup();
     return true;
 };
+
+
+bool camera::startREC()
+{
+
+    char *RecName;
+
+    QDateTime time =QDateTime::currentDateTime();
+    QString filename="D:\\REC\\";
+    filename=filename+time.toString("yyyy_MM_dd_hh_mm_ss")+".mp4";
+    QByteArray ba =filename.toLatin1();
+    RecName=ba.data();
+
+         if(!NET_DVR_SaveRealData(lRealPlayHandle_0,RecName))
+         {
+             return false;
+         }
+         else
+         {
+             return true;
+         }
+};
+bool camera::stopREC()
+{
+    if(!NET_DVR_StopSaveRealData(lRealPlayHandle_0))
+       {
+          return false;
+
+       }
+    else
+    {
+        return true;
+    }
+
+};
+bool camera::startCatch()
+{
+   return true;
+};
+
+
+
+
+
 void CALLBACK g_ExceptionCallBack(DWORD dwType, LONG lUserID, LONG lHandle, void *pUser)
 {
 char tempbuf[256] = {0};

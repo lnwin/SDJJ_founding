@@ -1,5 +1,5 @@
 ﻿#include "threadpond.h"
-
+#include <QDateTime>
 threadPond::threadPond()
 {
     SK2 =new socket_SYS();
@@ -138,22 +138,8 @@ void threadPond::shutDown()
 
 void threadPond::crctest()
 {
-    // 01 06 01 01 FF FF 46 D8  //打开
+    QDateTime time =QDateTime::currentDateTime();
 
-     QByteArray dd;
-     dd.resize(2);
-     dd[0]=0x1f;
-     dd[1]=0x1f;
-
-//16进制转换
-     int aal=300;
-     dd[0]=aal>>8;
-     dd[1]=(aal<<8)>>8;
-
-     qDebug()<<"crctest=="<< dd.toHex().toInt() ;
-     qDebug()<<"crctest=="<<dd.toHex();
-     //qDebug()<<"crctest=="<<QString::number(dd[2],16) ;
-    // qDebug()<<"crctest=="<<QString::number(dd[3],16) ;
-//16进制转换
+    qDebug()<<time.toString("yyyy_MM_dd_hh_mm_ss");
 
 }

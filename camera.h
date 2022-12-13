@@ -2,7 +2,7 @@
 #define CAMERA_H
 #include <QWindow>
 #include <QObject>
-
+#include <QDateTime>
 class camera : public QObject
 {
     Q_OBJECT
@@ -15,6 +15,13 @@ public:
     Q_INVOKABLE bool longID();
     Q_INVOKABLE bool realPlayer_1();
     Q_INVOKABLE bool longID_1();
+
+    Q_INVOKABLE bool startREC();
+    Q_INVOKABLE bool stopREC();
+    Q_INVOKABLE bool startCatch();
+
+
+
 signals:
 
 };
