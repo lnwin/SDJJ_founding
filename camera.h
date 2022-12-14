@@ -3,6 +3,7 @@
 #include <QWindow>
 #include <QObject>
 #include <QDateTime>
+#include <HCNetSDK.h>
 class camera : public QObject
 {
     Q_OBJECT
@@ -20,6 +21,13 @@ public:
     Q_INVOKABLE bool stopREC();
     Q_INVOKABLE bool startCatch();
 
+    NET_DVR_USER_LOGIN_INFO struLoginInfo_0;
+    NET_DVR_DEVICEINFO_V40 struDeviceInfo_0;
+    NET_DVR_PREVIEWINFO struPlayInfo_0;
+
+    NET_DVR_USER_LOGIN_INFO struLoginInfo_1 ;
+    NET_DVR_DEVICEINFO_V40 struDeviceInfo_1 ;
+    NET_DVR_PREVIEWINFO struPlayInfo_1;
 
 
 signals:

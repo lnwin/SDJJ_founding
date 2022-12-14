@@ -1,4 +1,4 @@
-﻿#include <HCNetSDK.h>
+﻿
 #include "camera.h"
 #include <iostream>
 HWND CameraWidget_0,CameraWidget_1;
@@ -39,8 +39,8 @@ bool camera::longID()
 {
     //---------------------------------------
     // 注册设备==0
-    NET_DVR_USER_LOGIN_INFO struLoginInfo_0 = {0};
-    NET_DVR_DEVICEINFO_V40 struDeviceInfo_0 = {0};
+    struLoginInfo_0 = {0};
+    struDeviceInfo_0 = {0};
     strcpy((char *)struLoginInfo_0.sDeviceAddress,"192.168.1.64"); //设备 IP 地址
     strcpy((char *)struLoginInfo_0.sUserName,"admin"); //设备登录用户名
     strcpy((char *)struLoginInfo_0.sPassword,"cmr12345"); //设备登录密码
@@ -69,8 +69,8 @@ bool camera::longID_1()
 {
     //---------------------------------------
     // 注册设备==0
-    NET_DVR_USER_LOGIN_INFO struLoginInfo_1 = {0};
-    NET_DVR_DEVICEINFO_V40 struDeviceInfo_1 = {0};
+    struLoginInfo_1 = {0};
+    struDeviceInfo_1 = {0};
     strcpy((char *)struLoginInfo_1.sDeviceAddress,"192.168.1.65"); //设备 IP 地址
     strcpy((char *)struLoginInfo_1.sUserName,"admin"); //设备登录用户名
     strcpy((char *)struLoginInfo_1.sPassword,"cmr12345"); //设备登录密码
@@ -98,7 +98,7 @@ bool camera::realPlayer()
     //---------------------------------------
     //启动预览
 
-    NET_DVR_PREVIEWINFO struPlayInfo_0 = {0};
+    struPlayInfo_0 = {0};
     struPlayInfo_0.hPlayWnd = CameraWidget_0; //需要 SDK 解码时句柄设为有效值，仅取流不解码时可设为空
     struPlayInfo_0.lChannel = 1; //预览通道号
     struPlayInfo_0.dwStreamType = 0; //0-主码流， 1-子码流， 2-码流 3， 3-码流 4，以此类推
@@ -123,7 +123,7 @@ bool camera::realPlayer_1()
 {
     //启动预览
 
-    NET_DVR_PREVIEWINFO struPlayInfo_1 = {0};
+    struPlayInfo_1 = {0};
     struPlayInfo_1.hPlayWnd = CameraWidget_1; //需要 SDK 解码时句柄设为有效值，仅取流不解码时可设为空
     struPlayInfo_1.lChannel = 1; //预览通道号
     struPlayInfo_1.dwStreamType = 0; //0-主码流， 1-子码流， 2-码流 3， 3-码流 4，以此类推
@@ -153,7 +153,7 @@ bool camera::stopRealPlay()
    // NET_DVR_Cleanup();
     //---------------------------------------
     //关闭预览
-    NET_DVR_StopRealPlay(lRealPlayHandle_1);
+  //  NET_DVR_StopRealPlay(lRealPlayHandle_1);
     //注销用户
   //  NET_DVR_Logout(lUserID);
     //释放 SDK 资源
@@ -165,13 +165,18 @@ bool camera::stopRealPlay()
 bool camera::startREC()
 {
 
-    char *RecName;
+    char *RecName,*RecName2;
 
     QDateTime time =QDateTime::currentDateTime();
     QString filename="D:\\REC\\";
-    filename=filename+time.toString("yyyy_MM_dd_hh_mm_ss")+".mp4";
+    filename=filename+time.toString("Camera_0_yyyy_MM_dd_hh_mm_ss")+".mp4";
     QByteArray ba =filename.toLatin1();
     RecName=ba.data();
+
+    QString filename1="D:\\REC\\";
+    filename1=filename1+time.toString("Camera_1_yyyy_MM_dd_hh_mm_ss")+".jpg";
+    QByteArray ba1 =filename1.toLatin1();
+    RecName2=ba1.data();
 
          if(!NET_DVR_SaveRealData(lRealPlayHandle_0,RecName))
          {
@@ -197,7 +202,35 @@ bool camera::stopREC()
 };
 bool camera::startCatch()
 {
-   return true;
+
+    char *RecName1,*RecName2;
+    QDateTime time =QDateTime::currentDateTime();
+    QString filename="D:\\REC\\Pictrues\\";
+    filename=filename+time.toString("Camera_0_yyyy_MM_dd_hh_mm_ss")+".jpg";
+    QByteArray ba =filename.toLatin1();
+    RecName1=ba.data();
+    QString filename1="D:\\REC\\Pictrues\\";
+    filename1=filename1+time.toString("Camera_1_yyyy_MM_dd_hh_mm_ss")+".jpg";
+    QByteArray ba1 =filename1.toLatin1();
+    RecName2=ba1.data();
+
+
+            //组建jpg结构
+            NET_DVR_JPEGPARA JpgPara = {0};
+            JpgPara.wPicSize = (WORD)0;
+            JpgPara.wPicQuality = (WORD)0;
+            LONG iCurChan = struPlayInfo_0.lChannel ;
+            LONG iCurChan1 = struPlayInfo_1.lChannel ;
+            if((NET_DVR_CaptureJPEGPicture(lUserID_0, iCurChan, &JpgPara, RecName1))&&(NET_DVR_CaptureJPEGPicture(lUserID_1, iCurChan1, &JpgPara, RecName2))   )
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+
 };
 
 

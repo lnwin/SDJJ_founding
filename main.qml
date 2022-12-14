@@ -182,7 +182,7 @@ Window {
         x: 50
         y: 244
         width: 502
-        height: 749
+        height: 774
         moveLength: valueSource.movelength
         rotateAngle: valueSource.rotateAngle
         pushLength: valueSource.pushLength
@@ -210,7 +210,7 @@ Window {
 
         id:controlP
         x: 617
-        y: 709
+        y: 708
         width: 576
         height: 53
         itemName:"控制电池"
@@ -235,14 +235,24 @@ Window {
 
 
     Button {
-        id: button1
-        x: 1829
-        y: 9
-        width: 77
-        height: 27
-        text: qsTr("Close")
+        id: winclose
+        x: 1825
+        y: 27
+        width: 75
+        height: 30
+        text: qsTr("关闭窗口")
         onClicked:
             mainWindow.close()
+    }
+    Button {
+        id: min
+        x: 1740
+        y: 27
+        width: 75
+        height: 30
+        text: qsTr("最小化")
+        onClicked:
+            mainWindow.showMinimized();
     }
 
     SK2level {
@@ -284,7 +294,7 @@ Window {
         x: 617
         y: 855
         width: 576
-        height: 203
+        height: 163
         verticalAlignment: Text.AlignBottom
         placeholderText: qsTr("Text Area")
         selectByKeyboard: true
@@ -303,7 +313,7 @@ Window {
         x: 617
         y: 852
         width: 576
-        height: 206
+        height: 166
         layer.enabled: true
         enabled: false
 
@@ -376,39 +386,37 @@ Window {
             spacing: 15
             Button {
                                 id: cameraInt
-                                text: qsTr("注册相机")
-                                font.pixelSize:15
-                                //icon.name: "navigation"
-                                Layout.fillHeight: true
-                                onClicked:
-                                {
-                                    if(camera_obj.longID()&&camera_obj.longID_1())
-                                    {
-                                        textArea.text+="Camera Status: Init Success\n"
-                                    }
-                                    else
-                                    {
-                                        textArea.text +="Camera Status: Init Faile \n"
-                                    }
-                                }
-
-
-
-                            }
-
-            Button {
-                                id: cameraopenORclose
                                 text: qsTr("开启相机")
                                 font.pixelSize:15
                                 //icon.name: "navigation"
                                 Layout.fillHeight: true
                                 onClicked:
                                 {
-                                    camera_obj.realPlayer();
-                                    camera_obj.realPlayer_1();
+                                    //if(camera_obj.longID()&&camera_obj.longID_1())
+                                     if(camera_obj.longID())
+                                    {
+                                        camera_obj.realPlayer()
+                                        textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1号相机开启成功！\n"
+                                    }
+                                    else
+                                    {
+                                        textArea.text +=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1号相机开启失败！ \n"
+                                    }
+                                     if(camera_obj.longID_1())
+                                    {
+                                        camera_obj.realPlayer_1();
+                                        textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 2号相机开启成功！\n"
+                                    }
+                                    else
+                                    {
+                                        textArea.text +=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 2号相机开启失败！ \n"
+                                    }
                                 }
 
+
+
                             }
+
             Button {
                                 id: capture
                                 text: qsTr("单张抓拍")
@@ -417,7 +425,14 @@ Window {
                                 Layout.fillHeight: true
                                 onClicked:
                                 {
-
+                                    if(camera_obj.startCatch())
+                                    {
+                                        textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 抓拍成功！\n"
+                                    }
+                                    else
+                                    {
+                                        textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 抓拍失败！\n"
+                                    }
                                 }
                             }
             Button {
@@ -426,6 +441,29 @@ Window {
                                 font.pixelSize:15
                                 //icon.name: "navigation"
                                 Layout.fillHeight: true
+                                onClicked:
+                                {
+                                    if(camera_obj.startREC())
+                                    {
+                                        textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1号相机开始录像！\r\n";
+                                    }
+                                }
+            }
+            Button {
+                                id: stoprec
+                                text: qsTr("停止录像")
+                                font.pixelSize:15
+                                //icon.name: "navigation"
+                                Layout.fillHeight: true
+                                onClicked:
+                                {
+                                    if(camera_obj.stopREC())
+                                    {
+                                        {
+                                            textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1号相机录像停止！\r\n";
+                                        }
+                                    }
+                                }
             }
 
 
@@ -588,7 +626,13 @@ Window {
                            width: 83
                            height: 162
                            text: qsTr("急停")
-                            font.pointSize: 15
+                            font.pointSize: 25
+                            font.weight:Font.Bold
+                            background: Rectangle {
+                                        border.color: "#14191D"
+                                        color: "#8B1A1A"
+                                        // I want to change text color next
+                                    }
                             onClicked:
                             {
                                 threadPond_obj.shutDown();
@@ -1296,6 +1340,7 @@ Window {
           sbkg=mMSG[15];
           zjkg=mMSG[16];
 
+          checkState()
           mainCarton.start();
 
       }
