@@ -126,14 +126,13 @@ void socket_SYS::start_listening()
 }
 void socket_SYS::wave_socket_Read_Data()
 {
-    QByteArray waveData = waveClient->readAll();
-    QByteArray waveDataC1;
-    waveDataC1[0]= waveData.at(6);
-    waveDataC1[1]= waveData.at(7);
-    int C1=waveDataC1.toHex().toInt(0,16);
-    QByteArray waveDataforcheck=waveData.remove(6,2);
-    uint16_t C2=CRC->ModbusCRC16(waveDataforcheck);
-
+   // QByteArray waveData = waveClient->readAll();
+   // QByteArray waveDataC1;
+   // waveDataC1[0]= waveData.at(6);
+   // waveDataC1[1]= waveData.at(7);
+    //int C1=waveDataC1.toHex().toInt(0,16);
+   // QByteArray waveDataforcheck=waveData.remove(6,2);
+   // uint16_t C2=CRC->ModbusCRC16(waveDataforcheck);
 
 
     qDebug()<<"waveData";
@@ -144,13 +143,12 @@ void socket_SYS::wave_socket_Disconnected()
 }
 void socket_SYS::control_socket_Read_Data()
 {
+
     QByteArray controlData = controlClient->readAll();
     QByteArray controlDataC1;
-    controlDataC1[0]= controlData.at(31);
-    controlDataC1[1]= controlData.at(32);
+    controlDataC1=controlData.mid(35,2);
     int C1=controlDataC1.toHex().toInt(0,16);
-
-    QByteArray controlDataforcheck=controlData.mid(0,31);
+    QByteArray controlDataforcheck=controlData.mid(0,35);
     uint16_t C2=CRC->ModbusCRC16(controlDataforcheck);
     QVariantList val;
 
@@ -208,6 +206,7 @@ void socket_SYS::control_socket_Read_Data()
 
 
          emit sendcontrolMSG2T(val);
+        //  qDebug()<<"controlData=1";
     }
 
     else
@@ -228,6 +227,7 @@ void socket_SYS::ControlTG(int type,int length)
 {
 
        QByteArray MSG;
+       MSG.resize(8);
        MSG[0]=0x01;
        MSG[1]=0x06;
        MSG[2]=0x03;
@@ -267,15 +267,52 @@ void socket_SYS::ControlTG(int type,int length)
 
 };
 void socket_SYS::ControlARMST(int type)
-{};
+{
+
+    QByteArray MSG;   
+    MSG.resize(8);
+    MSG[0]=0x01;
+    MSG[1]=0x06;
+    MSG[2]=0x04;
+    if(type==Release)
+    {
+
+        MSG[3]=0x01;
+        MSG[4]=0xff;
+        MSG[5]=0xff;
+    }
+    else if(type==Stop)
+    {
+        MSG[3]=0x00;
+        MSG[4]=0xff;
+        MSG[5]=0xff;
+    }
+
+    else if (type==Recover)
+    {
+        MSG[3]=0x02;
+        MSG[4]=0xff;
+        MSG[5]=0xff;
+
+    }
+
+    uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
+    MSG[6]=C2>>8;
+    MSG[7]=(C2<<8)>>8;
+    controlClient->write(MSG);
+
+};
 void socket_SYS::ControlARMMove(int type,int length)
-{};
+{
+
+};
 
 
 void socket_SYS:: zhendongKZ()
 {
 //01 06 06 01 xx xx 32 D9
     QByteArray MSG;
+    MSG.resize(8);
     MSG[0]=0x01;
     MSG[1]=0x06;
     MSG[2]=0x06;
@@ -293,16 +330,16 @@ void socket_SYS:: zhendongKZ()
     }
     MSG[4]=0x00;
     MSG[5]=0x00;
-    uint16_t C2=CRC->ModbusCRC16(MSG);
+    uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
     MSG[6]=C2>>8;
     MSG[7]=(C2<<8)>>8;
     controlClient->write(MSG);
 
 }
-
 void socket_SYS:: shuibengKZ()
 {
     QByteArray MSG;
+    MSG.resize(8);
     MSG[0]=0x01;
     MSG[1]=0x06;
     MSG[2]=0x07;
@@ -320,7 +357,7 @@ void socket_SYS:: shuibengKZ()
     }
     MSG[4]=0x00;
     MSG[5]=0x00;
-    uint16_t C2=CRC->ModbusCRC16(MSG);
+    uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
     MSG[6]=C2>>8;
     MSG[7]=(C2<<8)>>8;
     controlClient->write(MSG);
@@ -328,6 +365,7 @@ void socket_SYS:: shuibengKZ()
 void socket_SYS:: zhuanjinKZ()
 {
     QByteArray MSG;
+    MSG.resize(8);
     MSG[0]=0x01;
     MSG[1]=0x06;
     MSG[2]=0x08;
@@ -345,7 +383,7 @@ void socket_SYS:: zhuanjinKZ()
     }
     MSG[4]=0x00;
     MSG[5]=0x00;
-    uint16_t C2=CRC->ModbusCRC16(MSG);
+    uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
     MSG[6]=C2>>8;
     MSG[7]=(C2<<8)>>8;
     controlClient->write(MSG);
@@ -354,6 +392,7 @@ void socket_SYS::yeyaKZ()
 {
 
             QByteArray MSG;
+            MSG.resize(8);
             MSG[0]=0x01;
             MSG[1]=0x06;
             MSG[2]=0x05;
@@ -371,7 +410,7 @@ void socket_SYS::yeyaKZ()
             }
             MSG[4]=0x00;
             MSG[5]=0x00;
-            uint16_t C2=CRC->ModbusCRC16(MSG);
+            uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
             MSG[6]=C2>>8;
             MSG[7]=(C2<<8)>>8;
             controlClient->write(MSG);
@@ -381,13 +420,14 @@ void socket_SYS::yeyaKZ()
 void socket_SYS::getShutDown()
 {
     QByteArray MSG;
+    MSG.resize(8);
     MSG[0]=0x01;
     MSG[1]=0x06;
     MSG[2]=0x10;
     MSG[3]=0x01;
     MSG[4]=0x00;
     MSG[5]=0x00;
-    uint16_t C2=CRC->ModbusCRC16(MSG);
+    uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
     MSG[6]=C2>>8;
     MSG[7]=(C2<<8)>>8;
     controlClient->write(MSG);
@@ -395,13 +435,14 @@ void socket_SYS::getShutDown()
 void socket_SYS::getCircle(int cout,int step)
 {
     QByteArray MSG;
+    MSG.resize(8);
     MSG[0]=0x01;
     MSG[1]=0x06;
     MSG[2]=0x09;
     MSG[3]=cout;
     MSG[4]=step>>8;
     MSG[5]=(step<<8)>>8;
-    uint16_t C2=CRC->ModbusCRC16(MSG);
+    uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
     MSG[6]=C2>>8;
     MSG[7]=(C2<<8)>>8;
     controlClient->write(MSG);

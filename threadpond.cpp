@@ -23,9 +23,8 @@ threadPond::threadPond()
 
    connect(this,SIGNAL(sendShutDown()),SK2,SLOT(getShutDown()));
 
-
-    SK2->moveToThread(socketThread);
-    socketThread->start();
+   SK2->moveToThread(socketThread);
+   socketThread->start();
 
 
 
@@ -131,7 +130,7 @@ void threadPond::startCircle(int cout,int step)
 
 void threadPond::shutDown()
 {
-  emit sendShutDown();
+    emit sendShutDown();
 }
 
 

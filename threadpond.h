@@ -8,7 +8,7 @@ class threadPond : public QObject
 {
     Q_OBJECT
    // Q_PROPERTY(waveMSG wmsg READ getWmsg WRITE setWmsg)// 暴露了参数和函数
-   //  Q_PROPERTY(waveMSG wmsg)
+   // Q_PROPERTY(mMSG);
    //  Q_PROPERTY(controlMSG conmsg)
    // Q_PROPERTY(monitoredMSG monmsg)
 public:

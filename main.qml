@@ -55,10 +55,10 @@ Window {
     property real transducerPressureNow:0
     property real cylinderPressureNow:100
 
-    property real zdkg:1
-    property real yykg:1
-    property real sbkg:1
-    property real zjkg:1
+    property double zdkg:1
+    property double yykg:1
+    property double sbkg:1
+    property double zjkg:1
 
     //var kphPreviously=0
 
@@ -168,7 +168,7 @@ Window {
             movelengthPreviously= movelengthNow
             transducerPressurePreviously=transducerPressureNow
             cylinderPressurePreviously= cylinderPressureNow
-            console.log("finish");
+            //console.log("finish");
         }
 
     }
@@ -1245,14 +1245,6 @@ Window {
         }
 
 
-
-
-
-
-
-
-
-
     }
 
 //===================================================
@@ -1323,7 +1315,7 @@ Window {
       }
       onSendcontrolMSG2QML://传感器参数接收
       {
-         // textArea.text+=mMSG[0].toFixed(2);
+         // textArea.text+=mMSG;
           rollNow=mMSG[0].toFixed(2)
           pitchNow=mMSG[1].toFixed(2);
           yawNow=mMSG[2].toFixed(2);
@@ -1335,11 +1327,11 @@ Window {
           transducerPressureNow=mMSG[8].toFixed(2);
           cylinderPressureNow=mMSG[9].toFixed(2);
 
-          zdkg=mMSG[13];
-          yykg=mMSG[14];
-          sbkg=mMSG[15];
-          zjkg=mMSG[16];
-
+//          zdkg=mMSG[13].toFixed(2);
+//          yykg=mMSG[14].toFixed(2);
+//          sbkg=mMSG[15].toFixed(2);
+//          zjkg=mMSG[16].toFixed(2);
+//======================该处需要修订下
           checkState()
           mainCarton.start();
 
