@@ -13,6 +13,7 @@
 #include <QQmlContext>
 #include <QQuickView>
 #include<threadpond.h>
+#include <mysql.h>
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);

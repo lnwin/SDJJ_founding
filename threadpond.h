@@ -4,6 +4,7 @@
 #include <QThread>
 #include <socket.h>
 #include <mystruct.h>
+#include <mysql.h>
 class threadPond : public QObject
 {
     Q_OBJECT
@@ -41,6 +42,10 @@ public:
 
     Q_INVOKABLE void crctest();
     Q_INVOKABLE QVariantList getControlList();
+    Q_INVOKABLE void closeAll();
+    Q_INVOKABLE void addMSG2sql(QString MSG,QString date);
+
+
 
 
 
@@ -78,7 +83,7 @@ public:
    QVariantList conmsg;
    monitoredMSG monmsg;
    crc *jdks;
-
+   mysql* Msql;
 //   waveMSG getWmsg()
 //   {
 //       return wmsg ;
@@ -87,6 +92,7 @@ public:
 //   {
 //         wmsg = stn  ;
 //   };
+
 
 };
 

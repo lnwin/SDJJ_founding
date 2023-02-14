@@ -4,27 +4,28 @@ threadPond::threadPond()
 {
     SK2 =new socket_SYS();
     socketThread =new QThread;
-
+    Msql=new mysql();
     connect(this,SIGNAL(startListing()),SK2,SLOT(start_listening()));
     connect(SK2,SIGNAL(sendSocketState2T(QString)),this,SLOT(getSocketState(QString)));
+    connect(Msql,SIGNAL(sendSqlState2T(QString)),this,SLOT(getSocketState(QString)));
     connect(SK2,SIGNAL(sendcontrolMSG2T(QVariantList)),this,SLOT(getcontrolMSGFromSocket(QVariantList)));
 //    connect(this,SIGNAL(sendTGMSG2Socket(double,double)),SK2,SLOT(void ControlTG(double,double));
 //    connect(this,SIGNAL(sendArmMSG2Socket(double ),SK2,SLOT(ControlARMST(double));
 //    connect(this,SIGNAL(sendArmMoveMSG2sOCKET(double ,double),SK2,SLOT(ControlARMMove(double ,double));
-   connect(this,SIGNAL(sendTGMSG2Socket(int,int)),SK2,SLOT(ControlTG(int,int)));
-   connect(this,SIGNAL(sendArmMSG2Socket(int)),SK2,SLOT(ControlARMST(int)));
-   connect(this,SIGNAL(sendArmMoveMSG2sOCKET(int ,int)),SK2,SLOT(ControlARMMove(int ,int)));
+    connect(this,SIGNAL(sendTGMSG2Socket(int,int)),SK2,SLOT(ControlTG(int,int)));
+    connect(this,SIGNAL(sendArmMSG2Socket(int)),SK2,SLOT(ControlARMST(int)));
+    connect(this,SIGNAL(sendArmMoveMSG2sOCKET(int ,int)),SK2,SLOT(ControlARMMove(int ,int)));
 
-   connect(this,SIGNAL(sendZhendongKG()),SK2,SLOT(zhendongKZ()));
-   connect(this,SIGNAL(sendShuibengKG()),SK2,SLOT(shuibengKZ()));
-   connect(this,SIGNAL(sendZuanjinKG()),SK2,SLOT(zhuanjinKZ()));
-   connect(this,SIGNAL(sendYeyaKG()),SK2,SLOT(yeyaKZ()));
-   connect(this,SIGNAL(sendCircle(int,int)),SK2,SLOT(getCircle(int,int)));
+    connect(this,SIGNAL(sendZhendongKG()),SK2,SLOT(zhendongKZ()));
+    connect(this,SIGNAL(sendShuibengKG()),SK2,SLOT(shuibengKZ()));
+    connect(this,SIGNAL(sendZuanjinKG()),SK2,SLOT(zhuanjinKZ()));
+    connect(this,SIGNAL(sendYeyaKG()),SK2,SLOT(yeyaKZ()));
+    connect(this,SIGNAL(sendCircle(int,int)),SK2,SLOT(getCircle(int,int)));
 
-   connect(this,SIGNAL(sendShutDown()),SK2,SLOT(getShutDown()));
+    connect(this,SIGNAL(sendShutDown()),SK2,SLOT(getShutDown()));
 
-   SK2->moveToThread(socketThread);
-   socketThread->start();
+    SK2->moveToThread(socketThread);
+    socketThread->start();
 
 
 
@@ -34,8 +35,9 @@ threadPond::threadPond()
 threadPond::~threadPond()
 {
 
-}
 
+
+}
 void threadPond::socket_Init()
 {
    emit startInit();
@@ -43,6 +45,7 @@ void threadPond::socket_Init()
 void threadPond::socket_Listing()
 {
     emit startListing();//直接调用SK2的函数，线程不变，使用信号槽才会改变线程
+    Msql->creatDB();
 }
 QVariantList threadPond::getControlList()
 {
@@ -133,7 +136,10 @@ void threadPond::shutDown()
     emit sendShutDown();
 }
 
-
+void threadPond::closeAll()
+{
+     Msql->closeDB();
+}
 
 void threadPond::crctest()
 {
@@ -141,4 +147,8 @@ void threadPond::crctest()
 
     qDebug()<<time.toString("yyyy_MM_dd_hh_mm_ss");
 
+}
+void threadPond::addMSG2sql(QString MSG,QString date)
+{
+   Msql->addMSG(MSG,date);
 }

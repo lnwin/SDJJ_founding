@@ -34,6 +34,10 @@ bool socket_SYS::socket_Listening()
          // connect(mainServer, SIGNAL(close()),this, SLOT(socket_SoptListening()));
          // qDebug()<<"mainServer listening ok";
             emit sendSocketState2T(QStringLiteral("监听成功！\n"));
+
+
+
+
             return  true;
 
          }
@@ -145,6 +149,9 @@ void socket_SYS::control_socket_Read_Data()
 {
 
     QByteArray controlData = controlClient->readAll();
+
+
+   // qDebug()<<controlData.toHex();
     QByteArray controlDataC1;
     controlDataC1=controlData.mid(35,2);
     int C1=controlDataC1.toHex().toInt(0,16);
@@ -184,16 +191,17 @@ void socket_SYS::control_socket_Read_Data()
          float ArmPress =float(float(controlData.mid(21,2).toHex().toInt(0,16))-819)*250/(4095-819);//单位bar
          val.append(ArmPress);
         // qDebug()<<"ArmPress========="<<ArmPress;
-         float YYPress =float(float(controlData.mid(23,2).toHex().toInt(0,16))-819)*250/(4095-819);//单位bar
+         float YYPress =float(float(controlData.mid(23,2).toHex().toInt(0,16))-819)*250/(4095-819)*0.01;//单位bar
          val.append(YYPress);
        // qDebug()<<"YYPress========="<<YYPress;
 
-//         float YYPress =float(float(controlData.mid(23,2).toHex().toInt(0,16))-819)*250/(4095-819);//单位bar
-//         val.append(YYPress);
-//         float YYPress =float(float(controlData.mid(23,2).toHex().toInt(0,16))-819)*250/(4095-819);//单位bar
-//         val.append(YYPress);
-//         float YYPress =float(float(controlData.mid(23,2).toHex().toInt(0,16))-819)*250/(4095-819);//单位bar
-//         val.append(YYPress);
+         float battery_0 =float(controlData.mid(25,2).toHex().toInt(0,16));//电池1
+         val.append(battery_0);
+         float battery_1 =float(controlData.mid(27,2).toHex().toInt(0,16));//电池2
+         val.append(battery_1);
+         float battery_2 =float(controlData.mid(29,2).toHex().toInt(0,16));//电池3
+         val.append(battery_2);
+
          int zdState =int(controlData.mid(31,1).toHex().toInt(0,16));//单位bar
          val.append(zdState);
          int yyState =int(controlData.mid(32,1).toHex().toInt(0,16));//单位bar

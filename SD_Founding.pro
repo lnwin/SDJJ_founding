@@ -1,5 +1,5 @@
 QT += quick charts
-QT += network
+QT += network sql
 CONFIG += c++11
 QT += quick quickcontrols2
 QT += charts

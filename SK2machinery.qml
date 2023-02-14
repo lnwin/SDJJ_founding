@@ -257,8 +257,8 @@ Item {
                 ctx.fillStyle=itemColor
                 ctx.fillText(String("油缸压力"),frameWork_bottomLeft_x+toPixels(0.1),frameWork_bottomLeft_y-toPixels(0.45))
                 ctx.fillStyle=textColor
-                var ygyl = "%1Pa"
-                var ygyl_value = cylinderPressure.toFixed(0)
+                var ygyl = "%1bar"
+                var ygyl_value = cylinderPressure.toFixed(2)
                 ctx.textAlign="center";
                 ctx.font="20px Arial"
                // console.log(message.arg(count))
@@ -714,8 +714,8 @@ Item {
                 ctx.fillText(String("换能器压力"),tP_x,tP_y)
                 ctx.fillStyle=textColor
                 ctx.textAlign="center";
-                var hnqyl = "%1Pa"
-                var hnqyl_text = transducerPressure.toFixed(0)
+                var hnqyl = "%1bar"
+                var hnqyl_text = transducerPressure.toFixed(2)
                 ctx.font="25px Arial"
                // console.log(message.arg(count))
                 ctx.fillText(hnqyl.arg(hnqyl_text),tP_x,tP_y+toPixels(0.1))

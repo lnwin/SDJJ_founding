@@ -39,7 +39,7 @@ Window {
     property real  controlPowerPreviously:0
     property real  depthPreviously:0
     property real transducerPressurePreviously:0
-    property real cylinderPressurePreviously:100
+    property double cylinderPressurePreviously:1
 
 
    // property var  kphNow:50
@@ -53,7 +53,7 @@ Window {
     property real  controlPowerNow:0
     property real  depthNow:0
     property real transducerPressureNow:0
-    property real cylinderPressureNow:100
+    property double cylinderPressureNow:1
 
     property double zdkg:1
     property double yykg:1
@@ -148,6 +148,24 @@ Window {
         }
         NumberAnimation {
             target: valueSource
+            property: "transducerPressure"
+           // easing.type: Easing.InOutSine
+            from: transducerPressurePreviously
+            to: transducerPressureNow
+            duration: 300
+            easing.type: Easing.Linear //匀
+        }
+        NumberAnimation {
+            target: valueSource
+            property: "cylinderPressure"
+           // easing.type: Easing.InOutSine
+            from: cylinderPressurePreviously
+            to: cylinderPressureNow
+            duration: 300
+            easing.type: Easing.Linear //匀
+        }
+        NumberAnimation {
+            target: valueSource
             property: "impetusPower"
            // easing.type: Easing.InOutSine
             from: 100
@@ -193,11 +211,11 @@ Window {
 
         Button {
             id: button
-            x: 410
-            y: 316
-            width: 56
+            x: 388
+            y: 314
+            width: 84
             height: 48
-            text: qsTr("Button")
+            text: qsTr("Test")
             onClicked:
             {
                 threadPond_obj.crctest();
@@ -210,7 +228,7 @@ Window {
 
         id:controlP
         x: 617
-        y: 708
+        y: 567
         width: 576
         height: 53
         itemName:"控制电池"
@@ -224,7 +242,7 @@ Window {
 
         id:impetusP
         x: 617
-        y: 776
+        y: 641
         width: 576
         height: 53
         itemName:"动力电池"
@@ -242,7 +260,10 @@ Window {
         height: 30
         text: qsTr("关闭窗口")
         onClicked:
+        {
             mainWindow.close()
+            threadPond_obj.closeAll();
+        }
     }
     Button {
         id: min
@@ -292,9 +313,9 @@ Window {
     TextArea {
         id: textArea
         x: 617
-        y: 855
+        y: 709
         width: 576
-        height: 163
+        height: 309
         verticalAlignment: Text.AlignBottom
         placeholderText: qsTr("Text Area")
         selectByKeyboard: true
@@ -311,9 +332,9 @@ Window {
         // width: parent.width
         //height:parent.height
         x: 617
-        y: 852
+        y: 718
         width: 576
-        height: 166
+        height: 300
         layer.enabled: true
         enabled: false
 
@@ -345,8 +366,8 @@ Window {
             ctx.lineWidth = 7;
             // 绘制线
             ctx.beginPath();
-            ctx.moveTo(0, 206);
-            ctx.lineTo(576, 206);
+            ctx.moveTo(0, 301);
+            ctx.lineTo(576, 301);
             ctx.stroke();
 
 //            var grd2=ctx.createLinearGradient(865, 40, 1000, 40);
@@ -411,6 +432,7 @@ Window {
                                     {
                                         textArea.text +=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 2号相机开启失败！ \n"
                                     }
+                                     threadPond_obj.addMSG2sql("开启相机","");
                                 }
 
 
@@ -433,6 +455,7 @@ Window {
                                     {
                                         textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 抓拍失败！\n"
                                     }
+                                    threadPond_obj.addMSG2sql("单张抓拍","");
                                 }
                             }
             Button {
@@ -447,6 +470,7 @@ Window {
                                     {
                                         textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1号相机开始录像！\r\n";
                                     }
+                                    threadPond_obj.addMSG2sql("开始录像","");
                                 }
             }
             Button {
@@ -463,6 +487,7 @@ Window {
                                             textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1号相机录像停止！\r\n";
                                         }
                                     }
+                                    threadPond_obj.addMSG2sql("停止录像","");
                                 }
             }
 
@@ -501,7 +526,7 @@ Window {
                                 onClicked:
                                 {
                                    threadPond_obj.socket_Listing()
-
+                                   threadPond_obj.addMSG2sql("连接网络","");
                                 }
 
 
@@ -529,7 +554,7 @@ Window {
         x: 617
         y: 71
         width: 576
-        height: 613
+        height: 468
         color: bgColor
         border.color: mainColor
        // color: mainColor
@@ -580,6 +605,7 @@ Window {
                            onClicked:
                            {
                                threadPond_obj.armrelease() ;
+                               threadPond_obj.addMSG2sql("扩展臂释放","");
                            }
                        }
 
@@ -598,6 +624,7 @@ Window {
                            onClicked:
                            {
                                threadPond_obj.armstop();
+                               threadPond_obj.addMSG2sql("扩展臂制动","");
                            }
                        }
 
@@ -616,6 +643,7 @@ Window {
                            onClicked:
                            {
                                threadPond_obj.armrecover() ;
+                               threadPond_obj.addMSG2sql("扩展臂回收","");
                            }
                        }
 
@@ -636,6 +664,7 @@ Window {
                             onClicked:
                             {
                                 threadPond_obj.shutDown();
+                                threadPond_obj.addMSG2sql("急停","");
                             }
 
                        }
@@ -717,6 +746,7 @@ Window {
                            onClicked:
                            {
                                threadPond_obj.tGup(Number(tgu_numb.text));
+                               threadPond_obj.addMSG2sql("探杆上提",tgu_numb.text+"mm");
                            }
                        }
 
@@ -732,6 +762,7 @@ Window {
                            onClicked:
                            {
                                threadPond_obj.tGdown((Number(tgd_numb.text)));
+                               threadPond_obj.addMSG2sql("探杆下插",tgd_numb.text+"mm");
                            }
                        }
 
@@ -754,6 +785,7 @@ Window {
                            onClicked:
                            {
                                threadPond_obj.tGstop() ;
+                               threadPond_obj.addMSG2sql("探杆停止","");
                            }
                        }
 
@@ -805,6 +837,7 @@ Window {
                            onClicked:
                            {
                                threadPond_obj .armmoveup(Number(kmu_numb.text));
+                               threadPond_obj.addMSG2sql("扩展臂上移",kmu_numb.text+"mm");
                            }
                        }
 
@@ -823,6 +856,7 @@ Window {
                            onClicked:
                            {
                                threadPond_obj .armmoveup(Number(kmd_numb.text));
+                               threadPond_obj.addMSG2sql("扩展臂下移",kmd_numb.text+"mm");
                            }
                        }
 
@@ -843,6 +877,7 @@ Window {
                            onClicked:
                            {
                                threadPond_obj.armstop();
+                               threadPond_obj.addMSG2sql("扩展臂停止","");
                            }
                        }
 
@@ -880,149 +915,7 @@ Window {
                            placeholderText: qsTr("_______")
                        }
 
-                       Label {
 
-                           x: 36
-                           y: 398
-                           width: 186
-                           height: 20
-                           id: xxsd
-                           text: qsTr("循环次数:")
-                           font.pixelSize: 20
-                           // font.family: "Times New Roman"
-                           color: itemColor
-                          // anchors.fill: parent
-                           //  Layout.preferredWidth: 40
-                           //  Layout.preferredHeight: 40
-                       }
-
-                       Label {
-
-                           x: 36
-                           y: 437
-                           width: 185
-                           height: 20
-                           id: stepA
-                           color: itemColor
-                           text: qsTr("探杆下插步长(mm):")
-                           font.pixelSize: 20
-                           //anchors.fill: parent
-                           //Layout.preferredWidth: 40
-                           // Layout.preferredHeight: 40
-                       }
-
-                       Label {
-
-                           x: 38
-                           y: 480
-                           width: 185
-                           height: 20
-                           id: sxml
-                           color: itemColor
-                           text: qsTr("声学命令选择:")
-                           font.pixelSize: 20
-                           //anchors.fill: parent
-                           //Layout.preferredWidth: 40
-                           // Layout.preferredHeight: 40
-                       }
-
-                       TextField {
-
-                           x: 228
-                           y: 398
-                           width: 95
-                           height: 20
-                           id: atgjl
-                           //x: 361
-                           //y: 16
-                           //width: 77
-                          // height: 34
-                            Layout.topMargin: 10
-                           font.pixelSize: 18
-                           font.bold: true
-                           placeholderTextColor:itemColor
-                           color: textColor
-                           placeholderText: qsTr("_______")
-                       }
-
-                       TextField {
-
-                           x: 227
-                           y: 437
-                           width: 96
-                           height: 20
-                           id: atgjl_bc
-                           //x: 361
-                           //y: 16
-                           //width: 77
-                           //height: 34
-                            Layout.topMargin: 20
-                           font.bold: true
-                           color: textColor
-                           font.pixelSize: 18
-                           placeholderTextColor:itemColor
-                           placeholderText: qsTr("_______")
-                       }
-
-                       ComboBox {
-                           //id: comboBox
-                           x: 229
-                           y: 471
-                           width: 66
-                           height: 34
-                           id:comID
-                  //         x:900
-                  //         y:800
-                          // width: 100
-                          // height: 30
-                           Layout.topMargin: 20
-                           Layout.fillWidth: true
-                           editable: false
-                           flat: false
-                           clip: true
-                         //clip: true
-                           visible: true
-                           font.pixelSize: 15
-                           popup.font.pixelSize: 15//下拉菜单字体大小
-                           popup.topPadding:33 //距离选定数字的距离，必须设置
-                           popup.margins: 20
-                           enabled: true
-                           focusPolicy: Qt.ClickFocus
-                           model:["1号","2号","3号","4号","5号"]
-
-                                      onActivated: {
-                                          console.log(displayText)
-                                          console.log(index)
-                                      }
-                       }
-
-                       Button {
-
-                           x: 331
-                           y: 398
-                           width: 197
-                           height: 102
-                           id: atoD1
-                            //width: 160
-                           // height: 20
-                            Layout.preferredWidth: 160
-                            Layout.preferredHeight: 40
-                            Layout.fillWidth: true      //占据为其分配的所有宽度
-                            Layout.fillHeight: true
-                            icon.source: "qrc:/imagines/shake-outline.svg"
-                            icon.width: 50
-                            icon.height: 50
-                            display: Button.TextUnderIcon
-                            text: qsTr("开始自动探测")
-                            font.pointSize: 15
-                            onClicked:
-                            {
-                                checkState();
-                                threadPond_obj.startCircle(Number(atgjl.text),Number(atgjl_bc.text))
-                            }
-
-
-                       }
                        Label {
                            id: label2
                            x: 36
@@ -1064,6 +957,7 @@ Window {
                             onClicked:
                             {
                                 threadPond_obj.zhendongKG();
+                                threadPond_obj.addMSG2sql(zhendongbutton.text,"");
                             }
                        }
 
@@ -1078,6 +972,7 @@ Window {
                             onClicked:
                             {
                                 threadPond_obj.shuibengKG();
+                                threadPond_obj.addMSG2sql(shuibengbutton.text,"");
                             }
                        }
 
@@ -1092,6 +987,8 @@ Window {
                             onClicked:
                             {
                                 threadPond_obj.zuanjinKG();
+                                 threadPond_obj.addMSG2sql(zuanjinbutton.text,"");
+
                             }
                        }
 
@@ -1160,6 +1057,7 @@ Window {
                            onClicked:
                            {
                                threadPond_obj.yeyaKG();
+                                threadPond_obj.addMSG2sql(yeyabutton.text,"");
                            }
                        }
 
@@ -1233,13 +1131,154 @@ Window {
 
                }
                Item {
-                   Text {
-                       anchors.centerIn: parent
-                       text: qsTr("Second")
-                       color: mainColor
+
+                   Label {
+
+                       x: 35
+                       y: -4
+                       width: 186
+                       height: 20
+                       id: xxsd
+                       text: qsTr("循环次数:")
+                       font.pixelSize: 20
+                       // font.family: "Times New Roman"
+                       color: itemColor
+                      // anchors.fill: parent
+                       //  Layout.preferredWidth: 40
+                       //  Layout.preferredHeight: 40
                    }
 
-               }
+                   Label {
+
+                       x: 35
+                       y: 37
+                       width: 185
+                       height: 20
+                       id: stepA
+                       color: itemColor
+                       text: qsTr("探杆下插步长(mm):")
+                       font.pixelSize: 20
+                       //anchors.fill: parent
+                       //Layout.preferredWidth: 40
+                       // Layout.preferredHeight: 40
+                   }
+
+                   Label {
+
+                       x: 35
+                       y: 80
+                       width: 185
+                       height: 20
+                       id: sxml
+                       color: itemColor
+                       text: qsTr("声学命令选择:")
+                       font.pixelSize: 20
+                       //anchors.fill: parent
+                       //Layout.preferredWidth: 40
+                       // Layout.preferredHeight: 40
+                   }
+
+                   TextField {
+
+                       x: 225
+                       y: -4
+                       width: 95
+                       height: 20
+                       id: atgjl
+                       //x: 361
+                       //y: 16
+                       //width: 77
+                      // height: 34
+                        Layout.topMargin: 10
+                       font.pixelSize: 18
+                       font.bold: true
+                       placeholderTextColor:itemColor
+                       color: textColor
+                       placeholderText: qsTr("_______")
+                   }
+
+                   TextField {
+
+                       x: 225
+                       y: 37
+                       width: 96
+                       height: 20
+                       id: atgjl_bc
+                       //x: 361
+                       //y: 16
+                       //width: 77
+                       //height: 34
+                        Layout.topMargin: 20
+                       font.bold: true
+                       color: textColor
+                       font.pixelSize: 18
+                       placeholderTextColor:itemColor
+                       placeholderText: qsTr("_______")
+                   }
+
+                   ComboBox {
+                       //id: comboBox
+                       x: 225
+                       y: 70
+                       width: 66
+                       height: 34
+                       id:comID
+              //         x:900
+              //         y:800
+                      // width: 100
+                      // height: 30
+                       Layout.topMargin: 20
+                       Layout.fillWidth: true
+                       editable: false
+                       flat: false
+                       clip: true
+                     //clip: true
+                       visible: true
+                       font.pixelSize: 15
+                       popup.font.pixelSize: 15//下拉菜单字体大小
+                       popup.topPadding:33 //距离选定数字的距离，必须设置
+                       popup.margins: 20
+                       enabled: true
+                       focusPolicy: Qt.ClickFocus
+                       model:["1号","2号","3号","4号","5号"]
+
+                                  onActivated: {
+                                      console.log(displayText)
+                                      console.log(index)
+                                  }
+                   }
+
+                   Button {
+
+                       x: 320
+                       y: 10
+                       width: 197
+                       height: 102
+                       id: atoD1
+                        //width: 160
+                       // height: 20
+                        Layout.preferredWidth: 160
+                        Layout.preferredHeight: 40
+                        Layout.fillWidth: true      //占据为其分配的所有宽度
+                        Layout.fillHeight: true
+                        icon.source: "qrc:/imagines/shake-outline.svg"
+                        icon.width: 50
+                        icon.height: 50
+                        display: Button.TextUnderIcon
+                        text: qsTr("开始自动探测")
+                        font.pointSize: 15
+                        onClicked:
+                        {
+                            checkState();
+                            threadPond_obj.startCircle(Number(atgjl.text),Number(atgjl_bc.text))
+                            threadPond_obj.addMSG2sql("开始自动探测","");
+                        }
+
+
+                   }
+
+
+                     }
 
 
         }
@@ -1255,43 +1294,51 @@ Window {
       {
           zddianjiState.color="#FF0000";
           zddianjiState.text="关闭"
+          zhendongbutton.text="振动上电"
       }
       else
       {
           zddianjiState.color="#00FF00";
           zddianjiState.text="打开"
+          zhendongbutton.text="振动断电"
       }
 
       if(sbkg==0)
       {
           shuibengState.color="#FF0000";
           shuibengState.text="关闭"
+          shuibengbutton.text="水泵上电"
       }
       else
       {
           shuibengState.color="#00FF00";
           shuibengState.text="打开"
+          shuibengbutton.text="水泵断电"
       }
 
       if(zjkg==0)
       {
           zuanjinState.color="#FF0000";
           zuanjinState.text="关闭"
+          zuanjinbutton.text="钻进上电"
       }
       else
       {
           zuanjinState.color="#00FF00";
           zuanjinState.text="打开"
+          zuanjinbutton.text="钻进断电"
       }
       if(yykg==0)
       {
           yeyaState.color="#FF0000";
           yeyaState.text="关闭"
+          yeyabutton.text="液压上电"
       }
       else
       {
           yeyaState.color="#00FF00";
           yeyaState.text="打开"
+          yeyabutton.text="液压断电"
       }
 
 
@@ -1325,12 +1372,14 @@ Window {
           pushLengthNow=mMSG[6].toFixed(2);
           movelengthNow=mMSG[7].toFixed(2);
           transducerPressureNow=mMSG[8].toFixed(2);
-          cylinderPressureNow=mMSG[9].toFixed(2);
+          cylinderPressureNow=mMSG[9];//.toFixed(4);
 
-//          zdkg=mMSG[13].toFixed(2);
-//          yykg=mMSG[14].toFixed(2);
-//          sbkg=mMSG[15].toFixed(2);
-//          zjkg=mMSG[16].toFixed(2);
+
+         // textArea.text+="ye ya"+mMSG[9].toFixed(2)+"\n";
+          zdkg=mMSG[13].toFixed(2);
+          yykg=mMSG[14].toFixed(2);
+          sbkg=mMSG[15].toFixed(2);
+          zjkg=mMSG[16].toFixed(2);
 //======================该处需要修订下
           checkState()
           mainCarton.start();
@@ -1364,6 +1413,6 @@ Window {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.75}
+    D{i:0;formeditorZoom:0.75}D{i:33}
 }
 ##^##*/
