@@ -153,9 +153,9 @@ void socket_SYS::control_socket_Read_Data()
 
    // qDebug()<<controlData.toHex();
     QByteArray controlDataC1;
-    controlDataC1=controlData.mid(35,2);
+    controlDataC1=controlData.mid(37,2);
     int C1=controlDataC1.toHex().toInt(0,16);
-    QByteArray controlDataforcheck=controlData.mid(0,35);
+    QByteArray controlDataforcheck=controlData.mid(0,37);
     uint16_t C2=CRC->ModbusCRC16(controlDataforcheck);
     QVariantList val;
 
@@ -506,5 +506,7 @@ void socket_SYS::getLightPower(bool BB)
     MSG[6]=C2>>8;
     MSG[7]=(C2<<8)>>8;
     controlClient->write(MSG);
+
+
 
 };

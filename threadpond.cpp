@@ -25,7 +25,7 @@ threadPond::threadPond()
     connect(this,SIGNAL(sendShutDown()),SK2,SLOT(getShutDown()));
 
     connect(this,SIGNAL(sendCameraPower(bool)),SK2,SLOT(getCameraPower(bool)));
-    connect(this,SIGNAL(sendLightPower()),SK2,SLOT(getLightPower(bool)));
+    connect(this,SIGNAL(sendLightPower(bool)),SK2,SLOT(getLightPower(bool)));
 
 
 

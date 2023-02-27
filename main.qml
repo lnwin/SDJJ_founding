@@ -501,12 +501,15 @@ Window {
                                          if(cameraPower.text=="相机上电")
                                          {
                                               threadPond_obj.addMSG2sql("相机上电","");
-                                              threadPond_obj.cameraPowerUp()
+                                              threadPond_obj.cameraPowerUp();
+                                             threadPond_obj.addMSG2sql("相机上电","");
+
                                          }
                                          else
                                          {
                                               threadPond_obj.addMSG2sql("相机断电","");
-                                              threadPond_obj.cameraPowerDown()
+                                              threadPond_obj.cameraPowerDown();
+                                             threadPond_obj.addMSG2sql("相机断电","");
                                          }
 
                                      }
@@ -520,15 +523,17 @@ Window {
 
                                      onClicked:
                                      {
-                                         if(lightPower.text=="相机上电")
+                                         if(lightPower.text=="照明上电")
                                          {
                                               threadPond_obj.addMSG2sql("照明上电","");
-                                             threadPond_obj.lightPowerUp()
+                                              threadPond_obj.lightPowerUp();
+                                              threadPond_obj.addMSG2sql("照明上电","");
                                          }
                                          else
                                          {
                                               threadPond_obj.addMSG2sql("照明断电","");
-                                             threadPond_obj.lightPowerDown()
+                                              threadPond_obj.lightPowerDown();
+                                              threadPond_obj.addMSG2sql("照明断电","");
                                          }
                                      }
                  }
