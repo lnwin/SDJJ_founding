@@ -14,8 +14,9 @@ Item {
     property real waterDepth: 30
     property real transducerPressure:0
     property real cylinderPressure:100
-    property real controlPower:50
-    property real impetusPower:90
+    property real controlPower:25.3
+    property real impetusPower:51.3
+    property real soundPower:24.1
 
     property string gear: {
         var g;
@@ -43,3 +44,9 @@ Item {
     property bool start: true
 
 }
+
+/*##^##
+Designer {
+    D{i:0;autoSize:true;height:480;width:640}
+}
+##^##*/

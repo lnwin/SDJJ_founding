@@ -16,6 +16,8 @@ Item {
     property string groundColor:"#2F4F4F"
     property string mainwindowColor:"#01113a"
 
+
+
     //=======================================参数变量
     property double moveLength:100
     property double pushLength: 0

@@ -82,8 +82,8 @@ Item {
                 ctx.fillStyle=itemColor
                 ctx.fillText(String(itemName+":"),start_x+cornerRadius*20+powerWidth,powerHeight*0.9)
                 ctx.fillStyle=textColor
-                var dldc = "%1%"
-                var dldc_value = inputPower.toFixed(0)
+                var dldc = "%1V"
+                var dldc_value = inputPower.toFixed(1)
                 ctx.textAlign="left";
                 ctx.font="25px Arial"
                // console.log(message.arg(count))

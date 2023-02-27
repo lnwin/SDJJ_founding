@@ -195,11 +195,11 @@ void socket_SYS::control_socket_Read_Data()
          val.append(YYPress);
        // qDebug()<<"YYPress========="<<YYPress;
 
-         float battery_0 =float(controlData.mid(25,2).toHex().toInt(0,16));//电池1
+         float battery_0 =float(float(controlData.mid(25,2).toHex().toInt(0,16))-819)*50/(4095-819);//控制电池1
          val.append(battery_0);
-         float battery_1 =float(controlData.mid(27,2).toHex().toInt(0,16));//电池2
+         float battery_1 =float(float(controlData.mid(27,2).toHex().toInt(0,16))-819)*50/(4095-819);//声学电池2
          val.append(battery_1);
-         float battery_2 =float(controlData.mid(29,2).toHex().toInt(0,16));//电池3
+         float battery_2 =float(float(controlData.mid(29,2).toHex().toInt(0,16))-819)*100/(4095-819);//动力电池3
          val.append(battery_2);
 
          int zdState =int(controlData.mid(31,1).toHex().toInt(0,16));//单位bar
@@ -210,6 +210,10 @@ void socket_SYS::control_socket_Read_Data()
          val.append(sbState);
          int zjState =int(controlData.mid(34,1).toHex().toInt(0,16));//单位bar
          val.append(zjState);
+         int xjState =int(controlData.mid(35,1).toHex().toInt(0,16));//单位bar
+         val.append(xjState);
+         int zmState =int(controlData.mid(36,1).toHex().toInt(0,16));//单位bar
+         val.append(zmState);
 
 
 
@@ -455,3 +459,52 @@ void socket_SYS::getCircle(int cout,int step)
     MSG[7]=(C2<<8)>>8;
     controlClient->write(MSG);
 }
+void socket_SYS::getCameraPower(bool BB)
+{
+
+    QByteArray MSG;
+    MSG.resize(8);
+    MSG[0]=0x01;
+    MSG[1]=0x06;
+    MSG[2]=0x01;
+    if(BB)
+    {
+        MSG[3]=0x01;
+    }
+    else
+    {
+        MSG[3]=0x00;
+    }
+
+    MSG[4]=0x00;
+    MSG[5]=0x00;
+    uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
+    MSG[6]=C2>>8;
+    MSG[7]=(C2<<8)>>8;
+    controlClient->write(MSG);
+
+};
+void socket_SYS::getLightPower(bool BB)
+{
+    QByteArray MSG;
+    MSG.resize(8);
+    MSG[0]=0x01;
+    MSG[1]=0x06;
+    MSG[2]=0x02;
+    if(BB)
+    {
+        MSG[3]=0x01;
+    }
+    else
+    {
+        MSG[3]=0x00;
+    }
+
+    MSG[4]=0x00;
+    MSG[5]=0x00;
+    uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
+    MSG[6]=C2>>8;
+    MSG[7]=(C2<<8)>>8;
+    controlClient->write(MSG);
+
+};

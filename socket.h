@@ -42,6 +42,10 @@ public slots:
     void yeyaKZ();
     void getShutDown();
     void getCircle(int cout,int step);
+
+    void getCameraPower(bool);
+    void getLightPower(bool);
+
 private:
     bool zhendongOPEN=false;
     bool shuibengOPEN=false;

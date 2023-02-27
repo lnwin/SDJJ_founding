@@ -45,6 +45,11 @@ public:
     Q_INVOKABLE void closeAll();
     Q_INVOKABLE void addMSG2sql(QString MSG,QString date);
 
+    Q_INVOKABLE void cameraPowerUp();
+    Q_INVOKABLE void cameraPowerDown();
+    Q_INVOKABLE void lightPowerUp();
+    Q_INVOKABLE void lightPowerDown();
+
 
 
 
@@ -68,6 +73,11 @@ signals:
     void sendYeyaKG();
     void sendShutDown();
     void sendCircle(int cout,int step);
+
+
+    void sendCameraPower(bool);
+    void sendLightPower(bool);
+
 
 //Q_SIGNALS:
    // void sendSocketState2QML(QString);

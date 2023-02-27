@@ -36,10 +36,12 @@ Window {
     property real  rotateAnglePreviously:0
     property real  pushLengthPreviously:0
     property real  distance2BasePreviously:100
-    property real  controlPowerPreviously:0
     property real  depthPreviously:0
     property real transducerPressurePreviously:0
     property double cylinderPressurePreviously:1
+    property double controlPowerPreviously:1
+    property double soundPowerPreviously:1
+    property double powerPowerPreviously:1
 
 
    // property var  kphNow:50
@@ -50,15 +52,20 @@ Window {
     property real  rotateAngleNow:0
     property real  pushLengthNow:0
     property real  distance2BaseNow:100
-    property real  controlPowerNow:0
     property real  depthNow:0
     property real transducerPressureNow:0
     property double cylinderPressureNow:1
+
+     property double controlPowerNow:1
+     property double soundPowerNow:1
+     property double powerPowerNow:1
 
     property double zdkg:1
     property double yykg:1
     property double sbkg:1
     property double zjkg:1
+     property double xjkg:1
+     property double zmkg:1
 
     //var kphPreviously=0
 
@@ -148,6 +155,24 @@ Window {
         }
         NumberAnimation {
             target: valueSource
+            property: "impetusPower"
+           // easing.type: Easing.InOutSine
+            from: powerPowerPreviously
+            to: powerPowerNow
+            duration: 300
+            easing.type: Easing.Linear //匀
+        }
+        NumberAnimation {
+            target: valueSource
+            property: "soundPower"
+           // easing.type: Easing.InOutSine
+            from: soundPowerPreviously
+            to: soundPowerNow
+            duration: 300
+            easing.type: Easing.Linear //匀
+        }
+        NumberAnimation {
+            target: valueSource
             property: "transducerPressure"
            // easing.type: Easing.InOutSine
             from: transducerPressurePreviously
@@ -164,15 +189,15 @@ Window {
             duration: 300
             easing.type: Easing.Linear //匀
         }
-        NumberAnimation {
-            target: valueSource
-            property: "impetusPower"
-           // easing.type: Easing.InOutSine
-            from: 100
-            to: 70
-            duration: 300
-            easing.type: Easing.Linear //匀
-        }
+//        NumberAnimation {
+//            target: valueSource
+//            property: "impetusPower"
+//           // easing.type: Easing.InOutSine
+//            from: 100
+//            to: 70
+//            duration: 300
+//            easing.type: Easing.Linear //匀
+//        }
 
         onFinished:
         {
@@ -186,7 +211,9 @@ Window {
             movelengthPreviously= movelengthNow
             transducerPressurePreviously=transducerPressureNow
             cylinderPressurePreviously= cylinderPressureNow
-            //console.log("finish");
+            controlPowerPreviously=controlPowerNow
+            soundPowerPreviously=soundPowerNow
+            powerPowerPreviously= powerPowerNow
         }
 
     }
@@ -209,18 +236,18 @@ Window {
         transducerPressure:valueSource.transducerPressure
         cylinderPressure:valueSource.cylinderPressure
 
-        Button {
-            id: button
-            x: 388
-            y: 314
-            width: 84
-            height: 48
-            text: qsTr("Test")
-            onClicked:
-            {
-                threadPond_obj.crctest();
-            }
-        }
+//        Button {
+//            id: button
+//            x: 388
+//            y: 314
+//            width: 84
+//            height: 48
+//            text: qsTr("Test")
+//            onClicked:
+//            {
+//                threadPond_obj.crctest();
+//            }
+//        }
     }
 
     SK2power
@@ -228,11 +255,12 @@ Window {
 
         id:controlP
         x: 617
-        y: 567
+        y: 558
         width: 576
         height: 53
         itemName:"控制电池"
         inputPower:valueSource.controlPower
+        totalPower:29
 
 
     }
@@ -242,15 +270,26 @@ Window {
 
         id:impetusP
         x: 617
-        y: 641
+        y: 629
         width: 576
         height: 53
         itemName:"动力电池"
         inputPower:valueSource.impetusPower
+        totalPower:54
 
     }
 
-
+    SK2power {
+        id: soundPower
+        x: 617
+        y: 699
+        width: 576
+        height: 53
+        itemName:"声学电池"
+        inputPower:valueSource.soundPower
+        totalPower:29
+//soundPower
+         }
 
     Button {
         id: winclose
@@ -313,9 +352,9 @@ Window {
     TextArea {
         id: textArea
         x: 617
-        y: 709
+        y: 773
         width: 576
-        height: 309
+        height: 245
         verticalAlignment: Text.AlignBottom
         placeholderText: qsTr("Text Area")
         selectByKeyboard: true
@@ -332,9 +371,9 @@ Window {
         // width: parent.width
         //height:parent.height
         x: 617
-        y: 718
+        y: 773
         width: 576
-        height: 300
+        height: 245
         layer.enabled: true
         enabled: false
 
@@ -390,109 +429,199 @@ Window {
     Rectangle
     {
         id:camerabuttonFiled
-        x: 1254
-        y: 852
+        x: 1263
+        y: 869
         width: 502
-        height: 166
+        height: 149
         color:"#01113a"
-       RowLayout
-        {
-            id:configButtons
-            anchors.leftMargin: 20
-            anchors.rightMargin: 20
-
-            anchors.fill: parent
-            anchors.margins: 7
-            anchors.bottomMargin: 22
-            spacing: 15
-            Button {
-                                id: cameraInt
-                                text: qsTr("开启相机")
-                                font.pixelSize:15
-                                //icon.name: "navigation"
-                                Layout.fillHeight: true
-                                onClicked:
-                                {
-                                    //if(camera_obj.longID()&&camera_obj.longID_1())
-                                     if(camera_obj.longID())
-                                    {
-                                        camera_obj.realPlayer()
-                                        textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1号相机开启成功！\n"
-                                    }
-                                    else
-                                    {
-                                        textArea.text +=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1号相机开启失败！ \n"
-                                    }
-                                     if(camera_obj.longID_1())
-                                    {
-                                        camera_obj.realPlayer_1();
-                                        textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 2号相机开启成功！\n"
-                                    }
-                                    else
-                                    {
-                                        textArea.text +=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 2号相机开启失败！ \n"
-                                    }
-                                     threadPond_obj.addMSG2sql("开启相机","");
-                                }
 
 
+                Label {
+                    id: ccc
+                    x: 26
+                    y: -56
 
-                            }
+                    Layout.fillHeight: true
+                    Layout.alignment: Qt.AlignLeft
+                    text: qsTr("相机电源:")
+                    font.pixelSize: 25
+                }
+                Label {
+                    id: cameraPowerState
+                    x: 145
+                    y: -56
+                    Layout.fillHeight: true
+                    Layout.alignment: Qt.AlignLeft
+                    color: "#FF0000"
+                    text: qsTr("关闭")
+                    font.pixelSize: 25
+                }
+                Label {
+                    id: lll
+                    x: 277
+                    y: -56
+                    Layout.fillHeight: true
+                    Layout.alignment: Qt.AlignLeft
+                    text: qsTr("照明电源:")
+                    font.pixelSize: 25
+                }
+                Label {
+                    id: lightPowerState
+                    x: 396
+                    y: -56
 
-            Button {
-                                id: capture
-                                text: qsTr("单张抓拍")
-                                font.pixelSize:15
-                                //icon.name: "navigation"
-                                Layout.fillHeight: true
-                                onClicked:
-                                {
-                                    if(camera_obj.startCatch())
-                                    {
-                                        textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 抓拍成功！\n"
-                                    }
-                                    else
-                                    {
-                                        textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 抓拍失败！\n"
-                                    }
-                                    threadPond_obj.addMSG2sql("单张抓拍","");
-                                }
-                            }
-            Button {
-                                id: rec
-                                text: qsTr("开始录像")
-                                font.pixelSize:15
-                                //icon.name: "navigation"
-                                Layout.fillHeight: true
-                                onClicked:
-                                {
-                                    if(camera_obj.startREC())
-                                    {
-                                        textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1号相机开始录像！\r\n";
-                                    }
-                                    threadPond_obj.addMSG2sql("开始录像","");
-                                }
-            }
-            Button {
-                                id: stoprec
-                                text: qsTr("停止录像")
-                                font.pixelSize:15
-                                //icon.name: "navigation"
-                                Layout.fillHeight: true
-                                onClicked:
-                                {
-                                    if(camera_obj.stopREC())
-                                    {
-                                        {
-                                            textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1号相机录像停止！\r\n";
-                                        }
-                                    }
-                                    threadPond_obj.addMSG2sql("停止录像","");
-                                }
-            }
+                    Layout.fillHeight: true
+                    Layout.alignment: Qt.AlignLeft
+                    color: "#FF0000"
+                    text: qsTr("关闭")
+                    font.pixelSize: 25
+                }
 
 
-        }
+            RowLayout
+            {
+                id:configButtons
+                 anchors.leftMargin: 3
+                 anchors.rightMargin: 3
+
+                 anchors.fill: parent
+                 anchors.margins: 1
+                 anchors.topMargin: 8
+                 // anchors.topMargin: 115
+                 anchors.bottomMargin: 8
+                 spacing: 5
+                 Button {
+                                     id: cameraPower
+                                     text: qsTr("相机上电")
+                                     font.pixelSize:17
+                                     //icon.name: "navigation"
+                                     Layout.fillHeight: true
+                                     onClicked:
+                                     {
+                                         if(cameraPower.text=="相机上电")
+                                         {
+                                              threadPond_obj.addMSG2sql("相机上电","");
+                                              threadPond_obj.cameraPowerUp()
+                                         }
+                                         else
+                                         {
+                                              threadPond_obj.addMSG2sql("相机断电","");
+                                              threadPond_obj.cameraPowerDown()
+                                         }
+
+                                     }
+                 }
+                 Button {
+                                     id: lightPower
+                                     text: qsTr("照明上电")
+                                     font.pixelSize:17
+                                     //icon.name: "navigation"
+                                     Layout.fillHeight: true
+
+                                     onClicked:
+                                     {
+                                         if(lightPower.text=="相机上电")
+                                         {
+                                              threadPond_obj.addMSG2sql("照明上电","");
+                                             threadPond_obj.lightPowerUp()
+                                         }
+                                         else
+                                         {
+                                              threadPond_obj.addMSG2sql("照明断电","");
+                                             threadPond_obj.lightPowerDown()
+                                         }
+                                     }
+                 }
+                 Button {
+                                     id: cameraInt
+                                     text: qsTr("开启相机")
+                                     font.pixelSize:17
+                                     //icon.name: "navigation"
+                                     Layout.fillHeight: true
+                                     onClicked:
+                                     {
+                                         //if(camera_obj.longID()&&camera_obj.longID_1())
+                                          if(camera_obj.longID())
+                                         {
+                                             camera_obj.realPlayer()
+                                             textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1号相机开启成功！\n"
+                                         }
+                                         else
+                                         {
+                                             textArea.text +=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1号相机开启失败！ \n"
+                                         }
+                                          if(camera_obj.longID_1())
+                                         {
+                                             camera_obj.realPlayer_1();
+                                             textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 2号相机开启成功！\n"
+                                         }
+                                         else
+                                         {
+                                             textArea.text +=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 2号相机开启失败！ \n"
+                                         }
+                                          threadPond_obj.addMSG2sql("开启相机","");
+                                     }
+
+
+
+                                 }
+                 Button {
+                                     id: capture
+                                     text: qsTr("单张抓拍")
+                                     font.pixelSize:17
+                                     //icon.name: "navigation"
+                                     Layout.fillHeight: true
+                                     onClicked:
+                                     {
+                                         if(camera_obj.startCatch())
+                                         {
+                                             textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 抓拍成功！\n"
+                                         }
+                                         else
+                                         {
+                                             textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 抓拍失败！\n"
+                                         }
+                                         threadPond_obj.addMSG2sql("单张抓拍","");
+                                     }
+                                 }
+                 Button {
+                                     id: rec
+                                     text: qsTr("开始录像")
+                                     font.pixelSize:17
+                                     //icon.name: "navigation"
+                                     Layout.fillHeight: true
+                                     onClicked:
+                                     {
+                                         if(camera_obj.startREC())
+                                         {
+                                             textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1号相机开始录像！\r\n";
+                                         }
+                                         threadPond_obj.addMSG2sql("开始录像","");
+                                     }
+                 }
+                 Button {
+                                     id: stoprec
+                                     text: qsTr("停止录像")
+                                     font.pixelSize:17
+                                     //icon.name: "navigation"
+                                     Layout.fillHeight: true
+                                     onClicked:
+                                     {
+                                         if(camera_obj.stopREC())
+                                         {
+                                             {
+                                                 textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1号相机录像停止！\r\n";
+                                             }
+                                         }
+                                         threadPond_obj.addMSG2sql("停止录像","");
+                                     }
+                 }
+
+
+             }
+
+
+
 
 
 
@@ -1340,6 +1469,30 @@ Window {
           yeyaState.text="打开"
           yeyabutton.text="液压断电"
       }
+      if(xjkg==0)
+      {
+          cameraPowerState.color="#FF0000";
+          cameraPowerState.text="关闭"
+          cameraPower.text="相机上电"
+      }
+      else
+      {
+          cameraPowerState.color="#00FF00";
+          cameraPowerState.text="打开"
+          cameraPower.text="相机断电"
+      }
+      if(zmkg==0)
+      {
+          lightPowerState.color="#FF0000";
+          lightPowerState.text="关闭"
+          lightPower.text="照明上电"
+      }
+      else
+      {
+          lightPowerState.color="#00FF00";
+          lightPowerState.text="打开"
+          lightPower.text="照明断电"
+      }
 
 
     }
@@ -1374,12 +1527,16 @@ Window {
           transducerPressureNow=mMSG[8].toFixed(2);
           cylinderPressureNow=mMSG[9];//.toFixed(4);
 
-
+          controlPowerNow= mMSG[10];
+          soundPowerNow= mMSG[11];
+          powerPowerNow= mMSG[12];
          // textArea.text+="ye ya"+mMSG[9].toFixed(2)+"\n";
           zdkg=mMSG[13].toFixed(2);
           yykg=mMSG[14].toFixed(2);
           sbkg=mMSG[15].toFixed(2);
           zjkg=mMSG[16].toFixed(2);
+          xjkg=mMSG[17].toFixed(2);
+          zmkg=mMSG[18].toFixed(2);
 //======================该处需要修订下
           checkState()
           mainCarton.start();
@@ -1394,6 +1551,12 @@ Window {
     {
         id:camera_obj
     }
+
+
+
+
+
+
 
 //    Component.onCompleted://CPP-->qml信号槽链接
 //    {
@@ -1413,6 +1576,6 @@ Window {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.75}D{i:33}
+    D{i:0;formeditorZoom:0.75}
 }
 ##^##*/

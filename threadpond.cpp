@@ -24,6 +24,12 @@ threadPond::threadPond()
 
     connect(this,SIGNAL(sendShutDown()),SK2,SLOT(getShutDown()));
 
+    connect(this,SIGNAL(sendCameraPower(bool)),SK2,SLOT(getCameraPower(bool)));
+    connect(this,SIGNAL(sendLightPower()),SK2,SLOT(getLightPower(bool)));
+
+
+
+
     SK2->moveToThread(socketThread);
     socketThread->start();
 
@@ -135,6 +141,23 @@ void threadPond::shutDown()
 {
     emit sendShutDown();
 }
+
+void threadPond::cameraPowerUp()
+{
+    emit sendCameraPower(true);
+};
+void threadPond::cameraPowerDown()
+{
+   emit sendCameraPower(false);
+};
+void threadPond::lightPowerUp()
+{
+   emit sendLightPower(true);
+};
+void threadPond::lightPowerDown()
+{
+   emit sendLightPower(false);
+};
 
 void threadPond::closeAll()
 {
