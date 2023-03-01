@@ -107,6 +107,7 @@ bool socket_SYS::server_New_Connect()
                qDebug()<<controlClient->peerPort();
                connect(controlClient, SIGNAL(readyRead()), this, SLOT(control_socket_Read_Data()));
                connect(controlClient, SIGNAL(disconnected()), this, SLOT(control_socket_Disconnected()));
+               socketIsConnected=true;
                return true;
 
            }          
@@ -171,6 +172,7 @@ void socket_SYS::control_socket_Read_Data()
          val.append(YawAngle);
          float Depth =controlData.mid(8,2).toHex().toInt(0,16)*1000;//单位毫米
                Depth +=controlData.mid(10,2).toHex().toInt(0,16);
+               Depth=Depth/1000;
                val.append(Depth);
              //  qDebug()<<"Depth========="<<Depth;
          float Tofloor =controlData.mid(12,2).toHex().toInt(0,16)*1000;//单位毫米
@@ -237,275 +239,422 @@ void socket_SYS::control_socket_Disconnected()
 }
 void socket_SYS::ControlTG(int type,int length)
 {
-
-       QByteArray MSG;
-       MSG.resize(8);
-       MSG[0]=0x01;
-       MSG[1]=0x06;
-       MSG[2]=0x03;
-       MSG[3]=0x01;
-       MSG[4]=length>>8;
-       MSG[5]=(length<<8)>>8;
-    // int C1=waveDataC1.toHex().toInt(0,16);
-    // QByteArray waveDataforcheck=waveData.remove(6,2);
-
-    if(type==Up)
+    if(socketIsConnected)
     {
+        QByteArray MSG;
+        MSG.resize(8);
+        MSG[0]=0x01;
+        MSG[1]=0x06;
+        MSG[2]=0x03;
+        MSG[3]=0x01;
+        MSG[4]=length>>8;
+        MSG[5]=(length<<8)>>8;
+     // int C1=waveDataC1.toHex().toInt(0,16);
+     // QByteArray waveDataforcheck=waveData.remove(6,2);
+
+     if(type==Up)
+     {
          MSG[3]=0x02;
-         uint16_t C2=CRC->ModbusCRC16(MSG);
-         MSG[6]=C2>>8;
-         MSG[7]=(C2<<8)>>8;
-         controlClient->write(MSG);
-    }
-    else if(type==Down)
-    {
-         MSG[3]=0x01;
-         uint16_t C2=CRC->ModbusCRC16(MSG);
-         MSG[6]=C2>>8;
-         MSG[7]=(C2<<8)>>8;
-         controlClient->write(MSG);
+         if(length==0)
+         {
+             MSG[4]=0xff;
+             MSG[5]=0xff;
+         }
+         else
+         {
+             MSG[4]=length>>8;
+             MSG[5]=(length<<8)>>8;
+         }
+
+
+
+     }
+     else if(type==Down)
+     {
+          MSG[3]=0x01;
+          if(length==0)
+          {
+              MSG[4]=0xff;
+              MSG[5]=0xff;
+          }
+          else
+          {
+              MSG[4]=length>>8;
+              MSG[5]=(length<<8)>>8;
+          }
+
+     }
+     else
+     {
+         MSG[3]=0x00;
+         MSG[4]=0xff;
+         MSG[5]=0xff;
+
+
+     }
+     uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
+     MSG[6]=C2>>8;
+     MSG[7]=(C2<<8)>>8;
+     controlClient->write(MSG);
     }
     else
     {
-        MSG[3]=0x00;
-        MSG[4]=0xff;
-        MSG[5]=0xff;
-        uint16_t C2=CRC->ModbusCRC16(MSG);
-        MSG[6]=C2>>8;
-        MSG[7]=(C2<<8)>>8;
-        controlClient->write(MSG);
-
+         emit sendSocketState2T(QStringLiteral("网络未连接！\n"));
     }
+
+
 
 };
 void socket_SYS::ControlARMST(int type)
 {
-
-    QByteArray MSG;   
-    MSG.resize(8);
-    MSG[0]=0x01;
-    MSG[1]=0x06;
-    MSG[2]=0x04;
-    if(type==Release)
+    if(socketIsConnected)
     {
+        QByteArray MSG;
+        MSG.resize(8);
+        MSG[0]=0x01;
+        MSG[1]=0x06;
+        MSG[2]=0x04;
+        if(type==Release)
+        {
 
-        MSG[3]=0x01;
-        MSG[4]=0xff;
-        MSG[5]=0xff;
+            MSG[3]=0x01;
+            MSG[4]=0xff;
+            MSG[5]=0xff;
+        }
+        else if(type==Stop)
+        {
+            MSG[3]=0x00;
+            MSG[4]=0xff;
+            MSG[5]=0xff;
+        }
+
+        else if (type==Recover)
+        {
+            MSG[3]=0x02;
+            MSG[4]=0xff;
+            MSG[5]=0xff;
+
+        }
+
+        uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
+        MSG[6]=C2>>8;
+        MSG[7]=(C2<<8)>>8;
+        controlClient->write(MSG);
     }
-    else if(type==Stop)
+    else
     {
-        MSG[3]=0x00;
-        MSG[4]=0xff;
-        MSG[5]=0xff;
+         emit sendSocketState2T(QStringLiteral("网络未连接！\n"));
     }
 
-    else if (type==Recover)
-    {
-        MSG[3]=0x02;
-        MSG[4]=0xff;
-        MSG[5]=0xff;
 
-    }
-
-    uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
-    MSG[6]=C2>>8;
-    MSG[7]=(C2<<8)>>8;
-    controlClient->write(MSG);
-
-};
+}
 void socket_SYS::ControlARMMove(int type,int length)
 {
+    if(socketIsConnected)
+    {
+        QByteArray MSG;
+        MSG.resize(8);
+        MSG[0]=0x01;
+        MSG[1]=0x06;
+        MSG[2]=0x04;
+        if(type==Up)
+        {
+
+            MSG[3]=0x03;
+            if(length==0)
+            {
+                MSG[4]=0xff;
+                MSG[5]=0xff;
+            }
+            else
+            {
+                MSG[4]=length>>8;
+                MSG[5]=(length<<8)>>8;
+            }
+        }
+        else if(type==Down)
+        {
+            MSG[3]=0x04;
+            if(length==0)
+            {
+                MSG[4]=0xff;
+                MSG[5]=0xff;
+            }
+            else
+            {
+                MSG[4]=length>>8;
+                MSG[5]=(length<<8)>>8;
+            }
+        }
+
+        else if (type==Stop)
+        {
+            MSG[3]=0x05;
+            MSG[4]=0xff;
+            MSG[5]=0xff;
+
+        }
+
+        uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
+        MSG[6]=C2>>8;
+        MSG[7]=(C2<<8)>>8;
+        controlClient->write(MSG);
+    }
+    else
+    {
+         emit sendSocketState2T(QStringLiteral("网络未连接！\n"));
+    }
 
 };
 
 
 void socket_SYS:: zhendongKZ()
 {
-//01 06 06 01 xx xx 32 D9
-    QByteArray MSG;
-    MSG.resize(8);
-    MSG[0]=0x01;
-    MSG[1]=0x06;
-    MSG[2]=0x06;
-    if(!zhendongOPEN)
+    if(socketIsConnected)
     {
+        QByteArray MSG;
+        MSG.resize(8);
+        MSG[0]=0x01;
+        MSG[1]=0x06;
+        MSG[2]=0x06;
+        if(!zhendongOPEN)
+        {
 
-        MSG[3]=0x01;
-        zhendongOPEN=true;
+            MSG[3]=0x01;
+            zhendongOPEN=true;
 
+        }
+        else
+        {
+            MSG[3]=0x00;
+            zhendongOPEN=false;
+        }
+        MSG[4]=0x00;
+        MSG[5]=0x00;
+        uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
+        MSG[6]=C2>>8;
+        MSG[7]=(C2<<8)>>8;
+        controlClient->write(MSG);
     }
     else
     {
-        MSG[3]=0x00;
-        zhendongOPEN=false;
+         emit sendSocketState2T(QStringLiteral("网络未连接！\n"));
     }
-    MSG[4]=0x00;
-    MSG[5]=0x00;
-    uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
-    MSG[6]=C2>>8;
-    MSG[7]=(C2<<8)>>8;
-    controlClient->write(MSG);
+
 
 }
 void socket_SYS:: shuibengKZ()
 {
-    QByteArray MSG;
-    MSG.resize(8);
-    MSG[0]=0x01;
-    MSG[1]=0x06;
-    MSG[2]=0x07;
-    if(!shuibengOPEN)
+    if(socketIsConnected)
     {
+        QByteArray MSG;
+        MSG.resize(8);
+        MSG[0]=0x01;
+        MSG[1]=0x06;
+        MSG[2]=0x07;
+        if(!shuibengOPEN)
+        {
 
-        MSG[3]=0x01;
-        shuibengOPEN=true;
+            MSG[3]=0x01;
+            shuibengOPEN=true;
 
+        }
+        else
+        {
+            MSG[3]=0x00;
+            shuibengOPEN=false;
+        }
+        MSG[4]=0x00;
+        MSG[5]=0x00;
+        uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
+        MSG[6]=C2>>8;
+        MSG[7]=(C2<<8)>>8;
+        controlClient->write(MSG);
     }
     else
     {
-        MSG[3]=0x00;
-        shuibengOPEN=false;
+         emit sendSocketState2T(QStringLiteral("网络未连接！\n"));
     }
-    MSG[4]=0x00;
-    MSG[5]=0x00;
-    uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
-    MSG[6]=C2>>8;
-    MSG[7]=(C2<<8)>>8;
-    controlClient->write(MSG);
+
 }
 void socket_SYS:: zhuanjinKZ()
 {
-    QByteArray MSG;
-    MSG.resize(8);
-    MSG[0]=0x01;
-    MSG[1]=0x06;
-    MSG[2]=0x08;
-    if(!zuanjinOPEN)
+    if(socketIsConnected)
     {
+        QByteArray MSG;
+        MSG.resize(8);
+        MSG[0]=0x01;
+        MSG[1]=0x06;
+        MSG[2]=0x08;
+        if(!zuanjinOPEN)
+        {
 
-        MSG[3]=0x01;
-        zuanjinOPEN=true;
+            MSG[3]=0x01;
+            zuanjinOPEN=true;
 
+        }
+        else
+        {
+            MSG[3]=0x00;
+            zuanjinOPEN=false;
+        }
+        MSG[4]=0x00;
+        MSG[5]=0x00;
+        uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
+        MSG[6]=C2>>8;
+        MSG[7]=(C2<<8)>>8;
+        controlClient->write(MSG);
     }
     else
     {
-        MSG[3]=0x00;
-        zuanjinOPEN=false;
+         emit sendSocketState2T(QStringLiteral("网络未连接！\n"));
     }
-    MSG[4]=0x00;
-    MSG[5]=0x00;
-    uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
-    MSG[6]=C2>>8;
-    MSG[7]=(C2<<8)>>8;
-    controlClient->write(MSG);
+
 }
 void socket_SYS::yeyaKZ()
 {
+    if(socketIsConnected)
+    {
+        QByteArray MSG;
+        MSG.resize(8);
+        MSG[0]=0x01;
+        MSG[1]=0x06;
+        MSG[2]=0x05;
+        if(!yeyaOPEN)
+        {
 
-            QByteArray MSG;
-            MSG.resize(8);
-            MSG[0]=0x01;
-            MSG[1]=0x06;
-            MSG[2]=0x05;
-            if(!yeyaOPEN)
-            {
+            MSG[3]=0x01;
+            yeyaOPEN=true;
 
-                MSG[3]=0x01;
-                yeyaOPEN=true;
+        }
+        else
+        {
+            MSG[3]=0x00;
+            yeyaOPEN=false;
+        }
+        MSG[4]=0x00;
+        MSG[5]=0x00;
+        uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
+        MSG[6]=C2>>8;
+        MSG[7]=(C2<<8)>>8;
+        controlClient->write(MSG);
+    }
+    else
+    {
+         emit sendSocketState2T(QStringLiteral("网络未连接！\n"));
+    }
 
-            }
-            else
-            {
-                MSG[3]=0x00;
-                yeyaOPEN=false;
-            }
-            MSG[4]=0x00;
-            MSG[5]=0x00;
-            uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
-            MSG[6]=C2>>8;
-            MSG[7]=(C2<<8)>>8;
-            controlClient->write(MSG);
 
 }
 
 void socket_SYS::getShutDown()
 {
-    QByteArray MSG;
-    MSG.resize(8);
-    MSG[0]=0x01;
-    MSG[1]=0x06;
-    MSG[2]=0x10;
-    MSG[3]=0x01;
-    MSG[4]=0x00;
-    MSG[5]=0x00;
-    uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
-    MSG[6]=C2>>8;
-    MSG[7]=(C2<<8)>>8;
-    controlClient->write(MSG);
-}
-void socket_SYS::getCircle(int cout,int step)
-{
-    QByteArray MSG;
-    MSG.resize(8);
-    MSG[0]=0x01;
-    MSG[1]=0x06;
-    MSG[2]=0x09;
-    MSG[3]=cout;
-    MSG[4]=step>>8;
-    MSG[5]=(step<<8)>>8;
-    uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
-    MSG[6]=C2>>8;
-    MSG[7]=(C2<<8)>>8;
-    controlClient->write(MSG);
-}
-void socket_SYS::getCameraPower(bool BB)
-{
-
-    QByteArray MSG;
-    MSG.resize(8);
-    MSG[0]=0x01;
-    MSG[1]=0x06;
-    MSG[2]=0x01;
-    if(BB)
+    if(socketIsConnected)
     {
+        QByteArray MSG;
+        MSG.resize(8);
+        MSG[0]=0x01;
+        MSG[1]=0x06;
+        MSG[2]=0x10;
         MSG[3]=0x01;
+        MSG[4]=0x00;
+        MSG[5]=0x00;
+        uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
+        MSG[6]=C2>>8;
+        MSG[7]=(C2<<8)>>8;
+        controlClient->write(MSG);
     }
     else
     {
-        MSG[3]=0x00;
+         emit sendSocketState2T(QStringLiteral("网络未连接！\n"));
     }
 
-    MSG[4]=0x00;
-    MSG[5]=0x00;
-    uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
-    MSG[6]=C2>>8;
-    MSG[7]=(C2<<8)>>8;
-    controlClient->write(MSG);
+}
+void socket_SYS::getCircle(int cout,int step)
+{
+    if(socketIsConnected)
+    {
+        QByteArray MSG;
+        MSG.resize(8);
+        MSG[0]=0x01;
+        MSG[1]=0x06;
+        MSG[2]=0x09;
+        MSG[3]=cout;
+        MSG[4]=step>>8;
+        MSG[5]=(step<<8)>>8;
+        uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
+        MSG[6]=C2>>8;
+        MSG[7]=(C2<<8)>>8;
+        controlClient->write(MSG);
+    }
+    else
+    {
+         emit sendSocketState2T(QStringLiteral("网络未连接！\n"));
+    }
+
+}
+void socket_SYS::getCameraPower(bool BB)
+{
+    if(socketIsConnected)
+    {
+        QByteArray MSG;
+        MSG.resize(8);
+        MSG[0]=0x01;
+        MSG[1]=0x06;
+        MSG[2]=0x01;
+        if(BB)
+        {
+            MSG[3]=0x01;
+        }
+        else
+        {
+            MSG[3]=0x00;
+        }
+
+        MSG[4]=0x00;
+        MSG[5]=0x00;
+        uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
+        MSG[6]=C2>>8;
+        MSG[7]=(C2<<8)>>8;
+        controlClient->write(MSG);
+    }
+    else
+    {
+         emit sendSocketState2T(QStringLiteral("网络未连接！\n"));
+    }
+
 
 };
 void socket_SYS::getLightPower(bool BB)
 {
-    QByteArray MSG;
-    MSG.resize(8);
-    MSG[0]=0x01;
-    MSG[1]=0x06;
-    MSG[2]=0x02;
-    if(BB)
+    if(socketIsConnected)
     {
-        MSG[3]=0x01;
+        QByteArray MSG;
+        MSG.resize(8);
+        MSG[0]=0x01;
+        MSG[1]=0x06;
+        MSG[2]=0x02;
+        if(BB)
+        {
+            MSG[3]=0x01;
+        }
+        else
+        {
+            MSG[3]=0x00;
+        }
+
+        MSG[4]=0x00;
+        MSG[5]=0x00;
+        uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
+        MSG[6]=C2>>8;
+        MSG[7]=(C2<<8)>>8;
+        controlClient->write(MSG);
     }
     else
     {
-        MSG[3]=0x00;
+         emit sendSocketState2T(QStringLiteral("网络未连接！\n"));
     }
 
-    MSG[4]=0x00;
-    MSG[5]=0x00;
-    uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
-    MSG[6]=C2>>8;
-    MSG[7]=(C2<<8)>>8;
-    controlClient->write(MSG);
 
 
 

@@ -116,26 +116,23 @@ void threadPond::yeyaKG()
 }
 void threadPond::armmoveup(int length)
 {
-//    void sendTGMSG2Socket(double type,double length);
-//    void sendArmMSG2Socket(double type);
-//    void sendArmMoveMSG2sOCKET(double type,double length);
-};
+
+    emit sendArmMoveMSG2sOCKET(Up,length);
+}
 void threadPond:: armmovestop()
 {
-//    void sendTGMSG2Socket(double type,double length);
-//    void sendArmMSG2Socket(double type);
-//    void sendArmMoveMSG2sOCKET(double type,double length);
-};
+
+    emit sendArmMoveMSG2sOCKET(Stop,10);
+}
 void threadPond::armmovedown(int length)
 {
-//    void sendTGMSG2Socket(double type,double length);
-//    void sendArmMSG2Socket(double type);
-//    void sendArmMoveMSG2sOCKET(double type,double length);
-};
+
+    emit sendArmMoveMSG2sOCKET(Down,length);
+}
 void threadPond::startCircle(int cout,int step)
 {
     emit sendCircle(cout,step);
-};
+}
 
 void threadPond::shutDown()
 {
@@ -145,7 +142,7 @@ void threadPond::shutDown()
 void threadPond::cameraPowerUp()
 {
     emit sendCameraPower(true);
-};
+}
 void threadPond::cameraPowerDown()
 {
    emit sendCameraPower(false);

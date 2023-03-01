@@ -109,6 +109,15 @@ Window {
         }
         NumberAnimation {
             target: valueSource
+            property: "waterDepth"
+           // easing.type: Easing.InOutSine //深度
+            from: depthPreviously
+            to: depthNow
+            duration: 300
+            easing.type: Easing.Linear //匀
+        }
+        NumberAnimation {
+            target: valueSource
             property: "movelength"
            // easing.type: Easing.InOutSine
             from: pushLengthPreviously
@@ -840,6 +849,7 @@ Window {
                            font.pixelSize: 18
                            font.bold: true
                            color: textColor
+                           text: "0"
                            placeholderTextColor:itemColor
                            placeholderText: qsTr("_______")
                        }
@@ -856,6 +866,7 @@ Window {
                           // height: 34
                            font.bold: true
                            color: textColor
+                           text: "0"
                            font.pixelSize: 18
                            placeholderTextColor:itemColor
                            placeholderText: qsTr("_______")
@@ -989,7 +1000,7 @@ Window {
                            font.pointSize: 15
                            onClicked:
                            {
-                               threadPond_obj .armmoveup(Number(kmd_numb.text));
+                               threadPond_obj .armmovedown(Number(kmd_numb.text));
                                threadPond_obj.addMSG2sql("扩展臂下移",kmd_numb.text+"mm");
                            }
                        }
@@ -1010,7 +1021,7 @@ Window {
                            font.pointSize: 15
                            onClicked:
                            {
-                               threadPond_obj.armstop();
+                               threadPond_obj.armmovestop();
                                threadPond_obj.addMSG2sql("扩展臂停止","");
                            }
                        }
@@ -1028,6 +1039,7 @@ Window {
                            font.bold: true
                            placeholderTextColor:itemColor
                            color: textColor
+                           text: "0"
                            placeholderText: qsTr("_______")
                        }
 
@@ -1045,6 +1057,7 @@ Window {
                            font.bold: true
                            placeholderTextColor:itemColor
                            color: textColor
+                           text: "0"
                            font.pixelSize: 18
                            placeholderText: qsTr("_______")
                        }

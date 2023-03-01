@@ -52,6 +52,8 @@ private:
     bool zuanjinOPEN=false;
     bool yeyaOPEN=false;
 
+    bool socketIsConnected=false;
+
 };
 
 #endif // SOCKET_H
