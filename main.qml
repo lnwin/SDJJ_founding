@@ -20,8 +20,8 @@ Window {
     property string bgColor:"#01113a"
     property string mainColor:"#4682B4"
     property string itemColor:"#98F5FF"
-     property string textColor:"#9AFF9A"
-//    property string bgColor:"gray"
+    property string textColor:"#9AFF9A"
+//    property string bgColor:"#000000" // rzpeise
 //    property string mainColor:"#4682B4"
 //    property string itemColor:"#98F5FF"
 //     property string textColor:"#9AFF9A"
@@ -440,7 +440,7 @@ Window {
         id:camerabuttonFiled
         x: 1263
         y: 869
-        width: 502
+        width: 601
         height: 149
         color:"#01113a"
 
@@ -1203,7 +1203,7 @@ Window {
                            font.pixelSize: 15
                            onClicked:
                            {
-                               threadPond_obj.yeyaKG();
+                                threadPond_obj.yeyaKG();
                                 threadPond_obj.addMSG2sql(yeyabutton.text,"");
                            }
                        }

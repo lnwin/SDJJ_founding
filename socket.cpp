@@ -16,7 +16,7 @@ void socket_SYS::socket_Int()
     controlClient=new QTcpSocket();
     CRC =new crc();
    // qDebug()<< "Socket int ok";
-   // qDebug()<<"Socket init thread"<<QThread::currentThread();
+   // qDebug()<< "Socket init thread"<<QThread::currentThread();
 }
 bool socket_SYS::socket_Listening()
 {
@@ -205,12 +205,45 @@ void socket_SYS::control_socket_Read_Data()
          val.append(battery_2);
 
          int zdState =int(controlData.mid(31,1).toHex().toInt(0,16));//单位bar
+         if(zdState==0)
+         {
+             zhendongOPEN=false;
+         }
+         else
+         {
+              zhendongOPEN=true;
+         }
+
          val.append(zdState);
          int yyState =int(controlData.mid(32,1).toHex().toInt(0,16));//单位bar
+         if(yyState==0)
+         {
+             yeyaOPEN=false;
+         }
+         else
+         {
+              yeyaOPEN=true;
+         }
          val.append(yyState);
          int sbState =int(controlData.mid(33,1).toHex().toInt(0,16));//单位bar
+         if(sbState==0)
+         {
+             shuibengOPEN=false;
+         }
+         else
+         {
+              shuibengOPEN=true;
+         }
          val.append(sbState);
          int zjState =int(controlData.mid(34,1).toHex().toInt(0,16));//单位bar
+         if(zdState==0)
+         {
+              zuanjinOPEN=false;
+         }
+         else
+         {
+              zuanjinOPEN=true;
+         }
          val.append(zjState);
          int xjState =int(controlData.mid(35,1).toHex().toInt(0,16));//单位bar
          val.append(xjState);
@@ -421,13 +454,13 @@ void socket_SYS:: zhendongKZ()
         {
 
             MSG[3]=0x01;
-            zhendongOPEN=true;
+           // zhendongOPEN=true;
 
         }
         else
         {
             MSG[3]=0x00;
-            zhendongOPEN=false;
+           // zhendongOPEN=false;
         }
         MSG[4]=0x00;
         MSG[5]=0x00;
@@ -456,13 +489,13 @@ void socket_SYS:: shuibengKZ()
         {
 
             MSG[3]=0x01;
-            shuibengOPEN=true;
+           // shuibengOPEN=true;
 
         }
         else
         {
             MSG[3]=0x00;
-            shuibengOPEN=false;
+           // shuibengOPEN=false;
         }
         MSG[4]=0x00;
         MSG[5]=0x00;
@@ -490,13 +523,13 @@ void socket_SYS:: zhuanjinKZ()
         {
 
             MSG[3]=0x01;
-            zuanjinOPEN=true;
+            //zuanjinOPEN=true;
 
         }
         else
         {
             MSG[3]=0x00;
-            zuanjinOPEN=false;
+           // zuanjinOPEN=false;
         }
         MSG[4]=0x00;
         MSG[5]=0x00;
@@ -524,13 +557,13 @@ void socket_SYS::yeyaKZ()
         {
 
             MSG[3]=0x01;
-            yeyaOPEN=true;
+            //yeyaOPEN=true;
 
         }
         else
         {
             MSG[3]=0x00;
-            yeyaOPEN=false;
+           // yeyaOPEN=false;
         }
         MSG[4]=0x00;
         MSG[5]=0x00;
