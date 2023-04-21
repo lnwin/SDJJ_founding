@@ -110,7 +110,7 @@ bool socket_SYS::server_New_Connect()
                socketIsConnected=true;
                return true;
 
-           }          
+           }
        }
 
 
@@ -154,9 +154,9 @@ void socket_SYS::control_socket_Read_Data()
 
    // qDebug()<<controlData.toHex();
     QByteArray controlDataC1;
-    controlDataC1=controlData.mid(37,2);
+    controlDataC1=controlData.mid(39,2);
     int C1=controlDataC1.toHex().toInt(0,16);
-    QByteArray controlDataforcheck=controlData.mid(0,37);
+    QByteArray controlDataforcheck=controlData.mid(0,39);
     uint16_t C2=CRC->ModbusCRC16(controlDataforcheck);
     QVariantList val;
 
@@ -249,11 +249,30 @@ void socket_SYS::control_socket_Read_Data()
          val.append(xjState);
          int zmState =int(controlData.mid(36,1).toHex().toInt(0,16));//单位bar
          val.append(zmState);
-
+         int gzmoshi= int(controlData.mid(37,1).toHex().toInt(0,16));
+         if(gzmoshi==0)
+         {
+              gongzuomoshi_iszuanjin=false;
+         }
+         else
+         {
+              gongzuomoshi_iszuanjin=true;
+         }
+         val.append(gzmoshi);
+         int donglistate= int(controlData.mid(38,1).toHex().toInt(0,16));
+         if(donglistate==0)
+         {
+              donglidianOPEN=false;
+         }
+         else
+         {
+              donglidianOPEN=true;
+         }
+         val.append(donglistate);
 
 
          emit sendcontrolMSG2T(val);
-        //  qDebug()<<"controlData=1";
+         qDebug()<<"gongzuomoshi_iszuanjin==="<<gongzuomoshi_iszuanjin;
     }
 
     else
@@ -443,6 +462,9 @@ void socket_SYS::ControlARMMove(int type,int length)
 
 void socket_SYS:: zhendongKZ()
 {
+
+
+   // qDebug()<<"zhendongOPEN===="<<zhendongOPEN;
     if(socketIsConnected)
     {
         QByteArray MSG;
@@ -468,6 +490,8 @@ void socket_SYS:: zhendongKZ()
         MSG[6]=C2>>8;
         MSG[7]=(C2<<8)>>8;
         controlClient->write(MSG);
+
+       // qDebug()<<"zhendongOPEN ===="<<MSG;
     }
     else
     {
@@ -544,6 +568,80 @@ void socket_SYS:: zhuanjinKZ()
     }
 
 }
+
+void socket_SYS::gongzuoKZ()
+{
+
+    if(socketIsConnected)
+    {
+        QByteArray MSG;
+        MSG.resize(8);
+        MSG[0]=0x01;
+        MSG[1]=0x06;
+        MSG[2]=0x0a;
+       if(!gongzuomoshi_iszuanjin)
+       {
+
+           MSG[3]=0x01;
+           //zuanjinOPEN=true;
+
+       }
+       else
+       {
+           MSG[3]=0x00;
+          // zuanjinOPEN=false;
+       }
+       MSG[4]=0x00;
+       MSG[5]=0x00;
+       uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
+       MSG[6]=C2>>8;
+       MSG[7]=(C2<<8)>>8;
+       controlClient->write(MSG);
+        qDebug()<<"moshiqiehuan========="<<MSG;
+    }
+    else
+    {
+         emit sendSocketState2T(QStringLiteral("网络未连接！\n"));
+    }
+
+
+
+};
+void socket_SYS::dongliKZ()
+{
+    if(socketIsConnected)
+    {
+        QByteArray MSG;
+        MSG.resize(8);
+        MSG[0]=0x01;
+        MSG[1]=0x06;
+        MSG[2]=0x0b;
+       if(!donglidianOPEN)
+       {
+
+           MSG[3]=0x01;
+           //zuanjinOPEN=true;
+
+       }
+       else
+       {
+           MSG[3]=0x00;
+          // zuanjinOPEN=false;
+       }
+       MSG[4]=0x00;
+       MSG[5]=0x00;
+       uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
+       MSG[6]=C2>>8;
+       MSG[7]=(C2<<8)>>8;
+       controlClient->write(MSG);
+    }
+    else
+    {
+         emit sendSocketState2T(QStringLiteral("网络未连接！\n"));
+    }
+
+};
+
 void socket_SYS::yeyaKZ()
 {
     if(socketIsConnected)

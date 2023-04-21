@@ -17,7 +17,7 @@ public:
     ~threadPond();
 
    Q_INVOKABLE void socket_Init();
-   Q_INVOKABLE void socket_Listing();  
+   Q_INVOKABLE void socket_Listing();
   // Q_INVOKABLE void getcontrolMSGFromSocket(controlMSG val);
 
     Q_INVOKABLE void tGup(int length);
@@ -36,6 +36,8 @@ public:
     Q_INVOKABLE void shuibengKG();
     Q_INVOKABLE void zuanjinKG();
     Q_INVOKABLE void yeyaKG();
+    Q_INVOKABLE void gongzuoKG();
+    Q_INVOKABLE void dongliKG();
     Q_INVOKABLE void shutDown();
 
     Q_INVOKABLE void startCircle(int cout,int step);
@@ -73,8 +75,8 @@ signals:
     void sendYeyaKG();
     void sendShutDown();
     void sendCircle(int cout,int step);
-
-
+    void sendGongzuoKG();
+    void senddongliKG();
     void sendCameraPower(bool);
     void sendLightPower(bool);
 

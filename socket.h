@@ -25,7 +25,7 @@ signals:
   void sendcontrolMSG2T(QVariantList val);
 public slots:
     void socket_Int();
-    bool socket_Listening();    
+    bool socket_Listening();
     void start_listening();
     bool server_New_Connect();
     void wave_socket_Read_Data();
@@ -39,6 +39,8 @@ public slots:
     void zhendongKZ();
     void shuibengKZ();
     void zhuanjinKZ();
+    void gongzuoKZ();
+    void dongliKZ();
     void yeyaKZ();
     void getShutDown();
     void getCircle(int cout,int step);
@@ -50,6 +52,8 @@ private:
     bool zhendongOPEN=false;
     bool shuibengOPEN=false;
     bool zuanjinOPEN=false;
+    bool gongzuomoshi_iszuanjin=false;
+    bool donglidianOPEN=false;
     bool yeyaOPEN=false;
 
     bool socketIsConnected=false;

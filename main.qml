@@ -64,8 +64,10 @@ Window {
     property double yykg:1
     property double sbkg:1
     property double zjkg:1
-     property double xjkg:1
-     property double zmkg:1
+    property double xjkg:1
+    property double zmkg:1
+    property double gongzuomoshi:1
+    property double donglikg:1
 
     //var kphPreviously=0
 
@@ -444,10 +446,30 @@ Window {
         height: 149
         color:"#01113a"
 
+        Label {
+            id: aaa
+            x: 20
+            y: -56
+
+            Layout.fillHeight: true
+            Layout.alignment: Qt.AlignLeft
+            text: qsTr("动力电源:")
+            font.pixelSize: 25
+        }
+        Label {
+            id: dongliState
+            x: 140
+            y: -56
+            Layout.fillHeight: true
+            Layout.alignment: Qt.AlignLeft
+            color: "#FF0000"
+            text: qsTr("关闭")
+            font.pixelSize: 25
+        }
 
                 Label {
                     id: ccc
-                    x: 26
+                    x: 210
                     y: -56
 
                     Layout.fillHeight: true
@@ -457,7 +479,7 @@ Window {
                 }
                 Label {
                     id: cameraPowerState
-                    x: 145
+                    x: 330
                     y: -56
                     Layout.fillHeight: true
                     Layout.alignment: Qt.AlignLeft
@@ -467,7 +489,7 @@ Window {
                 }
                 Label {
                     id: lll
-                    x: 277
+                    x: 400
                     y: -56
                     Layout.fillHeight: true
                     Layout.alignment: Qt.AlignLeft
@@ -476,7 +498,7 @@ Window {
                 }
                 Label {
                     id: lightPowerState
-                    x: 396
+                    x: 520
                     y: -56
 
                     Layout.fillHeight: true
@@ -499,6 +521,27 @@ Window {
                  // anchors.topMargin: 115
                  anchors.bottomMargin: 8
                  spacing: 5
+                 Button {
+                                     id: donglibutton
+                                     text: qsTr("动力开启")
+                                     font.pixelSize:17
+                                     //icon.name: "navigation"
+                                     Layout.fillHeight: true
+                                     onClicked:
+                                     {
+                                          threadPond_obj.dongliKG();
+                                         if(donglibutton.text=="动力上电")
+                                         {
+                                             donglibutton.text=="动力下电"
+                                         }
+                                         else
+                                         {
+                                             donglibutton.text="动力上电"
+                                         }
+
+                                         //threadPond_obj.addMSG2sql("相机上电","");
+                                     }
+                 }
                  Button {
                                      id: cameraPower
                                      text: qsTr("相机上电")
@@ -606,30 +649,31 @@ Window {
                                      Layout.fillHeight: true
                                      onClicked:
                                      {
-                                         if(camera_obj.startREC())
+                                         if(rec.text=="停止录像")
                                          {
-                                             textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1号相机开始录像！\r\n";
-                                         }
-                                         threadPond_obj.addMSG2sql("开始录像","");
-                                     }
-                 }
-                 Button {
-                                     id: stoprec
-                                     text: qsTr("停止录像")
-                                     font.pixelSize:17
-                                     //icon.name: "navigation"
-                                     Layout.fillHeight: true
-                                     onClicked:
-                                     {
-                                         if(camera_obj.stopREC())
-                                         {
+                                             if(camera_obj.stopREC())
                                              {
-                                                 textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1号相机录像停止！\r\n";
+                                                 {
+                                                     textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1号相机录像停止！\r\n";
+                                                 }
                                              }
+                                             rec.text=="开始录像"
+                                             threadPond_obj.addMSG2sql("停止录像","");
                                          }
-                                         threadPond_obj.addMSG2sql("停止录像","");
+                                         else
+                                         {
+                                             if(camera_obj.startREC())
+                                             {
+                                                 textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1号相机开始录像！\r\n";
+
+                                             }
+                                             rec.text=="停止录像"
+                                             threadPond_obj.addMSG2sql("开始录像","");
+                                         }
+
                                      }
                  }
+
 
 
              }
@@ -796,7 +840,7 @@ Window {
                            y: -14
                            width: 83
                            height: 162
-                           text: qsTr("急停")
+                           text: qsTr("停止")
                             font.pointSize: 25
                             font.weight:Font.Bold
                             background: Rectangle {
@@ -1086,10 +1130,19 @@ Window {
                        Label {
                            id: label4
                            x: 36
-                           y: 124
+                           y: 120
                            width: 135
                            height: 24
                            text: "钻进电机开关:"
+                           font.pixelSize: 20
+                       }
+                       Label {
+                           id: label5
+                           x: 36
+                           y: 159
+                           width: 135
+                           height: 24
+                           text: "工作模式:"
                            font.pixelSize: 20
                        }
 
@@ -1126,7 +1179,7 @@ Window {
                        Button {
                            id: zuanjinbutton
                            x: 226
-                           y: 116
+                           y: 114
                            width: 84
                            height: 32
                            text: qsTr("钻进上电")
@@ -1135,6 +1188,24 @@ Window {
                             {
                                 threadPond_obj.zuanjinKG();
                                  threadPond_obj.addMSG2sql(zuanjinbutton.text,"");
+
+                            }
+                       }
+
+
+
+                       Button {
+                           id: gongzuobutton
+                           x: 226
+                           y: 154
+                           width: 84
+                           height: 32
+                           text: qsTr("模式切换")
+                            font.pixelSize: 15
+                            onClicked:
+                            {
+                                 threadPond_obj.gongzuoKG();
+                                 threadPond_obj.addMSG2sql(gongzuoState.text,"");
 
                             }
                        }
@@ -1164,7 +1235,7 @@ Window {
                        Label {
                            id: zuanjinState
                            x: 175
-                           y: 124
+                           y: 120
                            width: 43
                            height: 24
                            color: "#FF0000"
@@ -1173,12 +1244,13 @@ Window {
                        }
 
                        Label {
-                           id: label5
-                           x: 36
-                           y: -6
-                           width: 133
+                           id: gongzuoState
+                           x: 175
+                           y: 159
+                           width: 43
                            height: 24
-                           text: "液压电机状态:"
+                           color: "#FF0000"
+                           text: qsTr("NULL")
                            font.pixelSize: 20
                        }
 
@@ -1192,6 +1264,18 @@ Window {
                            text: qsTr("关闭")
                            font.pixelSize: 20
                        }
+
+                       Label {
+                           id: yeyastatus
+                           x: 36
+                           y: -6
+                           width: 133
+                           height: 24
+                           text: "液压电机状态:"
+                           font.pixelSize: 20
+                       }
+
+
 
                        Button {
                            id: yeyabutton
@@ -1511,6 +1595,31 @@ Window {
           lightPowerState.text="打开"
           lightPower.text="照明断电"
       }
+      if(gongzuomoshi==0)
+      {
+          gongzuoState.color="#FFFF00";
+          gongzuoState.text="振动"
+         // lightPower.text="照明上电"
+      }
+      else
+      {
+          gongzuoState.color="#00FF00";
+          gongzuoState.text="钻进"
+         // lightPower.text="照明断电"
+      }
+      if(donglikg==0)
+      {
+          dongliState.color="#FF0000";
+          dongliState.text="关闭"
+          donglibutton.text="动力上电"
+      }
+      else
+      {
+          dongliState.color="#00FF00";
+          dongliState.text="打开"
+          donglibutton.text="动力断电"
+      }
+
 
 
     }
@@ -1533,7 +1642,7 @@ Window {
       }
       onSendcontrolMSG2QML://传感器参数接收
       {
-         // textArea.text+=mMSG;
+         //textArea.text+=mMSG;
           rollNow=mMSG[0].toFixed(2)
           pitchNow=mMSG[1].toFixed(2);
           yawNow=mMSG[2].toFixed(2);
@@ -1555,7 +1664,12 @@ Window {
           zjkg=mMSG[16].toFixed(2);
           xjkg=mMSG[17].toFixed(2);
           zmkg=mMSG[18].toFixed(2);
+          gongzuomoshi=mMSG[19].toFixed(2);
+          donglikg=mMSG[20].toFixed(2);
 //======================该处需要修订下
+
+
+           textArea.text+=gongzuomoshi;
           checkState()
           mainCarton.start();
 

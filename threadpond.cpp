@@ -19,6 +19,11 @@ threadPond::threadPond()
     connect(this,SIGNAL(sendZhendongKG()),SK2,SLOT(zhendongKZ()));
     connect(this,SIGNAL(sendShuibengKG()),SK2,SLOT(shuibengKZ()));
     connect(this,SIGNAL(sendZuanjinKG()),SK2,SLOT(zhuanjinKZ()));
+    connect(this,SIGNAL(sendGongzuoKG()),SK2,SLOT(gongzuoKZ()));
+     connect(this,SIGNAL(senddongliKG()),SK2,SLOT(dongliKZ()));
+
+
+
     connect(this,SIGNAL(sendYeyaKG()),SK2,SLOT(yeyaKZ()));
     connect(this,SIGNAL(sendCircle(int,int)),SK2,SLOT(getCircle(int,int)));
 
@@ -109,7 +114,14 @@ void threadPond:: zuanjinKG()
 {
    emit sendZuanjinKG();
 }
-
+void threadPond:: gongzuoKG()
+{
+   emit sendGongzuoKG();
+}
+void threadPond:: dongliKG()
+{
+    emit senddongliKG();
+}
 void threadPond::yeyaKG()
 {
   emit sendYeyaKG();
