@@ -236,7 +236,7 @@ void socket_SYS::control_socket_Read_Data()
          }
          val.append(sbState);
          int zjState =int(controlData.mid(34,1).toHex().toInt(0,16));//单位bar
-         if(zdState==0)
+         if(zjState==0)
          {
               zuanjinOPEN=false;
          }
@@ -553,7 +553,7 @@ void socket_SYS:: zhuanjinKZ()
         else
         {
             MSG[3]=0x00;
-           // zuanjinOPEN=false;
+           //zuanjinOPEN=false;
         }
         MSG[4]=0x00;
         MSG[5]=0x00;

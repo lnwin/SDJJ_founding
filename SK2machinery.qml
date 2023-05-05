@@ -276,18 +276,19 @@ Item {
                 ctx.fillRect(base_mid_x-toPixels(1),base_mid_y+distance2Base,base_mid_x+toPixels(2),height);
                 ctx.fill();
 
-                ctx.textAlign="center";
-                ctx.font="17px Arial"
+//                ctx.textAlign="center";
+//                ctx.font="20px Arial"
+//                ctx.fillStyle=itemColor
+//                ctx.fillText(String("离底高度"),base_mid_x+toPixels(0.3),base_mid_y+distance2Base+toPixels(0.2))
+//                ctx.fillStyle=textColor
+//                var ldgd = "%1mm"
+//                var ldgdt_value = distance2Base.toFixed(0)
+//                ctx.textAlign="center";
+//                ctx.font="25px Arial"
+//               // console.log(message.arg(count))
+//                ctx.fillText(ldgd.arg(ldgdt_value),base_mid_x+toPixels(0.3),base_mid_y+distance2Base+toPixels(0.3))
                 ctx.fillStyle=itemColor
-                ctx.fillText(String("离底高度"),base_mid_x+toPixels(0.3),base_mid_y+distance2Base+toPixels(0.2))
-                ctx.fillStyle=textColor
-                var ldgd = "%1mm"
-                var ldgdt_value = distance2Base.toFixed(0)
-                ctx.textAlign="center";
-                ctx.font="25px Arial"
-               // console.log(message.arg(count))
-                ctx.fillText(ldgd.arg(ldgdt_value),base_mid_x+toPixels(0.3),base_mid_y+distance2Base+toPixels(0.3))
-                ctx.fillStyle=itemColor
+
                 ctx.textAlign="center";
                 ctx.font="20px Arial"
                 ctx.fillText(String("入水深度:"),dianjiCenter_x+toPixels(0.5),dianjikuangjialeft_y-toPixels(1.4))
@@ -569,15 +570,15 @@ Item {
 
                 ctx.fillStyle=itemColor;
                 ctx.textAlign="center";
-                ctx.font="17px Arial"
+                ctx.font="20px Arial"
 
-                ctx.fillText(String("下插深度:"),frameWork_topMid_x-polesWidth*5,frameWork_topMid_y+polesWidth*21+moveLength*0.7)
+                ctx.fillText(String("下插深度:"),frameWork_topMid_x-polesWidth*5+150,frameWork_topMid_y+polesWidth*21+moveLength*0.7)
                  ctx.fillStyle=textColor
                 var xc = "%1mm"
                 var count_5 =  moveLength .toFixed(0)
                 ctx.textAlign="left";
                 ctx.font="25px Arial"
-                ctx.fillText(xc.arg(count_5),frameWork_topMid_x-polesWidth*6,frameWork_topMid_y+polesWidth*22.5+moveLength*0.7)
+                ctx.fillText(xc.arg(count_5),frameWork_topMid_x-polesWidth*6+130,frameWork_topMid_y+polesWidth*22.5+moveLength*0.7)
 
                 // ctx.font="20px Arial"
                 // ctx.fillText(String(moveLength.toFixed(0)-50),frameWork_topMid_x-polesWidth*2.4,frameWork_topMid_y+polesWidth*19+moveLength*0.7)
@@ -700,7 +701,7 @@ Item {
                 ctx.fill();
 
                 ctx.textAlign="center";
-                ctx.font="17px Arial"
+                ctx.font="20px Arial"
                 ctx.fillText(String("摆臂角度:"),sensor_3_ball_x-toPixels(0.1),sensor_4_ball_y-toPixels(0.4))
                  ctx.fillStyle=textColor
                 var bd = "%1°"
@@ -708,11 +709,11 @@ Item {
                 ctx.textAlign="left";
                 ctx.font="25px Arial"
                // console.log(message.arg(count))
-                ctx.fillText(bd.arg(count_4),sensor_3_ball_x+toPixels(0.05),sensor_4_ball_y-toPixels(0.4))
+                ctx.fillText(bd.arg(count_4),sensor_3_ball_x+toPixels(0.07),sensor_4_ball_y-toPixels(0.39))
 
                 ctx.fillStyle=itemColor
                 ctx.textAlign="center";
-                ctx.font="17px Arial"
+                ctx.font="20px Arial"
                 ctx.fillText(String("换能器压力"),tP_x,tP_y)
                 ctx.fillStyle=textColor
                 ctx.textAlign="center";

@@ -1187,7 +1187,7 @@ Window {
                             onClicked:
                             {
                                 threadPond_obj.zuanjinKG();
-                                 threadPond_obj.addMSG2sql(zuanjinbutton.text,"");
+                                threadPond_obj.addMSG2sql(zuanjinbutton.text,"");
 
                             }
                        }
