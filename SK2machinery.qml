@@ -57,7 +57,7 @@ Item {
     property double frameWork_bottomLength:toPixels(1);
     property double frameWork_Height:toPixels(1.5);
     property double dianjiCenter_x:frameWork_bottomRight_x-toPixels(0.1);
-    property double dianjiCenter_y:frameWork_bottomRight_y-toPixels(0.035)-pushLength;
+    property double dianjiCenter_y:frameWork_bottomRight_y-toPixels(0.1)+pushLength*0.1;
 
     property double dianjikuangjialeft_x:frameWork_bottomRight_x-toPixels(0.1);
     property double dianjikuangjialeft_y:frameWork_bottomRight_y-toPixels(0.05)
@@ -254,11 +254,11 @@ Item {
                 ctx.lineTo(frameWork_bottomLeft_x+toPixels(0.1), frameWork_bottomLeft_y-toPixels(0.24));
                 ctx.stroke();
 
-                ctx.textAlign="center";
+                ctx.textAlign="left";
                 ctx.font="25px Arial"
                 ctx.fillStyle=itemColor
                // ctx.fillText(String("油缸压力"),frameWork_bottomLeft_x+toPixels(0.1),frameWork_bottomLeft_y-toPixels(0.45))
-                ctx.fillText(String("油缸压力:"),325,55)
+                ctx.fillText(String("油缸压力:"),250,55)
                 ctx.fillStyle=textColor
                 var ygyl = "%1bar"
                 var ygyl_value = cylinderPressure.toFixed(2)
@@ -266,7 +266,7 @@ Item {
                 ctx.font="25px Arial"
                // console.log(message.arg(count))
                // ctx.fillText(ygyl.arg(ygyl_value),frameWork_bottomLeft_x+toPixels(0.1),frameWork_bottomLeft_y-toPixels(0.35))
-                ctx.fillText(ygyl.arg(ygyl_value),390,55)
+                ctx.fillText(ygyl.arg(ygyl_value),360,55)
 
                 //========================================== 离底高度绘图
 
@@ -291,10 +291,10 @@ Item {
 //                ctx.fillText(ldgd.arg(ldgdt_value),base_mid_x+toPixels(0.3),base_mid_y+distance2Base+toPixels(0.3))
                 ctx.fillStyle=itemColor
 
-                ctx.textAlign="center";
+                ctx.textAlign="left";
                 ctx.font="25px Arial"
                // ctx.fillText(String("入水深度:"),dianjiCenter_x+toPixels(0.1),dianjikuangjialeft_y-toPixels(1.3))
-                ctx.fillText(String("入水深度:"),325,20)
+                ctx.fillText(String("入水深度:"),250,20)
                 ctx.fillStyle=textColor
                 ctx.textAlign="left";
                 var rssd = "%1m"
@@ -302,7 +302,7 @@ Item {
                 ctx.font="25px Arial"
                // console.log(message.arg(count))
               //  ctx.fillText(rssd.arg(rssd_text),dianjiCenter_x+toPixels(0.35),dianjikuangjialeft_y-toPixels(1.4))
-                 ctx.fillText(rssd.arg(rssd_text),390,20)
+                 ctx.fillText(rssd.arg(rssd_text),360,20)
 
 
                 //=========================================画布边框
@@ -361,44 +361,44 @@ Item {
                 ctx.lineWidth =toPixels(0.01);
                 ctx.strokeStyle = mainColor;
                 ctx.moveTo(frameWork_topMid_x, frameWork_topMid_y+polesWidth*0.5);
-                ctx.lineTo(frameWork_topMid_x, frameWork_topMid_y+polesWidth*0.5+moveLength);
+                ctx.lineTo(frameWork_topMid_x, frameWork_topMid_y+polesWidth*0.5+moveLength*0.1);
                 ctx.stroke();
                 //==========================================电机
                 ctx.beginPath();
                 ctx.lineWidth =1;
-                ctx.moveTo(frameWork_topMid_x-polesWidth*1, frameWork_topMid_y+polesWidth*0.5+moveLength);
-                ctx.lineTo(frameWork_topMid_x+polesWidth*1, frameWork_topMid_y+polesWidth*0.5+moveLength);
-                ctx.lineTo(frameWork_topMid_x+polesWidth*1, frameWork_topMid_y+polesWidth*0.7+moveLength);
-                ctx.lineTo(frameWork_topMid_x-polesWidth*1, frameWork_topMid_y+polesWidth*0.7+moveLength);
+                ctx.moveTo(frameWork_topMid_x-polesWidth*1, frameWork_topMid_y+polesWidth*0.5+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x+polesWidth*1, frameWork_topMid_y+polesWidth*0.5+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x+polesWidth*1, frameWork_topMid_y+polesWidth*0.7+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x-polesWidth*1, frameWork_topMid_y+polesWidth*0.7+moveLength*0.1);
                 ctx.closePath();
                 ctx.fillStyle =itemColor
                 ctx.fill();
 
                 ctx.beginPath();
                 ctx.lineWidth =1;
-                ctx.moveTo(frameWork_topMid_x-polesWidth*0.8, frameWork_topMid_y+polesWidth*0.7+moveLength);
-                ctx.lineTo(frameWork_topMid_x+polesWidth*0.8, frameWork_topMid_y+polesWidth*0.7+moveLength);
-                ctx.lineTo(frameWork_topMid_x+polesWidth*0.8, frameWork_topMid_y+polesWidth*2.7+moveLength);
-                ctx.lineTo(frameWork_topMid_x-polesWidth*0.8, frameWork_topMid_y+polesWidth*2.7+moveLength);
+                ctx.moveTo(frameWork_topMid_x-polesWidth*0.8, frameWork_topMid_y+polesWidth*0.7+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x+polesWidth*0.8, frameWork_topMid_y+polesWidth*0.7+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x+polesWidth*0.8, frameWork_topMid_y+polesWidth*2.7+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x-polesWidth*0.8, frameWork_topMid_y+polesWidth*2.7+moveLength*0.1);
                 ctx.closePath();
                 ctx.fillStyle =itemColor
                 ctx.fill();
                 ctx.beginPath();
                 ctx.lineWidth =1;
-                ctx.moveTo(frameWork_topMid_x-polesWidth*1, frameWork_topMid_y+polesWidth*2.7+moveLength);
-                ctx.lineTo(frameWork_topMid_x+polesWidth*1, frameWork_topMid_y+polesWidth*2.7+moveLength);
-                ctx.lineTo(frameWork_topMid_x+polesWidth*1, frameWork_topMid_y+polesWidth*2.9+moveLength);
-                ctx.lineTo(frameWork_topMid_x-polesWidth*1, frameWork_topMid_y+polesWidth*2.9+moveLength);
+                ctx.moveTo(frameWork_topMid_x-polesWidth*1, frameWork_topMid_y+polesWidth*2.7+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x+polesWidth*1, frameWork_topMid_y+polesWidth*2.7+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x+polesWidth*1, frameWork_topMid_y+polesWidth*2.9+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x-polesWidth*1, frameWork_topMid_y+polesWidth*2.9+moveLength*0.1);
                 ctx.closePath();
                 ctx.fillStyle =itemColor
                 ctx.fill();
 
                 ctx.beginPath();
                 ctx.lineWidth =1;
-                ctx.moveTo(frameWork_topMid_x-polesWidth*0.65, frameWork_topMid_y+polesWidth*2.9+moveLength);
-                ctx.lineTo(frameWork_topMid_x+polesWidth*0.65, frameWork_topMid_y+polesWidth*2.9+moveLength);
-                ctx.lineTo(frameWork_topMid_x+polesWidth*0.65, frameWork_topMid_y+polesWidth*3.9+moveLength);
-                ctx.lineTo(frameWork_topMid_x-polesWidth*0.65, frameWork_topMid_y+polesWidth*3.9+moveLength);
+                ctx.moveTo(frameWork_topMid_x-polesWidth*0.65, frameWork_topMid_y+polesWidth*2.9+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x+polesWidth*0.65, frameWork_topMid_y+polesWidth*2.9+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x+polesWidth*0.65, frameWork_topMid_y+polesWidth*3.9+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x-polesWidth*0.65, frameWork_topMid_y+polesWidth*3.9+moveLength*0.1);
                 ctx.closePath();
                 ctx.fillStyle =itemColor
                 ctx.fill();
@@ -406,53 +406,53 @@ Item {
                 ctx.beginPath();
                 ctx.lineWidth =5;
                 ctx.strokeStyle = itemColor
-                ctx.arc(frameWork_topMid_x,frameWork_topMid_y+polesWidth*1+moveLength,50,degToRad(230),degToRad(310))
+                ctx.arc(frameWork_topMid_x,frameWork_topMid_y+polesWidth*1+moveLength*0.1,50,degToRad(230),degToRad(310))
                 ctx.stroke();
                 ctx.beginPath();
                 ctx.lineWidth =1;
-                ctx.moveTo(frameWork_topMid_x-polesWidth*1.8, frameWork_topMid_y+polesWidth*2+moveLength);
-                ctx.lineTo(frameWork_topMid_x-polesWidth*1.8, frameWork_topMid_y*0.3+polesWidth*0.1+moveLength);
-                 ctx.lineTo(frameWork_topMid_x-polesWidth*1.5, frameWork_topMid_y*0.3+polesWidth*0.1+moveLength);
-                 ctx.lineTo(frameWork_topMid_x-polesWidth*1.5, frameWork_topMid_y+polesWidth*2+moveLength);
+                ctx.moveTo(frameWork_topMid_x-polesWidth*1.8, frameWork_topMid_y+polesWidth*2+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x-polesWidth*1.8, frameWork_topMid_y*0.3+polesWidth*0.1+moveLength*0.1);
+                 ctx.lineTo(frameWork_topMid_x-polesWidth*1.5, frameWork_topMid_y*0.3+polesWidth*0.1+moveLength*0.1);
+                 ctx.lineTo(frameWork_topMid_x-polesWidth*1.5, frameWork_topMid_y+polesWidth*2+moveLength*0.1);
                 ctx.closePath();
                 ctx.fillStyle =itemColor
                 ctx.fill();
                 ctx.beginPath();
                 ctx.lineWidth =1;
-                ctx.moveTo(frameWork_topMid_x+polesWidth*1.8, frameWork_topMid_y+polesWidth*2+moveLength);
-                ctx.lineTo(frameWork_topMid_x+polesWidth*1.8, frameWork_topMid_y*0.3+polesWidth*0.1+moveLength);
-                 ctx.lineTo(frameWork_topMid_x+polesWidth*1.5, frameWork_topMid_y*0.3+polesWidth*0.1+moveLength);
-                 ctx.lineTo(frameWork_topMid_x+polesWidth*1.5, frameWork_topMid_y+polesWidth*2+moveLength);
+                ctx.moveTo(frameWork_topMid_x+polesWidth*1.8, frameWork_topMid_y+polesWidth*2+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x+polesWidth*1.8, frameWork_topMid_y*0.3+polesWidth*0.1+moveLength*0.1);
+                 ctx.lineTo(frameWork_topMid_x+polesWidth*1.5, frameWork_topMid_y*0.3+polesWidth*0.1+moveLength*0.1);
+                 ctx.lineTo(frameWork_topMid_x+polesWidth*1.5, frameWork_topMid_y+polesWidth*2+moveLength*0.1);
                 ctx.closePath();
                 ctx.fillStyle =itemColor
                 ctx.fill();
                 //==========================================固定架 下
                 ctx.beginPath();
                 ctx.lineWidth =1;
-                ctx.moveTo(frameWork_topMid_x-polesWidth*1.8, frameWork_topMid_y+polesWidth*3.9+moveLength);
-                ctx.lineTo(frameWork_topMid_x+polesWidth*1.8, frameWork_topMid_y+polesWidth*3.9+moveLength);
-                 ctx.lineTo(frameWork_topMid_x+polesWidth*1.8, frameWork_topMid_y+polesWidth*4.1+moveLength);
-                 ctx.lineTo(frameWork_topMid_x-polesWidth*1.8, frameWork_topMid_y+polesWidth*4.1+moveLength);
+                ctx.moveTo(frameWork_topMid_x-polesWidth*1.8, frameWork_topMid_y+polesWidth*3.9+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x+polesWidth*1.8, frameWork_topMid_y+polesWidth*3.9+moveLength*0.1);
+                 ctx.lineTo(frameWork_topMid_x+polesWidth*1.8, frameWork_topMid_y+polesWidth*4.1+moveLength*0.1);
+                 ctx.lineTo(frameWork_topMid_x-polesWidth*1.8, frameWork_topMid_y+polesWidth*4.1+moveLength*0.1);
                 ctx.closePath();
                 ctx.fillStyle =itemColor
                 ctx.fill();
 
                 ctx.beginPath();
                 ctx.lineWidth =1;
-                ctx.moveTo(frameWork_topMid_x-polesWidth*1.8, frameWork_topMid_y+polesWidth*3.9+moveLength);
-                ctx.lineTo(frameWork_topMid_x-polesWidth*1.8, frameWork_topMid_y+polesWidth*3.1+moveLength);
-                 ctx.lineTo(frameWork_topMid_x-polesWidth*1.6, frameWork_topMid_y+polesWidth*3.1+moveLength);
-                 ctx.lineTo(frameWork_topMid_x-polesWidth*1.6, frameWork_topMid_y+polesWidth*3.9+moveLength);
+                ctx.moveTo(frameWork_topMid_x-polesWidth*1.8, frameWork_topMid_y+polesWidth*3.9+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x-polesWidth*1.8, frameWork_topMid_y+polesWidth*3.1+moveLength*0.1);
+                 ctx.lineTo(frameWork_topMid_x-polesWidth*1.6, frameWork_topMid_y+polesWidth*3.1+moveLength*0.1);
+                 ctx.lineTo(frameWork_topMid_x-polesWidth*1.6, frameWork_topMid_y+polesWidth*3.9+moveLength*0.1);
                 ctx.closePath();
                 ctx.fillStyle =itemColor
                 ctx.fill();
 
                 ctx.beginPath();
                 ctx.lineWidth =1;
-                ctx.moveTo(frameWork_topMid_x+polesWidth*1.8, frameWork_topMid_y+polesWidth*3.9+moveLength);
-                ctx.lineTo(frameWork_topMid_x+polesWidth*1.8, frameWork_topMid_y+polesWidth*3.1+moveLength);
-                 ctx.lineTo(frameWork_topMid_x+polesWidth*1.6, frameWork_topMid_y+polesWidth*3.1+moveLength);
-                 ctx.lineTo(frameWork_topMid_x+polesWidth*1.6, frameWork_topMid_y+polesWidth*3.9+moveLength);
+                ctx.moveTo(frameWork_topMid_x+polesWidth*1.8, frameWork_topMid_y+polesWidth*3.9+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x+polesWidth*1.8, frameWork_topMid_y+polesWidth*3.1+moveLength*0.1);
+                 ctx.lineTo(frameWork_topMid_x+polesWidth*1.6, frameWork_topMid_y+polesWidth*3.1+moveLength*0.1);
+                 ctx.lineTo(frameWork_topMid_x+polesWidth*1.6, frameWork_topMid_y+polesWidth*3.9+moveLength*0.1);
                 ctx.closePath();
                 ctx.fillStyle =itemColor
                 ctx.fill();
@@ -461,49 +461,49 @@ Item {
                 //==========================================固定架 侧
                 ctx.beginPath();
                 ctx.lineWidth =1;
-                ctx.moveTo(frameWork_topMid_x-polesWidth*2.25, frameWork_topMid_y+polesWidth*3.5+moveLength);
-                ctx.lineTo(frameWork_topMid_x-polesWidth*2.25, frameWork_topMid_y*0.7+polesWidth*0.1+moveLength);
-                 ctx.lineTo(frameWork_topMid_x-polesWidth*1.9, frameWork_topMid_y*0.7+polesWidth*0.1+moveLength);
-                 ctx.lineTo(frameWork_topMid_x-polesWidth*1.9, frameWork_topMid_y+polesWidth*3.5+moveLength);
+                ctx.moveTo(frameWork_topMid_x-polesWidth*2.25, frameWork_topMid_y+polesWidth*3.5+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x-polesWidth*2.25, frameWork_topMid_y*0.7+polesWidth*0.1+moveLength*0.1);
+                 ctx.lineTo(frameWork_topMid_x-polesWidth*1.9, frameWork_topMid_y*0.7+polesWidth*0.1+moveLength*0.1);
+                 ctx.lineTo(frameWork_topMid_x-polesWidth*1.9, frameWork_topMid_y+polesWidth*3.5+moveLength*0.1);
                 ctx.closePath();
                 ctx.fillStyle =itemColor
                 ctx.fill();
                 ctx.beginPath();
                 ctx.lineWidth =1;
-                ctx.moveTo(frameWork_topMid_x+polesWidth*2.25, frameWork_topMid_y+polesWidth*3.5+moveLength);
-                ctx.lineTo(frameWork_topMid_x+polesWidth*2.25, frameWork_topMid_y*0.7+polesWidth*0.1+moveLength);
-                 ctx.lineTo(frameWork_topMid_x+polesWidth*1.9, frameWork_topMid_y*0.7+polesWidth*0.1+moveLength);
-                 ctx.lineTo(frameWork_topMid_x+polesWidth*1.9, frameWork_topMid_y+polesWidth*3.5+moveLength);
-                ctx.closePath();
-                ctx.fillStyle =itemColor
-                ctx.fill();
-
-                ctx.beginPath();
-                ctx.lineWidth =1;
-                ctx.moveTo(frameWork_topMid_x-polesWidth*3, frameWork_topMid_y+polesWidth+moveLength);
-                ctx.lineTo(frameWork_topMid_x-polesWidth*3, frameWork_topMid_y*0.7+polesWidth+moveLength);
-                 ctx.lineTo(frameWork_topMid_x-polesWidth*1.5, frameWork_topMid_y*0.7+polesWidth+moveLength);
-                 ctx.lineTo(frameWork_topMid_x-polesWidth*1.5, frameWork_topMid_y+polesWidth+moveLength);
+                ctx.moveTo(frameWork_topMid_x+polesWidth*2.25, frameWork_topMid_y+polesWidth*3.5+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x+polesWidth*2.25, frameWork_topMid_y*0.7+polesWidth*0.1+moveLength*0.1);
+                 ctx.lineTo(frameWork_topMid_x+polesWidth*1.9, frameWork_topMid_y*0.7+polesWidth*0.1+moveLength*0.1);
+                 ctx.lineTo(frameWork_topMid_x+polesWidth*1.9, frameWork_topMid_y+polesWidth*3.5+moveLength*0.1);
                 ctx.closePath();
                 ctx.fillStyle =itemColor
                 ctx.fill();
 
                 ctx.beginPath();
                 ctx.lineWidth =1;
-                ctx.moveTo(frameWork_topMid_x+polesWidth*3, frameWork_topMid_y+polesWidth+moveLength);
-                ctx.lineTo(frameWork_topMid_x+polesWidth*3, frameWork_topMid_y*0.7+polesWidth+moveLength);
-                 ctx.lineTo(frameWork_topMid_x+polesWidth*1.5, frameWork_topMid_y*0.7+polesWidth+moveLength);
-                 ctx.lineTo(frameWork_topMid_x+polesWidth*1.5, frameWork_topMid_y+polesWidth+moveLength);
+                ctx.moveTo(frameWork_topMid_x-polesWidth*3, frameWork_topMid_y+polesWidth+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x-polesWidth*3, frameWork_topMid_y*0.7+polesWidth+moveLength*0.1);
+                 ctx.lineTo(frameWork_topMid_x-polesWidth*1.5, frameWork_topMid_y*0.7+polesWidth+moveLength*0.1);
+                 ctx.lineTo(frameWork_topMid_x-polesWidth*1.5, frameWork_topMid_y+polesWidth+moveLength*0.1);
                 ctx.closePath();
                 ctx.fillStyle =itemColor
                 ctx.fill();
 
                 ctx.beginPath();
                 ctx.lineWidth =1;
-                ctx.moveTo(frameWork_topMid_x-polesWidth*3.3, frameWork_topMid_y*2.3+polesWidth+moveLength);
-                ctx.lineTo(frameWork_topMid_x-polesWidth*3.3, frameWork_topMid_y*2+polesWidth+moveLength);
-                 ctx.lineTo(frameWork_topMid_x-polesWidth*1.6, frameWork_topMid_y*2+polesWidth+moveLength);
-                 ctx.lineTo(frameWork_topMid_x-polesWidth*1.6, frameWork_topMid_y*2.3+polesWidth+moveLength);
+                ctx.moveTo(frameWork_topMid_x+polesWidth*3, frameWork_topMid_y+polesWidth+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x+polesWidth*3, frameWork_topMid_y*0.7+polesWidth+moveLength*0.1);
+                 ctx.lineTo(frameWork_topMid_x+polesWidth*1.5, frameWork_topMid_y*0.7+polesWidth+moveLength*0.1);
+                 ctx.lineTo(frameWork_topMid_x+polesWidth*1.5, frameWork_topMid_y+polesWidth+moveLength*0.1);
+                ctx.closePath();
+                ctx.fillStyle =itemColor
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.lineWidth =1;
+                ctx.moveTo(frameWork_topMid_x-polesWidth*3.3, frameWork_topMid_y*2.3+polesWidth+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x-polesWidth*3.3, frameWork_topMid_y*2+polesWidth+moveLength*0.1);
+                 ctx.lineTo(frameWork_topMid_x-polesWidth*1.6, frameWork_topMid_y*2+polesWidth+moveLength*0.1);
+                 ctx.lineTo(frameWork_topMid_x-polesWidth*1.6, frameWork_topMid_y*2.3+polesWidth+moveLength*0.1);
                 ctx.closePath();
                 ctx.fillStyle =itemColor
                 ctx.fill();
@@ -511,16 +511,16 @@ Item {
                 ctx.beginPath();
                 ctx.lineWidth =3;
                 ctx.strokeStyle = itemColor
-                ctx.moveTo(frameWork_topMid_x-polesWidth*3.33, frameWork_topMid_y*2.4+polesWidth+moveLength);
-                ctx.lineTo(frameWork_topMid_x-polesWidth*3.33, frameWork_topMid_y*1.9+polesWidth+moveLength);
+                ctx.moveTo(frameWork_topMid_x-polesWidth*3.33, frameWork_topMid_y*2.4+polesWidth+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x-polesWidth*3.33, frameWork_topMid_y*1.9+polesWidth+moveLength*0.1);
                 ctx.stroke();
 
                 ctx.beginPath();
                 ctx.lineWidth =1;
-                ctx.moveTo(frameWork_topMid_x+polesWidth*3.3, frameWork_topMid_y*2.3+polesWidth+moveLength);
-                ctx.lineTo(frameWork_topMid_x+polesWidth*3.3, frameWork_topMid_y*2+polesWidth+moveLength);
-                 ctx.lineTo(frameWork_topMid_x+polesWidth*1.6, frameWork_topMid_y*2+polesWidth+moveLength);
-                 ctx.lineTo(frameWork_topMid_x+polesWidth*1.6, frameWork_topMid_y*2.3+polesWidth+moveLength);
+                ctx.moveTo(frameWork_topMid_x+polesWidth*3.3, frameWork_topMid_y*2.3+polesWidth+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x+polesWidth*3.3, frameWork_topMid_y*2+polesWidth+moveLength*0.1);
+                 ctx.lineTo(frameWork_topMid_x+polesWidth*1.6, frameWork_topMid_y*2+polesWidth+moveLength*0.1);
+                 ctx.lineTo(frameWork_topMid_x+polesWidth*1.6, frameWork_topMid_y*2.3+polesWidth+moveLength*0.1);
                 ctx.closePath();
                 ctx.fillStyle =itemColor
                 ctx.fill();
@@ -528,45 +528,45 @@ Item {
                 ctx.beginPath();
                 ctx.lineWidth =3;
                 ctx.strokeStyle = itemColor
-                ctx.moveTo(frameWork_topMid_x+polesWidth*3.33, frameWork_topMid_y*2.4+polesWidth+moveLength);
-                ctx.lineTo(frameWork_topMid_x+polesWidth*3.33, frameWork_topMid_y*1.9+polesWidth+moveLength);
+                ctx.moveTo(frameWork_topMid_x+polesWidth*3.33, frameWork_topMid_y*2.4+polesWidth+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x+polesWidth*3.33, frameWork_topMid_y*1.9+polesWidth+moveLength*0.1);
                 ctx.stroke();
               //=================================================探杆
                 ctx.beginPath();
                 ctx.lineWidth =1;
-                ctx.moveTo(frameWork_topMid_x-polesWidth*0.5, frameWork_topMid_y+polesWidth*4.1+moveLength);
-                ctx.lineTo(frameWork_topMid_x+polesWidth*0.5, frameWork_topMid_y+polesWidth*4.1+moveLength);
-                ctx.lineTo(frameWork_topMid_x+polesWidth*0.5, frameWork_topMid_y+polesWidth*4.3+moveLength);
-                ctx.lineTo(frameWork_topMid_x-polesWidth*0.5, frameWork_topMid_y+polesWidth*4.3+moveLength);
+                ctx.moveTo(frameWork_topMid_x-polesWidth*0.5, frameWork_topMid_y+polesWidth*4.1+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x+polesWidth*0.5, frameWork_topMid_y+polesWidth*4.1+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x+polesWidth*0.5, frameWork_topMid_y+polesWidth*4.3+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x-polesWidth*0.5, frameWork_topMid_y+polesWidth*4.3+moveLength*0.1);
                 ctx.closePath();
                 ctx.fillStyle =itemColor
                 ctx.fill();
 
                 ctx.beginPath();
                 ctx.lineWidth =1;
-                ctx.moveTo(frameWork_topMid_x-polesWidth*0.2, frameWork_topMid_y+polesWidth*4.3+moveLength);
-                ctx.lineTo(frameWork_topMid_x+polesWidth*0.2, frameWork_topMid_y+polesWidth*4.3+moveLength);
-                ctx.lineTo(frameWork_topMid_x+polesWidth*0.2, frameWork_topMid_y+polesWidth*16.3+moveLength);
-                ctx.lineTo(frameWork_topMid_x-polesWidth*0.2, frameWork_topMid_y+polesWidth*16.3+moveLength);
+                ctx.moveTo(frameWork_topMid_x-polesWidth*0.2, frameWork_topMid_y+polesWidth*4.3+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x+polesWidth*0.2, frameWork_topMid_y+polesWidth*4.3+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x+polesWidth*0.2, frameWork_topMid_y+polesWidth*16.3+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x-polesWidth*0.2, frameWork_topMid_y+polesWidth*16.3+moveLength*0.1);
                 ctx.closePath();
                 ctx.fillStyle =itemColor
                 ctx.fill();
 
                 ctx.beginPath();
                 ctx.lineWidth =1;
-                ctx.moveTo(frameWork_topMid_x-polesWidth*0.3, frameWork_topMid_y+polesWidth*16.3+moveLength);
-                ctx.lineTo(frameWork_topMid_x+polesWidth*0.3, frameWork_topMid_y+polesWidth*16.3+moveLength);
-                ctx.lineTo(frameWork_topMid_x+polesWidth*0.3, frameWork_topMid_y+polesWidth*16.9+moveLength);
-                ctx.lineTo(frameWork_topMid_x-polesWidth*0.3, frameWork_topMid_y+polesWidth*16.9+moveLength);
+                ctx.moveTo(frameWork_topMid_x-polesWidth*0.3, frameWork_topMid_y+polesWidth*16.3+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x+polesWidth*0.3, frameWork_topMid_y+polesWidth*16.3+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x+polesWidth*0.3, frameWork_topMid_y+polesWidth*16.9+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x-polesWidth*0.3, frameWork_topMid_y+polesWidth*16.9+moveLength*0.1);
                 ctx.closePath();
                 ctx.fillStyle =itemColor
                 ctx.fill();
 
                 ctx.beginPath();
                 ctx.lineWidth =1;
-                ctx.moveTo(frameWork_topMid_x-polesWidth*0.3, frameWork_topMid_y+polesWidth*16.9+moveLength);
-                ctx.lineTo(frameWork_topMid_x+polesWidth*0.3, frameWork_topMid_y+polesWidth*16.9+moveLength);
-                ctx.lineTo(frameWork_topMid_x, frameWork_topMid_y+polesWidth*17.3+moveLength);
+                ctx.moveTo(frameWork_topMid_x-polesWidth*0.3, frameWork_topMid_y+polesWidth*16.9+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x+polesWidth*0.3, frameWork_topMid_y+polesWidth*16.9+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x, frameWork_topMid_y+polesWidth*17.3+moveLength*0.1);
                 ctx.closePath();
                 ctx.fillStyle =itemColor
                 ctx.fill();
@@ -706,10 +706,10 @@ Item {
                 ctx.fillStyle = itemColor
                 ctx.fill();
 
-                ctx.textAlign="center";
+                ctx.textAlign="left";
                 ctx.font="25px Arial"
                // ctx.fillText(String("摆臂角度:"),dianjiCenter_x+toPixels(0.1),dianjikuangjialeft_y-toPixels(1.3))
-                ctx.fillText(String("摆臂角度:"),325,125)
+                ctx.fillText(String("摆臂角度:"),250,125)
                  ctx.fillStyle=textColor
                 var bd = "%1°"
                 var count_4 = rotateAngle.toFixed(1)
@@ -717,13 +717,13 @@ Item {
                 ctx.font="25px Arial"
                // console.log(message.arg(count))
                // ctx.fillText(bd.arg(count_4),dianjiCenter_x+toPixels(0.7),dianjikuangjialeft_y-toPixels(1.3))
-                ctx.fillText(bd.arg(count_4),390,125)
+                ctx.fillText(bd.arg(count_4),360,125)
 
                 ctx.fillStyle=itemColor
-                ctx.textAlign="center";
+                ctx.textAlign="left";
                 ctx.font="25px Arial"
                // ctx.fillText(String("换能器压力"),tP_x,tP_y)
-                ctx.fillText(String("换能器压力:"),315,90)
+                ctx.fillText(String("换能器压力:"),250,90)
                 ctx.fillStyle=textColor
                 ctx.textAlign="left";
                 var hnqyl = "%1bar"
@@ -731,7 +731,7 @@ Item {
                 ctx.font="25px Arial"
                // console.log(message.arg(count))
                // ctx.fillText(hnqyl.arg(hnqyl_text),tP_x,tP_y+toPixels(0.1))
-                ctx.fillText(hnqyl.arg(hnqyl_text),390,90)
+                ctx.fillText(hnqyl.arg(hnqyl_text),385,90)
 
                 //====================================================电机上拉提板
 
@@ -742,10 +742,10 @@ Item {
                 ctx.lineTo(dianjiCenter_x, dianjikuangjialeft_y-toPixels(0.09));
                 ctx.stroke()
                 ctx.fillStyle=itemColor
-                ctx.textAlign="center";
+                ctx.textAlign="left";
                 ctx.font="25px Arial"
                // ctx.fillText(String("移动距离"),dianjiCenter_x-toPixels(0.05),dianjikuangjialeft_y-toPixels(0.45))
-                ctx.fillText(String("摆臂移动距离:"),300,160)
+                ctx.fillText(String("摆臂移动距离:"),250,160)
                 ctx.fillStyle=textColor
                 ctx.textAlign="left";
                 var message_2 = "%1mm"
@@ -753,7 +753,7 @@ Item {
                 ctx.font="25px Arial"
                // console.log(message.arg(count))
                // ctx.fillText(message_2.arg(count_2),dianjiCenter_x-toPixels(0.13),dianjikuangjialeft_y-toPixels(0.3))
-                ctx.fillText(message_2.arg(count_2),390,160)
+                ctx.fillText(message_2.arg(count_2),410,160)
 
 
 

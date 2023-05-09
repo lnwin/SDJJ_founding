@@ -7,9 +7,9 @@ Item {
     property real pitch: 0
     property real roll: 0
     property real yaw: 0
-    property real movelength: 50
-    property real rotateAngle: 0
-    property real pushLength: 0
+    property real movelength: 0//3000
+    property real rotateAngle:0 //90
+    property real pushLength:0//210
     property real distance2Base: 0
     property real waterDepth: 30
     property real transducerPressure:0

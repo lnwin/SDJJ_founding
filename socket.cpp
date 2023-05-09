@@ -182,18 +182,18 @@ void socket_SYS::control_socket_Read_Data()
          float ArmAngle= controlData.mid(15,2).toHex().toInt(0,16)*0.01;//单位毫米
          val.append(ArmAngle);
         // qDebug()<<"ArmAngle========="<<ArmAngle;
-         float TGMoveLength =float(float(controlData.mid(17,2).toHex().toInt(0,16))-819)*500/(4095-819);//单位毫米
+         float TGMoveLength =float(float(controlData.mid(17,2).toHex().toInt(0,16))-819)*3000/(4095-819);//单位毫米
          val.append(TGMoveLength);
         //  qDebug()<<"TGMoveLength= ORIGIN========"<<controlData.mid(17,2).toHex().toInt(0,16);
         // qDebug()<<"TGMoveLength========="<<TGMoveLength;
-         float ArmMoveLength =float(float(controlData.mid(19,2).toHex().toInt(0,16))-819)*500/(4095-819);//单位毫米
+         float ArmMoveLength =float(float(controlData.mid(19,2).toHex().toInt(0,16))-819)*210/(4095-819);//单位毫米
          val.append(ArmMoveLength);
 
         // qDebug()<<"ArmMoveLength========="<<ArmMoveLength;
-         float ArmPress =float(float(controlData.mid(21,2).toHex().toInt(0,16))-819)*250/(4095-819);//单位bar
+         float ArmPress =float(float(controlData.mid(21,2).toHex().toInt(0,16))-819)*250/(4095-819)*0.1;//单位bar
          val.append(ArmPress);
         // qDebug()<<"ArmPress========="<<ArmPress;
-         float YYPress =float(float(controlData.mid(23,2).toHex().toInt(0,16))-819)*250/(4095-819)*0.01;//单位bar
+         float YYPress =float(float(controlData.mid(23,2).toHex().toInt(0,16))-819)*250/(4095-819)*0.1;//单位bar
          val.append(YYPress);
        // qDebug()<<"YYPress========="<<YYPress;
 
