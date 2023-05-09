@@ -255,16 +255,18 @@ Item {
                 ctx.stroke();
 
                 ctx.textAlign="center";
-                ctx.font="17px Arial"
+                ctx.font="25px Arial"
                 ctx.fillStyle=itemColor
-                ctx.fillText(String("油缸压力"),frameWork_bottomLeft_x+toPixels(0.1),frameWork_bottomLeft_y-toPixels(0.45))
+               // ctx.fillText(String("油缸压力"),frameWork_bottomLeft_x+toPixels(0.1),frameWork_bottomLeft_y-toPixels(0.45))
+                ctx.fillText(String("油缸压力:"),325,55)
                 ctx.fillStyle=textColor
                 var ygyl = "%1bar"
                 var ygyl_value = cylinderPressure.toFixed(2)
-                ctx.textAlign="center";
-                ctx.font="20px Arial"
+                ctx.textAlign="left";
+                ctx.font="25px Arial"
                // console.log(message.arg(count))
-                ctx.fillText(ygyl.arg(ygyl_value),frameWork_bottomLeft_x+toPixels(0.1),frameWork_bottomLeft_y-toPixels(0.35))
+               // ctx.fillText(ygyl.arg(ygyl_value),frameWork_bottomLeft_x+toPixels(0.1),frameWork_bottomLeft_y-toPixels(0.35))
+                ctx.fillText(ygyl.arg(ygyl_value),390,55)
 
                 //========================================== 离底高度绘图
 
@@ -290,15 +292,17 @@ Item {
                 ctx.fillStyle=itemColor
 
                 ctx.textAlign="center";
-                ctx.font="20px Arial"
-                ctx.fillText(String("入水深度:"),dianjiCenter_x+toPixels(0.5),dianjikuangjialeft_y-toPixels(1.4))
+                ctx.font="25px Arial"
+               // ctx.fillText(String("入水深度:"),dianjiCenter_x+toPixels(0.1),dianjikuangjialeft_y-toPixels(1.3))
+                ctx.fillText(String("入水深度:"),325,20)
                 ctx.fillStyle=textColor
                 ctx.textAlign="left";
                 var rssd = "%1m"
                 var rssd_text = waterDepth.toFixed(0)
                 ctx.font="25px Arial"
                // console.log(message.arg(count))
-                ctx.fillText(rssd.arg(rssd_text),dianjiCenter_x+toPixels(0.7),dianjikuangjialeft_y-toPixels(1.4))
+              //  ctx.fillText(rssd.arg(rssd_text),dianjiCenter_x+toPixels(0.35),dianjikuangjialeft_y-toPixels(1.4))
+                 ctx.fillText(rssd.arg(rssd_text),390,20)
 
 
                 //=========================================画布边框
@@ -570,15 +574,17 @@ Item {
 
                 ctx.fillStyle=itemColor;
                 ctx.textAlign="center";
-                ctx.font="20px Arial"
+                ctx.font="40px Arial"
 
-                ctx.fillText(String("下插深度:"),frameWork_topMid_x-polesWidth*5+150,frameWork_topMid_y+polesWidth*21+moveLength*0.7)
+              //  ctx.fillText(String("下插深度:"),frameWork_topMid_x-polesWidth*5+150,frameWork_topMid_y+polesWidth*21+moveLength*0.7)
+                 ctx.fillText(String("下插深度"),350,600)
                  ctx.fillStyle=textColor
                 var xc = "%1mm"
                 var count_5 =  moveLength .toFixed(0)
                 ctx.textAlign="left";
-                ctx.font="25px Arial"
-                ctx.fillText(xc.arg(count_5),frameWork_topMid_x-polesWidth*6+130,frameWork_topMid_y+polesWidth*22.5+moveLength*0.7)
+                ctx.font="40px Arial"
+               //ctx.fillText(xc.arg(count_5),frameWork_topMid_x-polesWidth*6+130,frameWork_topMid_y+polesWidth*22.5+moveLength*0.7)
+                ctx.fillText(xc.arg(count_5),300,650)
 
                 // ctx.font="20px Arial"
                 // ctx.fillText(String(moveLength.toFixed(0)-50),frameWork_topMid_x-polesWidth*2.4,frameWork_topMid_y+polesWidth*19+moveLength*0.7)
@@ -701,27 +707,31 @@ Item {
                 ctx.fill();
 
                 ctx.textAlign="center";
-                ctx.font="20px Arial"
-                ctx.fillText(String("摆臂角度:"),sensor_3_ball_x-toPixels(0.1),sensor_4_ball_y-toPixels(0.4))
+                ctx.font="25px Arial"
+               // ctx.fillText(String("摆臂角度:"),dianjiCenter_x+toPixels(0.1),dianjikuangjialeft_y-toPixels(1.3))
+                ctx.fillText(String("摆臂角度:"),325,125)
                  ctx.fillStyle=textColor
                 var bd = "%1°"
                 var count_4 = rotateAngle.toFixed(1)
                 ctx.textAlign="left";
                 ctx.font="25px Arial"
                // console.log(message.arg(count))
-                ctx.fillText(bd.arg(count_4),sensor_3_ball_x+toPixels(0.07),sensor_4_ball_y-toPixels(0.39))
+               // ctx.fillText(bd.arg(count_4),dianjiCenter_x+toPixels(0.7),dianjikuangjialeft_y-toPixels(1.3))
+                ctx.fillText(bd.arg(count_4),390,125)
 
                 ctx.fillStyle=itemColor
                 ctx.textAlign="center";
-                ctx.font="20px Arial"
-                ctx.fillText(String("换能器压力"),tP_x,tP_y)
+                ctx.font="25px Arial"
+               // ctx.fillText(String("换能器压力"),tP_x,tP_y)
+                ctx.fillText(String("换能器压力:"),315,90)
                 ctx.fillStyle=textColor
-                ctx.textAlign="center";
+                ctx.textAlign="left";
                 var hnqyl = "%1bar"
                 var hnqyl_text = transducerPressure.toFixed(2)
                 ctx.font="25px Arial"
                // console.log(message.arg(count))
-                ctx.fillText(hnqyl.arg(hnqyl_text),tP_x,tP_y+toPixels(0.1))
+               // ctx.fillText(hnqyl.arg(hnqyl_text),tP_x,tP_y+toPixels(0.1))
+                ctx.fillText(hnqyl.arg(hnqyl_text),390,90)
 
                 //====================================================电机上拉提板
 
@@ -733,16 +743,17 @@ Item {
                 ctx.stroke()
                 ctx.fillStyle=itemColor
                 ctx.textAlign="center";
-                ctx.font="12px Arial"
+                ctx.font="25px Arial"
                // ctx.fillText(String("移动距离"),dianjiCenter_x-toPixels(0.05),dianjikuangjialeft_y-toPixels(0.45))
-                ctx.fillText(String("移动距离"),dianjiCenter_x-toPixels(0.05),dianjikuangjialeft_y-toPixels(0.38))
+                ctx.fillText(String("摆臂移动距离:"),300,160)
                 ctx.fillStyle=textColor
                 ctx.textAlign="left";
                 var message_2 = "%1mm"
                 var count_2 = pushLength.toFixed(0)
-                ctx.font="17px Arial"
+                ctx.font="25px Arial"
                // console.log(message.arg(count))
-                ctx.fillText(message_2.arg(count_2),dianjiCenter_x-toPixels(0.13),dianjikuangjialeft_y-toPixels(0.3))
+               // ctx.fillText(message_2.arg(count_2),dianjiCenter_x-toPixels(0.13),dianjikuangjialeft_y-toPixels(0.3))
+                ctx.fillText(message_2.arg(count_2),390,160)
 
 
 
