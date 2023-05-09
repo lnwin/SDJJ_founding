@@ -1669,7 +1669,7 @@ Window {
 //======================该处需要修订下
 
 
-           textArea.text+=gongzuomoshi;
+         // textArea.text+=gongzuomoshi;
           checkState()
           mainCarton.start();
 
