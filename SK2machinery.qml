@@ -298,7 +298,7 @@ Item {
                 ctx.fillStyle=textColor
                 ctx.textAlign="left";
                 var rssd = "%1m"
-                var rssd_text = waterDepth.toFixed(0)
+                var rssd_text = waterDepth.toFixed(1)
                 ctx.font="25px Arial"
                // console.log(message.arg(count))
               //  ctx.fillText(rssd.arg(rssd_text),dianjiCenter_x+toPixels(0.35),dianjikuangjialeft_y-toPixels(1.4))

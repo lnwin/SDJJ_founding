@@ -1601,11 +1601,16 @@ Window {
           gongzuoState.text="振动"
          // lightPower.text="照明上电"
       }
-      else
+      else if (gongzuomoshi==1)
       {
           gongzuoState.color="#00FF00";
           gongzuoState.text="钻进"
          // lightPower.text="照明断电"
+      }
+      else if(gongzuomoshi==2)
+      {
+          gongzuoState.color="#00FFFF";
+          gongzuoState.text="调试"
       }
       if(donglikg==0)
       {

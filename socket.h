@@ -7,6 +7,7 @@
 #include <crc.h>
 #include <QThread>
 #include <mystruct.h>
+#include <QMessageBox>
 class socket_SYS : public QObject
 {
     Q_OBJECT
@@ -16,6 +17,7 @@ public:
     QTcpSocket *waveClient;
     QTcpSocket *controlClient;
     QTcpSocket *sk;
+     int modCYcle=0;
 //    Q_INVOKABLE    void socket_Int();
 //    Q_INVOKABLE    bool socket_Listening();
     crc *CRC;
@@ -53,10 +55,14 @@ private:
     bool shuibengOPEN=false;
     bool zuanjinOPEN=false;
     bool gongzuomoshi_iszuanjin=false;
+    bool gongzuomoshi_zhendong=false;
+    bool gongzuomoshi_tiaoshi=false;
     bool donglidianOPEN=false;
     bool yeyaOPEN=false;
 
     bool socketIsConnected=false;
+
+
 
 };
 
