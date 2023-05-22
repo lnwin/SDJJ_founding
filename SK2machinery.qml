@@ -260,7 +260,7 @@ Item {
                // ctx.fillText(String("油缸压力"),frameWork_bottomLeft_x+toPixels(0.1),frameWork_bottomLeft_y-toPixels(0.45))
                 ctx.fillText(String("油缸压力:"),250,55)
                 ctx.fillStyle=textColor
-                var ygyl = "%1bar"
+                var ygyl = "%1mpa"
                 var ygyl_value = cylinderPressure.toFixed(2)
                 ctx.textAlign="left";
                 ctx.font="25px Arial"
@@ -726,7 +726,7 @@ Item {
                 ctx.fillText(String("换能器压力:"),250,90)
                 ctx.fillStyle=textColor
                 ctx.textAlign="left";
-                var hnqyl = "%1bar"
+                var hnqyl = "%1mpa"
                 var hnqyl_text = transducerPressure.toFixed(2)
                 ctx.font="25px Arial"
                // console.log(message.arg(count))

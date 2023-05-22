@@ -179,10 +179,10 @@ void socket_SYS::control_socket_Read_Data()
                Tofloor+=controlData.mid(13,1).toHex().toInt(0,16);//单位毫米
                val.append(Tofloor);
            //    qDebug()<<"Tofloor========="<<Tofloor;
-         float ArmAngle= controlData.mid(15,2).toHex().toInt(0,16)*0.01;//单位毫米
+         float ArmAngle= controlData.mid(15,2).toHex().toInt(0,16)*0.01-88;//单位毫米
          val.append(ArmAngle);
         // qDebug()<<"ArmAngle========="<<ArmAngle;
-         float TGMoveLength =float(float(controlData.mid(17,2).toHex().toInt(0,16))-819)*3000/(4095-819);//单位毫米
+         float TGMoveLength =float(float(controlData.mid(17,2).toHex().toInt(0,16))-819)*3100/(4095-819);//单位毫米
          val.append(TGMoveLength);
         //  qDebug()<<"TGMoveLength= ORIGIN========"<<controlData.mid(17,2).toHex().toInt(0,16);
         // qDebug()<<"TGMoveLength========="<<TGMoveLength;
