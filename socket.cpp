@@ -250,24 +250,18 @@ void socket_SYS::control_socket_Read_Data()
          int zmState =int(controlData.mid(36,1).toHex().toInt(0,16));//单位bar
          val.append(zmState);
          int gzmoshi= int(controlData.mid(37,1).toHex().toInt(0,16));
-//         if(gzmoshi==0)
-//         {
-//              gongzuomoshi_iszuanjin=false;
-//              gongzuomoshi_zhendong=true;
-//              gongzuomoshi_tiaoshi=false;
-//         }
-//         else if(gzmoshi==1)
-//         {
-//              gongzuomoshi_iszuanjin=true;
-//              gongzuomoshi_zhendong=false;
-//              gongzuomoshi_tiaoshi=false;
-//         }
-//         else
-//         {
-//             gongzuomoshi_iszuanjin=false;
-//             gongzuomoshi_zhendong=false;
-//             gongzuomoshi_tiaoshi=true;
-//         }
+         if(gzmoshi==0)
+         {
+              modCYcle=0;
+         }
+         else if(gzmoshi==1)
+         {
+              modCYcle=1;
+         }
+         else
+         {
+               modCYcle=2;
+         }
 
          val.append(gzmoshi);
          int donglistate= int(controlData.mid(38,1).toHex().toInt(0,16));
@@ -594,26 +588,26 @@ void socket_SYS::gongzuoKZ()
        if(modCYcle==0)
        {
 
-           MSG[3]=0x00;
+           MSG[3]=0x01;
            //zuanjinOPEN=true;
-          modCYcle+=1;
+         // modCYcle+=1;
 
        }
 
        else if(modCYcle==1)
        {
 
-           MSG[3]=0x01;
+           MSG[3]=0x02;
           // zuanjinOPEN=false;
-           modCYcle+=1;
+         //  modCYcle+=1;
 
        }
 
        else if (modCYcle==2)
        {
 
-           MSG[3]=0x02;
-           modCYcle=0;
+           MSG[3]=0x00;
+          // modCYcle=0;
 
        }
 

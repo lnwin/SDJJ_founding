@@ -296,7 +296,7 @@ Window {
         y: 699
         width: 576
         height: 53
-        itemName:"声学电池"
+        itemName:"功放电量"
         inputPower:valueSource.soundPower
         totalPower:29
 //soundPower
@@ -840,7 +840,7 @@ Window {
                            y: -14
                            width: 83
                            height: 162
-                           text: qsTr("停止")
+                           text: qsTr("急停")
                             font.pointSize: 25
                             font.weight:Font.Bold
                             background: Rectangle {
@@ -1142,7 +1142,7 @@ Window {
                            y: 159
                            width: 135
                            height: 24
-                           text: "工作模式:"
+                           text: "贯入模式:"
                            font.pixelSize: 20
                        }
 
@@ -1610,7 +1610,7 @@ Window {
       else if(gongzuomoshi==2)
       {
           gongzuoState.color="#00FFFF";
-          gongzuoState.text="调试"
+          gongzuoState.text="压入"
       }
       if(donglikg==0)
       {
