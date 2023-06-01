@@ -5,6 +5,7 @@
 #include <socket.h>
 #include <mystruct.h>
 #include <mysql.h>
+#include <QTimer>
 class threadPond : public QObject
 {
     Q_OBJECT
@@ -81,12 +82,14 @@ signals:
     void sendLightPower(bool);
 
 
+
 //Q_SIGNALS:
    // void sendSocketState2QML(QString);
 
 public slots:
     void getSocketState(QString);
     void getcontrolMSGFromSocket(QVariantList val);
+
 
 public:
    socket_SYS *SK2;

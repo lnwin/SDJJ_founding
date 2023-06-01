@@ -552,16 +552,20 @@ Window {
                                      {
                                          if(cameraPower.text=="相机上电")
                                          {
+
                                               threadPond_obj.addMSG2sql("相机上电","");
                                               threadPond_obj.cameraPowerUp();
-                                             threadPond_obj.addMSG2sql("相机上电","");
+                                              threadPond_obj.addMSG2sql("相机上电","");
+                                              timer_button.start();
 
                                          }
                                          else
                                          {
                                               threadPond_obj.addMSG2sql("相机断电","");
                                               threadPond_obj.cameraPowerDown();
-                                             threadPond_obj.addMSG2sql("相机断电","");
+                                              threadPond_obj.addMSG2sql("相机断电","");
+                                              cameraInt.enabled=false;
+                                              timer_button.stop();
                                          }
 
                                      }
@@ -595,9 +599,10 @@ Window {
                                      font.pixelSize:17
                                      //icon.name: "navigation"
                                      Layout.fillHeight: true
+                                     enabled:false;
                                      onClicked:
                                      {
-                                         //if(camera_obj.longID()&&camera_obj.longID_1())
+                                           timer_button.stop();
                                           if(camera_obj.longID())
                                          {
                                              camera_obj.realPlayer()
@@ -1394,20 +1399,20 @@ Window {
                        // Layout.preferredHeight: 40
                    }
 
-                   Label {
+//                   Label {
 
-                       x: 35
-                       y: 80
-                       width: 185
-                       height: 20
-                       id: sxml
-                       color: itemColor
-                       text: qsTr("声学命令选择:")
-                       font.pixelSize: 20
-                       //anchors.fill: parent
-                       //Layout.preferredWidth: 40
-                       // Layout.preferredHeight: 40
-                   }
+//                       x: 35
+//                       y: 80
+//                       width: 185
+//                       height: 20
+//                       id: sxml
+//                       color: itemColor
+//                       text: qsTr("声学命令选择:")
+//                       font.pixelSize: 20
+//                       //anchors.fill: parent
+//                       //Layout.preferredWidth: 40
+//                       // Layout.preferredHeight: 40
+//                   }
 
                    TextField {
 
@@ -1447,37 +1452,37 @@ Window {
                        placeholderText: qsTr("_______")
                    }
 
-                   ComboBox {
-                       //id: comboBox
-                       x: 225
-                       y: 70
-                       width: 66
-                       height: 34
-                       id:comID
-              //         x:900
-              //         y:800
-                      // width: 100
-                      // height: 30
-                       Layout.topMargin: 20
-                       Layout.fillWidth: true
-                       editable: false
-                       flat: false
-                       clip: true
-                     //clip: true
-                       visible: true
-                       font.pixelSize: 15
-                       popup.font.pixelSize: 15//下拉菜单字体大小
-                       popup.topPadding:33 //距离选定数字的距离，必须设置
-                       popup.margins: 20
-                       enabled: true
-                       focusPolicy: Qt.ClickFocus
-                       model:["1号","2号","3号","4号","5号"]
+//                   ComboBox {
+//                       //id: comboBox
+//                       x: 225
+//                       y: 70
+//                       width: 66
+//                       height: 34
+//                       id:comID
+//              //         x:900
+//              //         y:800
+//                      // width: 100
+//                      // height: 30
+//                       Layout.topMargin: 20
+//                       Layout.fillWidth: true
+//                       editable: false
+//                       flat: false
+//                       clip: true
+//                     //clip: true
+//                       visible: true
+//                       font.pixelSize: 15
+//                       popup.font.pixelSize: 15//下拉菜单字体大小
+//                       popup.topPadding:33 //距离选定数字的距离，必须设置
+//                       popup.margins: 20
+//                       enabled: true
+//                       focusPolicy: Qt.ClickFocus
+//                       model:["1号","2号","3号","4号","5号"]
 
-                                  onActivated: {
-                                      console.log(displayText)
-                                      console.log(index)
-                                  }
-                   }
+//                                  onActivated: {
+//                                      console.log(displayText)
+//                                      console.log(index)
+//                                  }
+//                   }
 
                    Button {
 
@@ -1690,6 +1695,20 @@ Window {
     }
 
 
+    Timer {
+            id: timer_button;
+            interval: 60000;//设置定时器定时时间为500ms,默认1000ms
+            repeat: false //是否重复定时,默认为false
+            running: false //是否开启定时，默认是false，当为true的时候，进入此界面就开始定时
+            triggeredOnStart: false // 是否开启定时就触发onTriggered，一些特殊用户可以用来设置初始值。
+            onTriggered:
+            {
+                cameraInt.enabled=true;  //定时触发槽,定时完成一次就进入一次
+            }
+            //restart ,start,stop,定时器的调用方式，顾名思义
+
+
+        }
 
 
 

@@ -20,7 +20,7 @@ threadPond::threadPond()
     connect(this,SIGNAL(sendShuibengKG()),SK2,SLOT(shuibengKZ()));
     connect(this,SIGNAL(sendZuanjinKG()),SK2,SLOT(zhuanjinKZ()));
     connect(this,SIGNAL(sendGongzuoKG()),SK2,SLOT(gongzuoKZ()));
-     connect(this,SIGNAL(senddongliKG()),SK2,SLOT(dongliKZ()));
+    connect(this,SIGNAL(senddongliKG()),SK2,SLOT(dongliKZ()));
 
 
 
@@ -31,6 +31,7 @@ threadPond::threadPond()
 
     connect(this,SIGNAL(sendCameraPower(bool)),SK2,SLOT(getCameraPower(bool)));
     connect(this,SIGNAL(sendLightPower(bool)),SK2,SLOT(getLightPower(bool)));
+
 
 
 
@@ -167,6 +168,7 @@ void threadPond::lightPowerDown()
 {
    emit sendLightPower(false);
 };
+
 
 void threadPond::closeAll()
 {
