@@ -53,6 +53,9 @@ public:
     Q_INVOKABLE void lightPowerUp();
     Q_INVOKABLE void lightPowerDown();
 
+    Q_INVOKABLE void zhuansupeizhi(int shuibengspeed,int zuanjinspeed);
+
+
 
 
 
@@ -81,7 +84,7 @@ signals:
     void sendCameraPower(bool);
     void sendLightPower(bool);
 
-
+    void setSpeed(int shuibengspeed,int zuanjinspeed);
 
 //Q_SIGNALS:
    // void sendSocketState2QML(QString);

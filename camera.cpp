@@ -178,26 +178,32 @@ bool camera::startREC()
     QByteArray ba1 =filename1.toLatin1();
     RecName2=ba1.data();
 
-         if(!NET_DVR_SaveRealData(lRealPlayHandle_0,RecName))
-         {
-             return false;
-         }
-         else
-         {
-             return true;
-         }
+//         if(!NET_DVR_SaveRealData(lRealPlayHandle_0,RecName))
+//         {
+//             return false;
+//         }
+//         else
+//         {
+//             return true;
+//         }
+    NET_DVR_SaveRealData(lRealPlayHandle_0,RecName);
+    NET_DVR_SaveRealData(lRealPlayHandle_1,RecName);
+    return true;
 };
 bool camera::stopREC()
 {
-    if(!NET_DVR_StopSaveRealData(lRealPlayHandle_0))
-       {
-          return false;
+//    if(!NET_DVR_StopSaveRealData(lRealPlayHandle_0))
+//       {
+//          return false;
 
-       }
-    else
-    {
-        return true;
-    }
+//       }
+//    else
+//    {
+//        return true;
+//    }
+    NET_DVR_StopSaveRealData(lRealPlayHandle_0);
+    NET_DVR_StopSaveRealData(lRealPlayHandle_1);
+    return true;
 
 };
 bool camera::startCatch()

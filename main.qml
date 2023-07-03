@@ -267,6 +267,7 @@ Window {
         id:controlP
         x: 617
         y: 558
+       // textColor:"#FF0000"
         width: 576
         height: 53
         itemName:"控制电池"
@@ -786,7 +787,7 @@ Window {
                            x: 329
                            y: -14
                            width: 105
-                           height: 40
+                           height: 30
                            icon.width: 10
                            icon.height: 10
                            icon.source: "qrc:/imagines/activity-outline.svg"
@@ -800,13 +801,41 @@ Window {
                                threadPond_obj.addMSG2sql("扩展臂释放","");
                            }
                        }
+                       Label {
+                           id: kuozhanbishifangjiaodu
+                           x: 440
+                           y: -9
+                           width: 185
+                           height: 20
+                           text: qsTr("释放角度:")
+                           font.pixelSize: 15
+                           // font.family: "Times New Roman"
+                           color: itemColor
+                       }
+                       TextField {
+                           x: 520
+                           y: -8
+                           width: 96
+                           height: 17
+                           id: kuozhanbishifang_numb
+                           //x: 361
+                          // y: 16
+                          // width: 77
+                          // height: 34
+                           font.pixelSize: 18
+                           font.bold: true
+                           color: textColor
+                           text: "0"
+                           placeholderTextColor:itemColor
+                           placeholderText: qsTr("_______")
+                       }
 
                        Button {
                            id: button6
                            x: 329
-                           y: 108
+                           y: 73
                            width: 105
-                           height: 40
+                           height: 30
                            icon.width: 10
                            icon.height: 10
                            icon.source: "qrc:/imagines/slash-outline.svg"
@@ -823,9 +852,9 @@ Window {
                        Button {
                            id: button3
                            x: 329
-                           y: 48
+                           y: 30
                            width: 105
-                           height: 40
+                           height: 30
                            icon.width: 10
                            icon.height: 10
                            icon.source: "qrc:/imagines/undo-outline.svg"
@@ -838,14 +867,42 @@ Window {
                                threadPond_obj.addMSG2sql("扩展臂回收","");
                            }
                        }
+                       Label {
+                           id: kuozhanbihuishoujiaodu
+                           x: 440
+                           y: 37
+                           width: 185
+                           height: 20
+                           text: qsTr("回收角度:")
+                           font.pixelSize: 15
+                           // font.family: "Times New Roman"
+                           color: itemColor
+                       }
+                       TextField {
+                           x: 520
+                           y: 37
+                           width: 96
+                           height: 17
+                           id: kuozhanbihuishou_numb
+                           //x: 361
+                          // y: 16
+                          // width: 77
+                          // height: 34
+                           font.pixelSize: 18
+                           font.bold: true
+                           color: textColor
+                           text: "0"
+                           placeholderTextColor:itemColor
+                           placeholderText: qsTr("_______")
+                       }
 
                        Button {
                            id: button2
-                           x: 445
-                           y: -14
+                           x: 450
+                           y: 450
                            width: 83
-                           height: 162
-                           text: qsTr("急停")
+                           height: 123
+                           text: qsTr("停止")
                             font.pointSize: 25
                             font.weight:Font.Bold
                             background: Rectangle {
@@ -862,9 +919,91 @@ Window {
                        }
 
                        Label {
+                           id: shuibengzhuansu
+                           x: 329
+                           y: 122
+                           width: 185
+                           height: 20
+                           text: qsTr("水泵转速(转/秒):")
+                           font.pixelSize: 15
+                           // font.family: "Times New Roman"
+                           color: itemColor
+                       }
+
+                       TextField {
+                           x: 450
+                           y: 122
+                           width: 96
+                           height: 17
+                           id: shuibengzhuansu_numb
+                           //x: 361
+                          // y: 16
+                          // width: 77
+                          // height: 34
+                           font.pixelSize: 18
+                           font.bold: true
+                           color: textColor
+                           text: "0"
+                           placeholderTextColor:itemColor
+                           placeholderText: qsTr("_______")
+                       }
+
+                       Label {
+                           id: zuanjinzhuansu
+                           x: 329
+                           y: 162
+                           width: 185
+                           height: 20
+                           text: qsTr("钻进转速(转/秒):")
+                           font.pixelSize: 15
+                           // font.family: "Times New Roman"
+                           color: itemColor
+                       }
+
+                       TextField {
+                           x: 450
+                           y: 162
+                           width: 96
+                           height: 17
+                           id: zuanjinzhuansu_numb
+                           //x: 361
+                          // y: 16
+                          // width: 77
+                          // height: 34
+                           font.pixelSize: 18
+                           font.bold: true
+                           color: textColor
+                           text: "0"
+                           placeholderTextColor:itemColor
+                           placeholderText: qsTr("_______")
+                       }
+
+                       Button {
+                           id: zhuansupeizhi
+                           x: 500
+                           y: 120
+                           width: 40
+                           height: 58
+                           text: qsTr("配\n置")
+                            font.pointSize: 10
+                            font.weight:Font.Bold
+//                            background: Rectangle {
+//                                        border.color: "#14191D"
+//                                        color: "#8B1A1A"
+//                                        // I want to change text color next
+//                                    }
+                            onClicked:
+                            {
+                                threadPond_obj.zhuansupeizhi(Number(shuibengzhuansu_numb.text),Number(zuanjinzhuansu_numb.text));
+                                threadPond_obj.addMSG2sql("转速配置","");
+                            }
+
+                       }
+
+                       Label {
                            id: label
                            x: 36
-                           y: 192
+                           y: 200
                            width: 185
                            height: 20
                            text: qsTr("探杆上移距离(mm):")
@@ -876,7 +1015,7 @@ Window {
                        Label {
                            id: label1
                            x: 36
-                           y: 239
+                           y: 245
                            width: 185
                            height: 20
                            color: itemColor
@@ -887,7 +1026,7 @@ Window {
 
                        TextField {
                            x: 227
-                           y: 198
+                           y: 205
                            width: 96
                            height: 17
                            id: tgu_numb
@@ -905,7 +1044,7 @@ Window {
 
                        TextField {
                            x: 227
-                           y: 239
+                           y: 245
                            width: 96
                            height: 21
                            id: tgd_numb
@@ -924,9 +1063,9 @@ Window {
                        Button {
                            id: tgu_button
                            x: 329
-                           y: 181
+                           y: 200
                            width: 105
-                           height: 33
+                           height: 30
 
                           // width: 200
                           // height: 20
@@ -947,9 +1086,9 @@ Window {
                        Button {
                            id: tgd_button
                            x: 329
-                           y: 226
+                           y: 240
                            width: 105
-                           height: 34
+                           height: 30
                            icon.source: "qrc:/imagines/arrowhead-down-outline.svg"
                            text: qsTr("下插")
                            font.pointSize: 15
@@ -962,10 +1101,10 @@ Window {
 
                        Button {
                           // id: button4
-                           x: 445
-                           y: 181
-                           width: 83
-                           height: 79
+                           x: 450
+                           y: 200
+                           width: 90
+                           height: 70
                            id: tgu_stop
                           // width: 149
                           // height: 50
@@ -986,7 +1125,7 @@ Window {
                        Label {
                            //id: label2
                            x: 38
-                           y: 298
+                           y: 290
                            width: 185
                            height: 20
                            id: kmu
@@ -1002,7 +1141,7 @@ Window {
                        Label {
 
                            x: 38
-                           y: 341
+                           y: 335
                            width: 185
                            height: 20
                            id: kmd
@@ -1056,9 +1195,9 @@ Window {
 
                        Button {
 
-                           x: 445
-                           y: 284
-                           width: 83
+                           x: 450
+                           y: 285
+                           width: 90
                            height: 77
                            id: kmd_stop
                            text: qsTr("停止")
@@ -1078,7 +1217,7 @@ Window {
                        TextField {
 
                            x: 229
-                           y: 298
+                           y: 290
                            id: kmu_numb
                          //  x: 361
                          //  y: 16
@@ -1095,7 +1234,7 @@ Window {
                        TextField {
 
                            x: 229
-                           y: 341
+                           y: 335
                            width: 94
                            height: 20
                            id: kmd_numb
@@ -1181,7 +1320,8 @@ Window {
                             }
                        }
 
-                       Button {
+                       Button
+                       {
                            id: zuanjinbutton
                            x: 226
                            y: 114
@@ -1297,71 +1437,6 @@ Window {
                            }
                        }
 
-
-//                   Canvas
-//                   {
-
-//                       id:textLine1
-//                       //parent: textArea
-//                       // width: parent.width
-//                       //height:parent.height
-//                       x: 0
-//                       y: 0
-//                       width: 850
-//                       height: 900
-//                       layer.enabled: true
-//                       enabled: false
-
-//                       onPaint:
-//                       {
-
-//                           var ctx = textLine1.getContext('2d');
-//                           var grd2=ctx.createLinearGradient(10, 130, 850, 130);
-//                           grd2.addColorStop(0,color);
-//                           grd2.addColorStop(0.5,mainColor);
-//                           grd2.addColorStop(1,color);
-//                           // 将渐变赋值给线的样式
-//                           ctx.strokeStyle=grd2;
-//                           // 设置线的宽度
-//                           ctx.lineWidth = 3;
-//                           // 绘制线
-//                           ctx.beginPath();
-//                           ctx.moveTo(10, 130);
-//                           ctx.lineTo(850, 130);
-//                           ctx.stroke();
-
-
-//                           var grd3=ctx.createLinearGradient(10, 350, 850, 350);
-//                           grd3.addColorStop(0,color);
-//                           grd3.addColorStop(0.5,mainColor);
-//                           grd3.addColorStop(1,color);
-//                           // 将渐变赋值给线的样式
-//                           ctx.strokeStyle=grd3;
-//                           // 设置线的宽度
-//                           ctx.lineWidth = 3;
-//                           // 绘制线
-//                           ctx.beginPath();
-//                           ctx.moveTo(10, 350);
-//                           ctx.lineTo(850, 350);
-//                           ctx.stroke();
-
-
-//                           var grd4=ctx.createLinearGradient(10, 570, 850, 570);
-//                           grd4.addColorStop(0,color);
-//                           grd4.addColorStop(0.5,mainColor);
-//                           grd4.addColorStop(1,color);
-//                           // 将渐变赋值给线的样式
-//                           ctx.strokeStyle=grd4;
-//                           // 设置线的宽度
-//                           ctx.lineWidth = 3;
-//                           // 绘制线
-//                           ctx.beginPath();
-//                           ctx.moveTo(10, 570);
-//                           ctx.lineTo(850, 570);
-//                           ctx.stroke();
-
-//                       }
-//                   }
 
 
 
@@ -1665,8 +1740,32 @@ Window {
           cylinderPressureNow=mMSG[9];//.toFixed(4);
 
           controlPowerNow= mMSG[10];
+          if(controlPowerNow<=23)
+          {
+              controlP.textColor="#FF0000";
+          }
+          else
+          {
+              controlP.textColor="#9AFF9A";
+          }
           soundPowerNow= mMSG[11];
+          if(soundPowerNow<=23)
+          {
+              soundPower.textColor="#FF0000";
+          }
+          else
+          {
+               soundPower.textColor="#9AFF9A";
+          }
           powerPowerNow= mMSG[12];
+          if(powerPowerNow<=43)
+          {
+              impetusP.textColor="#FF0000";
+          }
+          else
+          {
+              impetusP.textColor="#9AFF9A";
+          }
          // textArea.text+="ye ya"+mMSG[9].toFixed(2)+"\n";
           zdkg=mMSG[13].toFixed(2);
           yykg=mMSG[14].toFixed(2);

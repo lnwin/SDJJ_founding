@@ -32,6 +32,8 @@ threadPond::threadPond()
     connect(this,SIGNAL(sendCameraPower(bool)),SK2,SLOT(getCameraPower(bool)));
     connect(this,SIGNAL(sendLightPower(bool)),SK2,SLOT(getLightPower(bool)));
 
+    connect(this,SIGNAL(setSpeed(int,int)),SK2,SLOT(setMSpeed(int,int)));
+
 
 
 
@@ -168,7 +170,10 @@ void threadPond::lightPowerDown()
 {
    emit sendLightPower(false);
 };
-
+void threadPond:: zhuansupeizhi(int shuibengspeed,int zuanjinspeed)
+{
+   emit setSpeed(shuibengspeed, zuanjinspeed);
+};
 
 void threadPond::closeAll()
 {

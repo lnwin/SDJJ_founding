@@ -8,6 +8,7 @@
 #include <QThread>
 #include <mystruct.h>
 #include <QMessageBox>
+#include <QDebug>
 class socket_SYS : public QObject
 {
     Q_OBJECT
@@ -49,6 +50,9 @@ public slots:
 
     void getCameraPower(bool);
     void getLightPower(bool);
+
+
+    void setMSpeed(int shuibengspeed,int zuanjinspeed);
 
 private:
     bool zhendongOPEN=false;
