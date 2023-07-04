@@ -363,7 +363,7 @@ void socket_SYS::ControlTG(int type,int length)
 
 
 };
-void socket_SYS::ControlARMST(int type)
+void socket_SYS::ControlARMST(int type,int degree)
 {
     if(socketIsConnected)
     {
@@ -376,8 +376,17 @@ void socket_SYS::ControlARMST(int type)
         {
 
             MSG[3]=0x01;
-            MSG[4]=0xff;
-            MSG[5]=0xff;
+           if((degree==0)|| (abs(degree)>90))
+           {
+               MSG[4]=0xff;
+               MSG[5]=0xff;
+           }
+           else
+           {
+               MSG[4]=degree>>8;
+               MSG[5]=(degree<<8)>>8;
+           }
+
         }
         else if(type==Stop)
         {
@@ -389,9 +398,16 @@ void socket_SYS::ControlARMST(int type)
         else if (type==Recover)
         {
             MSG[3]=0x02;
-            MSG[4]=0xff;
-            MSG[5]=0xff;
-
+            if((degree==0)|| (abs(degree)>90))
+            {
+                MSG[4]=0xff;
+                MSG[5]=0xff;
+            }
+            else
+            {
+                MSG[4]=degree>>8;
+                MSG[5]=(degree<<8)>>8;
+            }
         }
 
         uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));

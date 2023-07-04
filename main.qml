@@ -797,7 +797,7 @@ Window {
                            Layout.leftMargin:50
                            onClicked:
                            {
-                               threadPond_obj.armrelease() ;
+                               threadPond_obj.armrelease(Number(kuozhanbishifang_numb.text)) ;
                                threadPond_obj.addMSG2sql("扩展臂释放","");
                            }
                        }
@@ -863,7 +863,7 @@ Window {
                            font.pointSize: 10
                            onClicked:
                            {
-                               threadPond_obj.armrecover() ;
+                               threadPond_obj.armrecover(Number(kuozhanbihuishou_numb.text)) ;
                                threadPond_obj.addMSG2sql("扩展臂回收","");
                            }
                        }

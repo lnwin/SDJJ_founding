@@ -25,9 +25,9 @@ public:
     Q_INVOKABLE void tGstop();
     Q_INVOKABLE void tGdown(int length);
 
-    Q_INVOKABLE void armrelease();
+    Q_INVOKABLE void armrelease(int degree);
     Q_INVOKABLE void armstop();
-    Q_INVOKABLE void armrecover();
+    Q_INVOKABLE void armrecover(int degree);
 
     Q_INVOKABLE void armmoveup(int length);
     Q_INVOKABLE void armmovestop();
@@ -70,7 +70,7 @@ signals:
     void readWaveFile();
 
     void sendTGMSG2Socket(int type,int length);
-    void sendArmMSG2Socket(int type);
+    void sendArmMSG2Socket(int type,int degree);
     void sendArmMoveMSG2sOCKET(int type,int length);
 
     void sendZhendongKG();

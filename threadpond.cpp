@@ -9,11 +9,8 @@ threadPond::threadPond()
     connect(SK2,SIGNAL(sendSocketState2T(QString)),this,SLOT(getSocketState(QString)));
     connect(Msql,SIGNAL(sendSqlState2T(QString)),this,SLOT(getSocketState(QString)));
     connect(SK2,SIGNAL(sendcontrolMSG2T(QVariantList)),this,SLOT(getcontrolMSGFromSocket(QVariantList)));
-//    connect(this,SIGNAL(sendTGMSG2Socket(double,double)),SK2,SLOT(void ControlTG(double,double));
-//    connect(this,SIGNAL(sendArmMSG2Socket(double ),SK2,SLOT(ControlARMST(double));
-//    connect(this,SIGNAL(sendArmMoveMSG2sOCKET(double ,double),SK2,SLOT(ControlARMMove(double ,double));
     connect(this,SIGNAL(sendTGMSG2Socket(int,int)),SK2,SLOT(ControlTG(int,int)));
-    connect(this,SIGNAL(sendArmMSG2Socket(int)),SK2,SLOT(ControlARMST(int)));
+    connect(this,SIGNAL(sendArmMSG2Socket(int,int)),SK2,SLOT(ControlARMST(int,int)));
     connect(this,SIGNAL(sendArmMoveMSG2sOCKET(int ,int)),SK2,SLOT(ControlARMMove(int ,int)));
 
     connect(this,SIGNAL(sendZhendongKG()),SK2,SLOT(zhendongKZ()));
@@ -21,8 +18,6 @@ threadPond::threadPond()
     connect(this,SIGNAL(sendZuanjinKG()),SK2,SLOT(zhuanjinKZ()));
     connect(this,SIGNAL(sendGongzuoKG()),SK2,SLOT(gongzuoKZ()));
     connect(this,SIGNAL(senddongliKG()),SK2,SLOT(dongliKZ()));
-
-
 
     connect(this,SIGNAL(sendYeyaKG()),SK2,SLOT(yeyaKZ()));
     connect(this,SIGNAL(sendCircle(int,int)),SK2,SLOT(getCircle(int,int)));
@@ -33,9 +28,6 @@ threadPond::threadPond()
     connect(this,SIGNAL(sendLightPower(bool)),SK2,SLOT(getLightPower(bool)));
 
     connect(this,SIGNAL(setSpeed(int,int)),SK2,SLOT(setMSpeed(int,int)));
-
-
-
 
 
     SK2->moveToThread(socketThread);
@@ -92,17 +84,17 @@ void threadPond::tGstop()
 {
     emit sendTGMSG2Socket(Stop,9);
 };
-void threadPond::armrelease()
+void threadPond::armrelease(int degree)
 {
-    emit sendArmMSG2Socket(Release);
+    emit sendArmMSG2Socket(Release,degree);
 };
 void threadPond::armstop()
 {
-    emit sendArmMSG2Socket(Stop);
+    emit sendArmMSG2Socket(Stop,0);
 };
-void threadPond::armrecover()
+void threadPond::armrecover(int degree)
 {
-    emit sendArmMSG2Socket(Recover);
+    emit sendArmMSG2Socket(Recover,degree);
 };
 
 void threadPond:: zhendongKG()

@@ -36,7 +36,7 @@ public slots:
     void control_socket_Read_Data();
     void control_socket_Disconnected();
     void ControlTG(int type,int length);
-    void ControlARMST(int type);
+    void ControlARMST(int type,int degree);
     void ControlARMMove(int type,int length);
 
     void zhendongKZ();
