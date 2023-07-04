@@ -902,7 +902,7 @@ Window {
                            y: 450
                            width: 83
                            height: 123
-                           text: qsTr("停止")
+                           text: qsTr("急停")
                             font.pointSize: 25
                             font.weight:Font.Bold
                             background: Rectangle {
@@ -979,12 +979,12 @@ Window {
                        }
 
                        Button {
-                           id: zhuansupeizhi
+                           id: shuibengzhuansupeizhi
                            x: 500
-                           y: 120
-                           width: 40
-                           height: 58
-                           text: qsTr("配\n置")
+                           y: 115
+                           width: 60
+                           height: 28
+                           text: qsTr("配置")
                             font.pointSize: 10
                             font.weight:Font.Bold
 //                            background: Rectangle {
@@ -994,7 +994,28 @@ Window {
 //                                    }
                             onClicked:
                             {
-                                threadPond_obj.zhuansupeizhi(Number(shuibengzhuansu_numb.text),Number(zuanjinzhuansu_numb.text));
+                                threadPond_obj.zhuansupeizhi(Number(shuibengzhuansu_numb.text),0);
+                                threadPond_obj.addMSG2sql("转速配置","");
+                            }
+
+                       }
+                       Button {
+                           id: zuanjinzhuansupeizhi
+                           x: 500
+                           y: 155
+                           width: 60
+                           height: 28
+                           text: qsTr("配置")
+                            font.pointSize: 10
+                            font.weight:Font.Bold
+//                            background: Rectangle {
+//                                        border.color: "#14191D"
+//                                        color: "#8B1A1A"
+//                                        // I want to change text color next
+//                                    }
+                            onClicked:
+                            {
+                                threadPond_obj.zhuansupeizhi(0,Number(zuanjinzhuansu_numb.text));
                                 threadPond_obj.addMSG2sql("转速配置","");
                             }
 

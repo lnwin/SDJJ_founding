@@ -835,48 +835,57 @@ void socket_SYS::setMSpeed(int shuibengspeed,int zuanjinspeed)
 {
     if(socketIsConnected)
     {
-    QByteArray MSG;
-    MSG.resize(8);
-    MSG[0]=0x01;
-    MSG[1]=0x06;
-    MSG[2]=0x0c;
-    MSG[3]=0x00;
-    if(shuibengspeed==0)
-    {
-        MSG[4]=0xff;
-        MSG[5]=0xff;
-    }
-    else
-    {
-        MSG[4]=shuibengspeed>>8;
-        MSG[5]=(shuibengspeed<<8)>>8;
-    }
-    uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
-    MSG[6]=C2>>8;
-    MSG[7]=(C2<<8)>>8;
-    controlClient->write(MSG);
+         QByteArray MSG;
+        if(shuibengspeed!=0)
+        {
+
+            MSG.resize(8);
+            MSG[0]=0x01;
+            MSG[1]=0x06;
+            MSG[2]=0x0c;
+            MSG[3]=0x00;
+//            if(shuibengspeed==0)
+//            {
+//                MSG[4]=0xff;
+//                MSG[5]=0xff;
+//            }
+          //  else
+           // {
+                MSG[4]=shuibengspeed>>8;
+                MSG[5]=(shuibengspeed<<8)>>8;
+           // }
+            uint16_t C2=CRC->ModbusCRC16(MSG.mid(0,6));
+            MSG[6]=C2>>8;
+            MSG[7]=(C2<<8)>>8;
+            controlClient->write(MSG);
+        }
+
+        if(zuanjinspeed!=0)
+        {
+            MSG.resize(8);
+            MSG[0]=0x01;
+            MSG[1]=0x06;
+            MSG[2]=0x0d;
+            MSG[3]=0x00;
+//            if(zuanjinspeed==0)
+//            {
+//                MSG[4]=0xff;
+//                MSG[5]=0xff;
+//            }
+          //  else
+            //{
+                MSG[4]=zuanjinspeed>>8;
+                MSG[5]=(zuanjinspeed<<8)>>8;
+           // }
+            uint16_t C3=CRC->ModbusCRC16(MSG.mid(0,6));
+            MSG[6]=C3>>8;
+            MSG[7]=(C3<<8)>>8;
+            controlClient->write(MSG);
+        }
 
 
 
-    MSG.resize(8);
-    MSG[0]=0x01;
-    MSG[1]=0x06;
-    MSG[2]=0x0d;
-    MSG[3]=0x00;
-    if(zuanjinspeed==0)
-    {
-        MSG[4]=0xff;
-        MSG[5]=0xff;
-    }
-    else
-    {
-        MSG[4]=zuanjinspeed>>8;
-        MSG[5]=(zuanjinspeed<<8)>>8;
-    }
-    uint16_t C3=CRC->ModbusCRC16(MSG.mid(0,6));
-    MSG[6]=C3>>8;
-    MSG[7]=(C3<<8)>>8;
-    controlClient->write(MSG);
+
 }
     else
     {
