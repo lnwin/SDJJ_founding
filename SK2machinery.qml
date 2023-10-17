@@ -326,7 +326,7 @@ Item {
                  ctx.lineTo(frameWork_topLeft_x+polesWidth, frameWork_topLeft_y+frameWork_Height);
                  ctx.lineTo(frameWork_topLeft_x+polesWidth, frameWork_topLeft_y);
                  ctx.closePath();
-                 //ctx.fillStyle = Qt.rgba(1, 0, 0, 0.5);
+                // ctx.fillStyle = Qt.rgba(1, 0, 0, 0.5);
                  ctx.fillStyle =mainColor
                  ctx.fill();
                  ctx.beginPath();
@@ -359,7 +359,8 @@ Item {
                 //==========================================钢丝绳
                 ctx.beginPath();
                 ctx.lineWidth =toPixels(0.01);
-                ctx.strokeStyle = mainColor;
+               // ctx.strokeStyle =Qt.rgba(1, 0, 0, 0.5);
+                 ctx.strokeStyle = mainColor;
                 ctx.moveTo(frameWork_topMid_x, frameWork_topMid_y+polesWidth*0.5);
                 ctx.lineTo(frameWork_topMid_x, frameWork_topMid_y+polesWidth*0.5+moveLength*0.1);
                 ctx.stroke();
@@ -539,6 +540,8 @@ Item {
                 ctx.lineTo(frameWork_topMid_x+polesWidth*0.5, frameWork_topMid_y+polesWidth*4.3+moveLength*0.1);
                 ctx.lineTo(frameWork_topMid_x-polesWidth*0.5, frameWork_topMid_y+polesWidth*4.3+moveLength*0.1);
                 ctx.closePath();
+
+               // ctx.fillStyle =Qt.rgba(1, 0, 0, 0.5);
                 ctx.fillStyle =itemColor
                 ctx.fill();
 
@@ -546,27 +549,28 @@ Item {
                 ctx.lineWidth =1;
                 ctx.moveTo(frameWork_topMid_x-polesWidth*0.2, frameWork_topMid_y+polesWidth*4.3+moveLength*0.1);
                 ctx.lineTo(frameWork_topMid_x+polesWidth*0.2, frameWork_topMid_y+polesWidth*4.3+moveLength*0.1);
-                ctx.lineTo(frameWork_topMid_x+polesWidth*0.2, frameWork_topMid_y+polesWidth*16.3+moveLength*0.1);
-                ctx.lineTo(frameWork_topMid_x-polesWidth*0.2, frameWork_topMid_y+polesWidth*16.3+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x+polesWidth*0.2, frameWork_topMid_y+polesWidth*19+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x-polesWidth*0.2, frameWork_topMid_y+polesWidth*19+moveLength*0.1);
+                ctx.closePath();
+                //ctx.fillStyle =Qt.rgba(1, 0, 0, 0.5);
+                ctx.fillStyle =itemColor
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.lineWidth =1;
+                ctx.moveTo(frameWork_topMid_x-polesWidth*0.3, frameWork_topMid_y+polesWidth*19+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x+polesWidth*0.3, frameWork_topMid_y+polesWidth*19+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x+polesWidth*0.3, frameWork_topMid_y+polesWidth*19.5+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x-polesWidth*0.3, frameWork_topMid_y+polesWidth*19.5+moveLength*0.1);
                 ctx.closePath();
                 ctx.fillStyle =itemColor
                 ctx.fill();
 
                 ctx.beginPath();
                 ctx.lineWidth =1;
-                ctx.moveTo(frameWork_topMid_x-polesWidth*0.3, frameWork_topMid_y+polesWidth*16.3+moveLength*0.1);
-                ctx.lineTo(frameWork_topMid_x+polesWidth*0.3, frameWork_topMid_y+polesWidth*16.3+moveLength*0.1);
-                ctx.lineTo(frameWork_topMid_x+polesWidth*0.3, frameWork_topMid_y+polesWidth*16.9+moveLength*0.1);
-                ctx.lineTo(frameWork_topMid_x-polesWidth*0.3, frameWork_topMid_y+polesWidth*16.9+moveLength*0.1);
-                ctx.closePath();
-                ctx.fillStyle =itemColor
-                ctx.fill();
-
-                ctx.beginPath();
-                ctx.lineWidth =1;
-                ctx.moveTo(frameWork_topMid_x-polesWidth*0.3, frameWork_topMid_y+polesWidth*16.9+moveLength*0.1);
-                ctx.lineTo(frameWork_topMid_x+polesWidth*0.3, frameWork_topMid_y+polesWidth*16.9+moveLength*0.1);
-                ctx.lineTo(frameWork_topMid_x, frameWork_topMid_y+polesWidth*17.3+moveLength*0.1);
+                ctx.moveTo(frameWork_topMid_x-polesWidth*0.3, frameWork_topMid_y+polesWidth*19.5+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x+polesWidth*0.3, frameWork_topMid_y+polesWidth*19.5+moveLength*0.1);
+                ctx.lineTo(frameWork_topMid_x, frameWork_topMid_y+polesWidth*20+moveLength*0.1);
                 ctx.closePath();
                 ctx.fillStyle =itemColor
                 ctx.fill();

@@ -17,26 +17,34 @@ bool camera::cameraInit(HWND CM_0,HWND CM_1)
     CameraWidget_1=CM_1;
     //---------------------------------------
     //初始化
-    if(  NET_DVR_Init())
-    {
-        NET_DVR_SetConnectTime(2000, 1);
-        NET_DVR_SetReconnect(10000, true);
-        //设置异常消息回调函数
-        NET_DVR_SetExceptionCallBack_V30(0, NULL,g_ExceptionCallBack, NULL);
-         //设置连接时间与重连时间
-         return true;
-    }
-       else
-    {
-        return false;
-    }
+//    if(  NET_DVR_Init())
+//    {
+//        NET_DVR_SetConnectTime(2000, 1);
+//        NET_DVR_SetReconnect(10000, true);
+//        //设置异常消息回调函数
+//        NET_DVR_SetExceptionCallBack_V30(0, NULL,g_ExceptionCallBack, NULL);
+//         //设置连接时间与重连时间
+//         return true;
+//    }
+//       else
+//    {
+//        return false;
+//    }
 
-
+return true;
 
 
 };
 bool camera::longID()
 {
+        NET_DVR_Init();
+        NET_DVR_SetConnectTime(2000, 1);
+        NET_DVR_SetReconnect(10000, true);
+        //设置异常消息回调函数
+        NET_DVR_SetExceptionCallBack_V30(0, NULL,g_ExceptionCallBack, NULL);
+         //设置连接时间与重连时间
+
+
     //---------------------------------------
     // 注册设备==0
     struLoginInfo_0 = {0};
@@ -167,28 +175,44 @@ bool camera::startREC()
 
     char *RecName,*RecName2;
 
-    QDateTime time =QDateTime::currentDateTime();
-    QString filename="D:\\REC\\";
-    filename=filename+time.toString("Camera_0_yyyy_MM_dd_hh_mm_ss")+".mp4";
-    QByteArray ba =filename.toLatin1();
-    RecName=ba.data();
+      QDateTime time =QDateTime::currentDateTime();
+      QString filename="D:\\REC\\";
+      filename=filename+time.toString("Camera_0_yyyy_MM_dd_hh_mm_ss")+".mp4";
+      QByteArray ba =filename.toLatin1();
+      RecName=ba.data();
 
-    QString filename1="D:\\REC\\";
-    filename1=filename1+time.toString("Camera_1_yyyy_MM_dd_hh_mm_ss")+".jpg";
-    QByteArray ba1 =filename1.toLatin1();
-    RecName2=ba1.data();
+      QString filename1="D:\\REC\\";
+      filename1=filename1+time.toString("Camera_1_yyyy_MM_dd_hh_mm_ss")+".mp4";
+      QByteArray ba1 =filename1.toLatin1();
+      RecName2=ba1.data();
 
-//         if(!NET_DVR_SaveRealData(lRealPlayHandle_0,RecName))
-//         {
-//             return false;
-//         }
-//         else
-//         {
-//             return true;
-//         }
-    NET_DVR_SaveRealData(lRealPlayHandle_0,RecName);
-    NET_DVR_SaveRealData(lRealPlayHandle_1,RecName);
-    return true;
+      int cameraSTATUS=0;
+
+      bool C_0,C_1;
+
+      C_0=NET_DVR_SaveRealData(lRealPlayHandle_0,RecName);
+      C_1=NET_DVR_SaveRealData(lRealPlayHandle_1,RecName2);
+
+         if(!C_0 &&!C_1)
+           {
+               cameraSTATUS=00;
+           }
+
+        else if(C_0 &&!C_1)
+           {
+               cameraSTATUS=10;
+           }
+        else if(!C_0 &&C_1 )
+         {
+               cameraSTATUS=01;
+         }
+
+        else if(C_0 &&C_1)
+         {
+               cameraSTATUS=11;
+         }
+
+         return cameraSTATUS;
 };
 bool camera::stopREC()
 {

@@ -595,36 +595,55 @@ Window {
                                      }
                  }
                  Button {
-                                     id: cameraInt
-                                     text: qsTr("开启相机")
-                                     font.pixelSize:17
-                                     //icon.name: "navigation"
-                                     Layout.fillHeight: true
-                                     enabled:false;
-                                     onClicked:
-                                     {
-                                           timer_button.stop();
-                                          if(camera_obj.longID())
-                                         {
-                                             camera_obj.realPlayer()
-                                             textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1号相机开启成功！\n"
-                                         }
-                                         else
-                                         {
-                                             textArea.text +=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1号相机开启失败！ \n"
-                                         }
-                                          if(camera_obj.longID_1())
-                                         {
-                                             camera_obj.realPlayer_1();
-                                             textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 2号相机开启成功！\n"
-                                         }
-                                         else
-                                         {
-                                             textArea.text +=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 2号相机开启失败！ \n"
-                                         }
-                                          threadPond_obj.addMSG2sql("开启相机","");
-                                     }
+                     id: cameraInt
+                                                      text: qsTr("开启相机")
+                                                      font.pixelSize:17
+                                                      //icon.name: "navigation"
+                                                      Layout.fillHeight: true
+                                                      onClicked:
+                                                      {
+                                                          if(cameraInt.text=="关闭相机")
+                                                        {
+                                                              threadPond_obj.addMSG2sql("尝试关闭相机","");
+                                                              textArea.text +=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 尝试关闭相机！ \n"
+                                                         if(camera_obj.stopRealPlay())
+                                                           {
+                                                             textArea.text +=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 相机关闭成功！ \n"
+                                                             cameraInt.text="开启相机";
 
+                                                           }
+                                                         }
+
+
+                                                         else if(cameraInt.text=="开启相机")
+                                                         {
+                                                              threadPond_obj.addMSG2sql("尝试开启相机","");
+                                                              textArea.text +=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 尝试开启相机！ \n"
+                                                           if(camera_obj.longID())
+                                                          {
+                                                              camera_obj.realPlayer()
+                                                              textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1号相机开启成功！\n"
+                                                               cameraInt.text="关闭相机";
+                                                          }
+                                                          else
+                                                          {
+                                                              textArea.text +=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1号相机开启失败！ \n"
+                                                          }
+                                                           if(camera_obj.longID_1())
+                                                          {
+                                                              camera_obj.realPlayer_1();
+                                                              textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 2号相机开启成功！\n"
+                                                               cameraInt.text="关闭相机";
+                                                          }
+                                                          else
+                                                          {
+                                                              textArea.text +=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 2号相机开启失败！ \n"
+                                                          }
+
+
+                                                          }
+
+                                                      }
 
 
                                  }
@@ -648,35 +667,51 @@ Window {
                                      }
                                  }
                  Button {
-                                     id: rec
-                                     text: qsTr("开始录像")
-                                     font.pixelSize:17
-                                     //icon.name: "navigation"
-                                     Layout.fillHeight: true
-                                     onClicked:
-                                     {
-                                         if(rec.text=="停止录像")
-                                         {
-                                             if(camera_obj.stopREC())
-                                             {
-                                                 {
-                                                     textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1号相机录像停止！\r\n";
-                                                 }
-                                             }
-                                             rec.text=="开始录像"
-                                             threadPond_obj.addMSG2sql("停止录像","");
-                                         }
-                                         else
-                                         {
-                                             if(camera_obj.startREC())
-                                             {
-                                                 textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1号相机开始录像！\r\n";
+                     id: rec
+                                                         text: qsTr("开始录像")
+                                                         font.pixelSize:17
+                                                         //icon.name: "navigation"
+                                                         Layout.fillHeight: true
+                                                         onClicked:
+                                                         {
+                                                             if(rec.text=="停止录像")
+                                                             {
+                                                                 if(camera_obj.stopREC())
+                                                                 {
+                                                                     {
+                                                                         textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 相机录像停止！\r\n";
+                                                                     }
+                                                                 }
+                                                                 rec.text="开始录像"
+                                                                 threadPond_obj.addMSG2sql("停止录像","");
+                                                                 textArea.text +=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 停止录像！ \n"
+                                                             }
+                                                             else
+                                                             {
+                                                                 if(camera_obj.startREC()==00)
+                                                                 {
+                                                                     textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1、2号相机录像失败！\r\n";
 
-                                             }
-                                             rec.text=="停止录像"
-                                             threadPond_obj.addMSG2sql("开始录像","");
-                                         }
+                                                                 }
+                                                                else if(camera_obj.startREC()==10)
+                                                                 {
+                                                                     textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1号相机开始录像，2号相机录像失败！\r\n";
 
+                                                                 }
+                                                                else if(camera_obj.startREC()==01)
+                                                                 {
+                                                                     textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1号相机录像失败，2号相机录像开始！\r\n";
+
+                                                                 }
+                                                                else if(camera_obj.startREC()==11)
+                                                                 {
+                                                                     textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1、2号相机开始录像！\r\n";
+
+                                                                 }
+                                                                 rec.text="停止录像"
+                                                                 threadPond_obj.addMSG2sql("开始录像","");
+                                                                // textArea.text +=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 开始录像！ \n"
+                                                             }
                                      }
                  }
 
