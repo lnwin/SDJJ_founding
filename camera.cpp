@@ -156,16 +156,16 @@ bool camera::stopRealPlay()
     //关闭预览
     NET_DVR_StopRealPlay(lRealPlayHandle_0);
     //注销用户
-  //  NET_DVR_Logout(lUserID);
+   NET_DVR_Logout(lUserID_0);
     //释放 SDK 资源
-   // NET_DVR_Cleanup();
+    NET_DVR_Cleanup();
     //---------------------------------------
     //关闭预览
-  //  NET_DVR_StopRealPlay(lRealPlayHandle_1);
+    NET_DVR_StopRealPlay(lRealPlayHandle_1);
     //注销用户
-  //  NET_DVR_Logout(lUserID);
+    NET_DVR_Logout(lUserID_1);
     //释放 SDK 资源
-   // NET_DVR_Cleanup();
+    NET_DVR_Cleanup();
     return true;
 };
 
@@ -191,6 +191,7 @@ bool camera::startREC()
       bool C_0,C_1;
 
       C_0=NET_DVR_SaveRealData(lRealPlayHandle_0,RecName);
+      Sleep(50);
       C_1=NET_DVR_SaveRealData(lRealPlayHandle_1,RecName2);
 
          if(!C_0 &&!C_1)
@@ -226,6 +227,7 @@ bool camera::stopREC()
 //        return true;
 //    }
     NET_DVR_StopSaveRealData(lRealPlayHandle_0);
+     Sleep(50);
     NET_DVR_StopSaveRealData(lRealPlayHandle_1);
     return true;
 

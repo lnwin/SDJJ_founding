@@ -612,7 +612,7 @@ Window {
                                                              cameraInt.text="开启相机";
 
                                                            }
-                                                         }
+                                                        }
 
 
                                                          else if(cameraInt.text=="开启相机")
@@ -688,22 +688,22 @@ Window {
                                                              }
                                                              else
                                                              {
-                                                                 if(camera_obj.startREC()==00)
+                                                                 if(camera_obj.startREC()===00)
                                                                  {
                                                                      textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1、2号相机录像失败！\r\n";
 
                                                                  }
-                                                                else if(camera_obj.startREC()==10)
+                                                                else if(camera_obj.startREC()===10)
                                                                  {
                                                                      textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1号相机开始录像，2号相机录像失败！\r\n";
 
                                                                  }
-                                                                else if(camera_obj.startREC()==01)
+                                                                else if(camera_obj.startREC()===01)
                                                                  {
                                                                      textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1号相机录像失败，2号相机录像开始！\r\n";
 
                                                                  }
-                                                                else if(camera_obj.startREC()==11)
+                                                                else if(camera_obj.startREC()===11)
                                                                  {
                                                                      textArea.text+=Qt.formatDateTime(new Date(),"yyyy-MM-dd HH:mm:ss")+" 1、2号相机开始录像！\r\n";
 
