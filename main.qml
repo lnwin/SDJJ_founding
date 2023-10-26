@@ -522,6 +522,8 @@ Window {
                  // anchors.topMargin: 115
                  anchors.bottomMargin: 8
                  spacing: 5
+
+
                  Button {
                                      id: donglibutton
                                      text: qsTr("动力开启")
@@ -595,11 +597,12 @@ Window {
                                      }
                  }
                  Button {
-                     id: cameraInt
+                     id:   cameraInt
                                                       text: qsTr("开启相机")
                                                       font.pixelSize:17
                                                       //icon.name: "navigation"
                                                       Layout.fillHeight: true
+                                                      enabled: false;
                                                       onClicked:
                                                       {
                                                           if(cameraInt.text=="关闭相机")

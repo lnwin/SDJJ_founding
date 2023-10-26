@@ -723,19 +723,18 @@ Item {
                // ctx.fillText(bd.arg(count_4),dianjiCenter_x+toPixels(0.7),dianjikuangjialeft_y-toPixels(1.3))
                 ctx.fillText(bd.arg(count_4),360,125)
 
-                ctx.fillStyle=itemColor
-                ctx.textAlign="left";
-                ctx.font="25px Arial"
-               // ctx.fillText(String("换能器压力"),tP_x,tP_y)
-                ctx.fillText(String("换能器压力:"),250,90)
-                ctx.fillStyle=textColor
-                ctx.textAlign="left";
-                var hnqyl = "%1mpa"
-                var hnqyl_text = transducerPressure.toFixed(2)
-                ctx.font="25px Arial"
-               // console.log(message.arg(count))
-               // ctx.fillText(hnqyl.arg(hnqyl_text),tP_x,tP_y+toPixels(0.1))
-                ctx.fillText(hnqyl.arg(hnqyl_text),385,90)
+//                ctx.fillStyle=itemColor
+//                ctx.textAlign="left";
+//                ctx.font="25px Arial"
+//                ctx.fillText(String("换能器压力:"),250,90)
+//                ctx.fillStyle=textColor
+//                ctx.textAlign="left";
+//                var hnqyl = "%1mpa"
+//                var hnqyl_text = transducerPressure.toFixed(2)
+//                ctx.font="25px Arial"
+//               // console.log(message.arg(count))
+//               // ctx.fillText(hnqyl.arg(hnqyl_text),tP_x,tP_y+toPixels(0.1))
+//                ctx.fillText(hnqyl.arg(hnqyl_text),385,90)
 
                 //====================================================电机上拉提板
 
@@ -749,7 +748,7 @@ Item {
                 ctx.textAlign="left";
                 ctx.font="25px Arial"
                // ctx.fillText(String("移动距离"),dianjiCenter_x-toPixels(0.05),dianjikuangjialeft_y-toPixels(0.45))
-                ctx.fillText(String("摆臂移动距离:"),250,160)
+                ctx.fillText(String("摆臂移动距离:"),250,90)
                 ctx.fillStyle=textColor
                 ctx.textAlign="left";
                 var message_2 = "%1mm"
@@ -757,7 +756,7 @@ Item {
                 ctx.font="25px Arial"
                // console.log(message.arg(count))
                // ctx.fillText(message_2.arg(count_2),dianjiCenter_x-toPixels(0.13),dianjikuangjialeft_y-toPixels(0.3))
-                ctx.fillText(message_2.arg(count_2),410,160)
+                ctx.fillText(message_2.arg(count_2),410,90)
 
 
 
